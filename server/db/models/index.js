@@ -1,6 +1,7 @@
 const User = require('./user');
 const Animal = require('./animal');
 const Order = require('./order');
+const Enhancement = require('./enhancement');
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -19,4 +20,5 @@ Order.belongsTo(Animal);
 Order.belongsTo(User);
 Order.belongsTo(Enhancement);
 
-module.export = { User, Animal, Order };
+module.export = { User, Animal, Order, Enhancement };
+
