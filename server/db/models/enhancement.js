@@ -13,9 +13,12 @@ const Animal = db.define('animal', {
   },
   imageUrl: {
     type: Sequelize.STRING,
+    validate: {
+      isUrl: true,
+    },
   },
   tags: {
-    type: Sequelize.STRING,
+    type: Sequelize.ARRAY(Sequelize.TEXT),
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
