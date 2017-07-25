@@ -1,12 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+function isLoggedInPlaceholder() {
+  return true;
+}
+
 function Navbar(props) {
   return (
     <div>
       <ul id="login" className="dropdown-content">
         <li><NavLink to="/login">Login</NavLink></li>
-        <li><NavLink to="/singup">SignUp</NavLink></li>
+        <li><NavLink to="/signup">SignUp</NavLink></li>
       </ul>
       <ul id="user" className="dropdown-content">
         <li><NavLink to="/profile">Profile</NavLink></li>
@@ -20,9 +24,9 @@ function Navbar(props) {
             <li><NavLink to="/contact">Contact Us</NavLink></li>
             <li><NavLink to="/cart" >Cart</NavLink></li>
             {
-              false ?
+              isLoggedInPlaceholder() ?
                 <li><a className="dropdown-button" href="#!" data-activates="user">[Insert Name]<i className="material-icons right">arrow_drop_down</i></a></li> :
-                <li><NavLink to="/login">Sign In</NavLink> or <NavLink to="/signup">Login/Signup</NavLink></li>
+                <li><a className="dropdown-button" href="#!" data-activates="login">Login/Sign Up<i className="material-icons right">arrow_drop_down</i></a></li>
             }
           </ul>
         </div>
@@ -32,7 +36,3 @@ function Navbar(props) {
 }
 
 export default Navbar;
-
-
-
-{/*<i className="material-icons right">arrow_drop_down</i>*/}
