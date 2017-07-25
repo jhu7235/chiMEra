@@ -8,5 +8,10 @@
         }
     },
     "rules": {
+        "func-names": 0,
+        "no-param-reassign" : 0,
+        "semi" : 1,
+        "no-unused-vars" : 1,
+        "comma-dangle" : 1
     }
 }
