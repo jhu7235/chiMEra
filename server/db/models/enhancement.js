@@ -18,7 +18,7 @@ const Enhancement = db.define('enhancement', {
     },
   },
   tags: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
+    type: Sequelize.ARRAY(Sequelize.STRING),
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
