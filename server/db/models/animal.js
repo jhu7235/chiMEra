@@ -9,6 +9,8 @@ const Animal = db.define('animal', {
   },
   description: {
     type: Sequelize.STRING,
+    allowNull: false,
+
   },
   imageUrl: {
     type: Sequelize.STRING,
@@ -18,6 +20,7 @@ const Animal = db.define('animal', {
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
+    allowNull: false,
   },
 });
 
