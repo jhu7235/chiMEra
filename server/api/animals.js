@@ -4,14 +4,14 @@ const { Animal } = require('../db/models');
 // get all animals
 router.get('/', (req, res, next) => {
 	Animal.findAll()
-	.then( res.json )
+	.then(animals => res.json(animals) )
 	.catch( next );
 });
 
 // add new animal
 router.post('/', (req, res, next) => {
 	Animal.create(req.body)
-	.then(res.json)
+	.then(animal => res.json(animal))
 	.catch(next);
 });
 
@@ -25,7 +25,7 @@ router.delete('/', (req, res, next) => {
 // get animal by id
 router.get('/:id', (req, res, next) => {
 	Animal.findById(req.params.id)
-	.then(res.json)
+	.then(animal => res.json(animal))
 	.catch(next);
 });
 

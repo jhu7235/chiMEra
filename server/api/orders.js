@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { User, Orders } = require('../db/models');
+const { User, Order } = require('../db/models');
 
 // api/orders/:id
 
 router.get('/:id', (req, res, next) => {
-  const userId = req.params.id;
-  Orders.findAll({ where: { userId } })
+  const userId = +req.params.id;
+  Order.findAll({ where: { userId } })
     .then(orders => res.json(orders))
     .catch(next);
 });
@@ -17,7 +17,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/admin', (req, res, next) => {
   const adminStatus = req.body.adminStatus;
   if (adminStatus) {
-    Orders.findAll()
+    Order.findAll()
       .then(orders => res.json(orders))
       .catch(next);
   }
@@ -28,7 +28,7 @@ router.post(':id/admin', (req, res, next) => {
   const adminStatus = req.body.adminStatus;
   const id = req.params.id;
   if (adminStatus) {
-    Orders.findOne({ where: { id } })
+    Order.findOne({ where: { id } })
       .then(order => res.json(order))
       .catch(next)
   }

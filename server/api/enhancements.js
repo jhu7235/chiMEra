@@ -4,14 +4,14 @@ const { Enhancement } = require('../db/models');
 // get all enhancements
 router.get('/', (req, res, next) => {
 	Enhancement.findAll()
-	.then( res.json )
+	.then(enhancements => res.json(enhancements))
 	.catch( next );
 });
 
 // add new enhancements
 router.post('/', (req, res, next) => {
 	Enhancement.create(req.body)
-	.then(res.json)
+	.then(enhancement => res.json(enhancement))
 	.catch(next);
 });
 
@@ -25,7 +25,7 @@ router.delete('/', (req, res, next) => {
 // get by id
 router.get('/:id', (req, res, next) => {
 	Enhancement.findById(req.params.id)
-	.then(res.json)
+	.then(enhancement => res.json(enhancement))
 	.catch(next);
 });
 
