@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const Animal = db.define('animal', {
+const Enhancement = db.define('enhancement', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -26,7 +26,7 @@ const Animal = db.define('animal', {
   },
 });
 
-module.exports = Animal;
+module.exports = Enhancement;
 
 /**
  * instanceMethods
