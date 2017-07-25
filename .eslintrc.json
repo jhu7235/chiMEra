@@ -12,6 +12,7 @@
         "no-param-reassign" : 0,
         "semi" : 1,
         "no-unused-vars" : 1,
-        "comma-dangle" : 1
+        "comma-dangle" : 1,
+        "max-len": 0
     }
 }
