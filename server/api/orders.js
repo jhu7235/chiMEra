@@ -33,3 +33,5 @@ router.post(':id/admin', (req, res, next) => {
       .catch(next)
   }
 });
+
+module.exports = router;

@@ -20,5 +20,5 @@ Order.belongsTo(Animal);
 Order.belongsTo(User);
 Order.belongsTo(Enhancement);
 
-module.export = { User, Animal, Order, Enhancement };
+module.exports = { User, Animal, Order, Enhancement };
 
