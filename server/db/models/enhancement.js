@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const db = require('../db');
 
@@ -8,7 +7,7 @@ const Animal = db.define('animal', {
     allowNull: false,
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false,
 
   },
