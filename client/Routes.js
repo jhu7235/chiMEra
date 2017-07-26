@@ -8,6 +8,7 @@ import {Main, Login, Signup, UserHome } from './components';
 import {me} from './store'
 import { fetchAnimals } from './store/animals';
 import ProductLab from './components/ProductLab.jsx';
+import Cart from './components/Cart.jsx';
 
 
 /**
@@ -30,6 +31,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/cart" component={Cart} />
             <Route path="/" component={ProductLab} />
             {
               isLoggedIn ?
