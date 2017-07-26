@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {signup} from '../store';
-
-const handleSubmit2 = (event) => {
-  event.preventDefault();
-  };
   
 const SignUp = (props) => {
   const {handleSubmit, error} = props;
