@@ -4,8 +4,7 @@ const SignUp = (props) => {
   const {name, handleSubmit} = props;
   return (
     <div className='center'>
-      <h1>SIGN UP</h1>
-      <form onSubmit={handleSubmit} name={name} className='wrapper'>
+    <form onSubmit={handleSubmit} name={name} className='wrapper'>
         <div className="form-group">
           <div>
             <label htmlFor="first"><small>first</small></label>
