@@ -2,12 +2,12 @@ import React from 'react';
 import { Collection, CollectionItem, Row, Input } from 'react-materialize';
 import ProductCard from './ProductCard.jsx';
 
-export default function PetCard({animals}) {
+export default function PetCard({ animals, handlePetSelect, selectedPet }) {
   return (
     <Collection header="Step 1: Pick a Pet">
       <CollectionItem>
         <Row>
-          <Input s={12} type='select' label="Choose a pet" >
+          <Input s={12} type='select' label="Choose a pet" onChange={handlePetSelect}>
             {
               animals.map((animal) => {
                 return <option key={animal.id} value={animal.name}>{animal.name}</option>

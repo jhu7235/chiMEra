@@ -7,6 +7,7 @@ import history from './history'
 import {Main, Login, Signup, UserHome } from './components';
 import {me} from './store'
 import { fetchAnimals } from './store/animals';
+import { fetchEnhancements } from './store/enhancements';
 import ProductLab from './components/ProductLab.jsx';
 import Cart from './components/Cart.jsx';
 
@@ -64,6 +65,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
       dispatch(fetchAnimals());
+      dispatch(fetchEnhancements());
     }
   }
 }
