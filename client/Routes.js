@@ -1,12 +1,15 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import history from './history'
-import {Main, Login, Signup, UserHome } from './components';
-import {me} from './store'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Router} from 'react-router';
+import {Route, Switch} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import history from './history';
+import {Main, UserHome } from './components';
+import {me} from './store';
+import SignUp from './components/SignUp.jsx';
+import LogIn from './components/LogIn.jsx';
 import ProductLab from './components/ProductLab.jsx';
+import Cart from './components/Cart.jsx';
 
 
 /**
@@ -15,20 +18,21 @@ import ProductLab from './components/ProductLab.jsx';
 class Routes extends Component {
 
   componentDidMount () {
-    this.props.loadInitialData()
+    this.props.loadInitialData();
   }
 
   render () {
 
-    const {isLoggedIn} = this.props
+    const {isLoggedIn} = this.props;
 
     return (
       <Router history={history}>
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={LogIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/cart" component={Cart} />
             <Route path="/" component={ProductLab} />
             {
               isLoggedIn ?
@@ -38,11 +42,11 @@ class Routes extends Component {
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={LogIn} />
           </Switch>
         </Main>
       </Router>
-    )
+    );
   }
 }
 
@@ -54,18 +58,18 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id
-  }
-}
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      dispatch(me())
+      dispatch(me());
     }
-  }
-}
+  };
+};
 
-export default connect(mapState, mapDispatch)(Routes)
+export default connect(mapState, mapDispatch)(Routes);
 
 /**
  * PROP TYPES
@@ -73,4 +77,4 @@ export default connect(mapState, mapDispatch)(Routes)
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
-}
+};
