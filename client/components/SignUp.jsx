@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signup } from '../store';
-  
+
 const SignUp = (props) => {
   const { handleSubmit, error } = props;
   return (

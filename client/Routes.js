@@ -1,3 +1,6 @@
+
+import { fetchAnimals } from './store/animals';
+import { fetchEnhancements } from './store/enhancements';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Router} from 'react-router';
@@ -17,7 +20,7 @@ import Cart from './components/Cart.jsx';
  */
 class Routes extends Component {
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData();
   }
 
@@ -63,7 +66,9 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
+      dispatch(fetchAnimals());
+      dispatch(fetchEnhancements());
       dispatch(me());
     }
   };

@@ -1,23 +1,24 @@
 import React from 'react';
+import { Collection, CollectionItem, Row, Input } from 'react-materialize';
 import ProductCard from './ProductCard.jsx';
 
-export default function EnhancementCard() {
+export default function EnhancementCard({ enhancements, handleEnhanceSelect, selectedEnhancement }) {
   return (
-    <div>
-      <ul className="collection with-header">
-        <li className="collection-header"><h5>Step 2: Pick an Enhancement</h5></li>
-        <li className="collection-item input-field col s12">
-          <select>
-            <option value="" disabled selected>Select an Upgrade</option>
-            <option value="1">Wings</option>
-            <option value="2">vacuum</option>
-            <option value="3">taco-lasers</option>
-          </select>
-        </li>
-        <li className="collection-item"><ProductCard /></li>
-
-      </ul>
-
-    </div>
+    <Collection header="Step 2: Pick an Enhancement">
+      <CollectionItem>
+        <Row>
+          <Input s={12} type='select' label="Choose an enhancement" onChange={handleEnhanceSelect}>
+            {
+              enhancements.map((enhancement) => {
+                return <option key={enhancement.id} value={enhancement.id}>{enhancement.name}</option>
+              })
+            }
+          </Input>
+        </Row>
+      </CollectionItem>
+      <CollectionItem>
+        <ProductCard product={selectedEnhancement} />
+      </CollectionItem>
+    </Collection>
   );
 }

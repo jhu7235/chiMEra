@@ -1,9 +1,31 @@
 import React from 'react';
+import { Collection, CollectionItem, Row, Input } from 'react-materialize';
 import ProductCard from './ProductCard.jsx';
 
-export default function PetCard() {
+export default function PetCard({ animals, handlePetSelect, selectedPet }) {
   return (
-    <div>
+    <Collection header="Step 1: Pick a Pet">
+      <CollectionItem>
+        <Row>
+          <Input s={12} type='select' label="Choose a pet" onChange={handlePetSelect}>
+            {
+              animals.map((animal) => {
+                return <option key={animal.id} value={animal.id}>{animal.name}</option>
+              })
+            }
+          </Input>
+        </Row>
+      </CollectionItem>
+      <CollectionItem>
+        <ProductCard product={selectedPet} />
+      </CollectionItem>
+    </Collection>
+  );
+}
+
+
+
+{/*<div>
       <ul className="collection with-header">
         <li className="collection-header"><h5>Step 1: Pick a Pet</h5></li>
         <li className="collection-item input-field col s12">
@@ -19,6 +41,4 @@ export default function PetCard() {
 
       </ul>
 
-    </div>
-  );
-}
+    </div>*/}

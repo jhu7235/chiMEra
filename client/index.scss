@@ -20,7 +20,26 @@ body {
   }
 }
 
+#add-to-cart-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .input-field {
+    width: 50px;
+  }
+  button {
+    flex-shrink: .5;
+  }
+}
+
+#quantity-selector {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+
 .errorMessage {
   background: pink;
   color: red;
-} 
+}
