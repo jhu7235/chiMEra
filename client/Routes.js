@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome } from './components';
 import {me} from './store'
+import { fetchAnimals } from './store/animals';
 import ProductLab from './components/ProductLab.jsx';
 
 
@@ -14,7 +15,7 @@ import ProductLab from './components/ProductLab.jsx';
  */
 class Routes extends Component {
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData()
   }
 
@@ -59,8 +60,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
-      dispatch(me())
+    loadInitialData() {
+      dispatch(fetchAnimals());
     }
   }
 }

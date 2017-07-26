@@ -1,9 +1,10 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
-import user from './user'
+import user from './user';
+import animals from './animals';
 
-const reducer = combineReducers({user})
+const reducer = combineReducers({ user, animals })
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 const store = createStore(reducer, middleware);
 
