@@ -1,10 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {signup} from '../store';
+console.log('SIGN IN INITIALIZED');
 
+const handleSubmit2 = (event) => {
+  console.log("handleSubmit2");
+  event.preventDefault();
+  };
+  
 const SignUp = (props) => {
-  const {name, handleSubmit} = props;
+  const {handleSubmit} = props;
+  console.log('SIGN UP', handleSubmit);
   return (
     <div className='center'>
-    <form onSubmit={handleSubmit} name={name} className='wrapper'>
+    <form onSubmit={ handleSubmit } className='wrapper'>
         <div className="form-group">
           <div>
             <label htmlFor="first"><small>first</small></label>
@@ -41,7 +50,7 @@ const SignUp = (props) => {
             <label htmlFor="password"><small>Password</small></label>
             <input
               name="password"
-              type="text"
+              type="password"
               className="form-control"
               required
             />
@@ -49,8 +58,8 @@ const SignUp = (props) => {
             <div>
             <label htmlFor="re-password"><small>Re-Enter Password</small></label>
             <input
-              name="re-password"
-              type="text"
+              name="repassword"
+              type="password"
               className="form-control"
               required
             />
@@ -62,8 +71,25 @@ const SignUp = (props) => {
         </div>
       </form>
       <a href="/auth/google">Sign up with Google</a>
+      <p className='errorMessage' id="passwordMismatch"></p>
     </div>
   );
 };
 
-export default SignUp;
+const mapDispatch = (dispatch) => {
+  return {
+    handleSubmit(event) {
+      console.log('HANDLE SIGN UP SUBMIT');
+      event.preventDefault();
+      const firstName = event.target.first.value;
+      const lastName = event.target.last.value;
+      const email = event.target.email.value;
+      const password = event.target.password.value;    
+      const repassword = event.target.repassword.value;
+      if(password === repassword) dispatch(signup(email, password, firstName, lastName)); //need to add first name and last name
+      else document.getElementById("passwordMismatch").innerHTML = 'password does not match';
+    },
+  };
+};
+
+export default connect(null, mapDispatch)(SignUp);

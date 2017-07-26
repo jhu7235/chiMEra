@@ -39,21 +39,24 @@ db.sync({ force: true })
     });
 
     const user1 = User.create({
-      name: 'bob',
+      firstName: 'bob',
+      lastName: 'One',
       email: 'bob@bob.com',
       password: 'bob',
       adminStatus: false,
     });
 
     const user2 = User.create({
-      name: 'tim',
+      firstName: 'tim',
+      lastName: 'One',
       email: 'tim@tim.com',
       password: 'tim',
       adminStatus: false,
     });
 
     const user3 = User.create({
-      name: 'jim',
+      firstName: 'jim',
+      lastName: 'One',
       email: 'jim@jim.com',
       password: 'jim',
       adminStatus: true,
