@@ -7,7 +7,7 @@ function ProductLab({animals}) {
   return (
     <div className="container">
       <div className="row">
-        <div className="col s6"><PetCard animals={animals}/></div>
+        <div className="col s6"><PetCard animals={animals} /></div>
         <div className="col s6"><EnhancementCard /></div>
       </div>
     </div>
