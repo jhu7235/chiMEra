@@ -29,15 +29,25 @@ export const me = () =>
         dispatch(getUser(res.data || defaultUser)))
       .catch(err => console.log(err));
 
-export const signup = (email, password, firstName, lastName) =>
+export const signup = (email, password, repassword, firstName, lastName) =>
   dispatch =>
-    axios.post("/auth/signup/", { email, password, firstName, lastName })
+    {
+      if(password !== repassword) {
+        let error = {
+          passwordMismatch: true,
+          response: {data: 'Password mismatch'},
+        };
+        return dispatch(getUser({error}));
+      }
+
+      return axios.post("/auth/signup/", { email, password, password, firstName, lastName })
       .then(res => {
         dispatch(getUser(res.data));
         history.push('/home');
       })
       .catch(error =>
         dispatch(getUser({error})));
+    }
       // create session later
 
 export const auth = (email, password, method) =>
