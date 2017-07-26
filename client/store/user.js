@@ -40,19 +40,19 @@ export const signup = (email, password, repassword, firstName, lastName) =>
         return dispatch(getUser({error}));
       }
 
-      return axios.post("/auth/signup/", { email, password, password, firstName, lastName })
+      return axios.post("/auth/signup/", { email, password, firstName, lastName })
       .then(res => {
         dispatch(getUser(res.data));
         history.push('/home');
       })
       .catch(error =>
         dispatch(getUser({error})));
-    }
-      // create session later
+  };
+// create session later
 
-export const auth = (email, password, method) =>
+export const login = (email, password) =>
   dispatch =>
-    axios.post(`/auth/${method}`, { email, password })
+    axios.post("/auth/login", { email, password })
       .then(res => {
         dispatch(getUser(res.data));
         history.push('/home');
