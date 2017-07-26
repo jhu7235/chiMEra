@@ -4,8 +4,10 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome } from './components';
+import {Main, Login, UserHome } from './components';
 import {me} from './store'
+import SignUp from './components/SignUp.jsx'
+import LogIn from './components/LogIn.jsx'
 import ProductLab from './components/ProductLab.jsx';
 
 
@@ -27,8 +29,8 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={LogIn} />
+            <Route path="/signup" component={SignUp} />
             <Route path="/" component={ProductLab} />
             {
               isLoggedIn ?
@@ -38,7 +40,7 @@ class Routes extends Component {
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={LogIn} />
           </Switch>
         </Main>
       </Router>
