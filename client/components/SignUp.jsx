@@ -72,7 +72,6 @@ const SignUp = (props) => {
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(event) {
-      console.log('HANDLE SIGN UP SUBMIT');
       event.preventDefault();
       const firstName = event.target.first.value;
       const lastName = event.target.last.value;
