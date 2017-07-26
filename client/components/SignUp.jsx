@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {signup} from '../store';
+import { signup } from '../store';
   
 const SignUp = (props) => {
   const {handleSubmit, error} = props;
@@ -85,7 +85,7 @@ const mapDispatch = (dispatch) => {
       const firstName = event.target.first.value;
       const lastName = event.target.last.value;
       const email = event.target.email.value;
-      const password = event.target.password.value;    
+      const password = event.target.password.value;
       const repassword = event.target.repassword.value;
       dispatch(signup(email, password, repassword, firstName, lastName)); //need to add first name and last name
     },
