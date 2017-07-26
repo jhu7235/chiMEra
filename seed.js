@@ -62,42 +62,42 @@ db.sync({ force: true })
     const enhancement1 = Enhancement.create({
       name: 'Laser',
       description: 'PEW PEW PEW!',
-      imageUrl: 'http://massgenomics.org/wp-content/uploads/2014/11/domestic-cat-renekyllingstad.jpg',
+      imageUrl: 'http://thumbs2.ebaystatic.com/d/l225/m/mBtRkSBvFpj15u36aqkhIog.jpg',
       price: 2.00,
     });
 
     const enhancement2 = Enhancement.create({
       name: 'Wings',
       description: 'I want to fly away.',
-      imageUrl: 'http://massgenomics.org/wp-content/uploads/2014/11/domestic-cat-renekyllingstad.jpg',
+      imageUrl: 'http://theamazingbat.com/wp-content/uploads/2016/02/bat-wing-no-text.jpg',
       price: 3.00,
     });
 
     const enhancement3 = Enhancement.create({
       name: 'Bread',
       description: 'Yum',
-      imageUrl: 'http://massgenomics.org/wp-content/uploads/2014/11/domestic-cat-renekyllingstad.jpg',
+      imageUrl: 'https://c1.staticflickr.com/3/2355/2104039823_b47da37172_b.jpg',
       price: 1.00,
     });
 
     const enhancement4 = Enhancement.create({
       name: 'Fire Breath',
       description: 'Burninate your foes!',
-      imageUrl: 'http://massgenomics.org/wp-content/uploads/2014/11/domestic-cat-renekyllingstad.jpg',
+      imageUrl: 'https://vignette4.wikia.nocookie.net/deadliestfiction/images/7/72/Fire_breath.jpg/revision/latest?cb=20110517193340',
       price: 9.00,
     });
 
     const enhancement5 = Enhancement.create({
       name: 'Taco',
       description: 'For Tuesdays!',
-      imageUrl: 'http://massgenomics.org/wp-content/uploads/2014/11/domestic-cat-renekyllingstad.jpg',
+      imageUrl: 'http://www.krbe.com/wp-content/uploads/sites/115/2017/02/bftlarge.png',
       price: 5.00,
     });
 
     const enhancement6 = Enhancement.create({
       name: 'Vacuum Cleaner',
       description: 'Its a cat!',
-      imageUrl: 'http://massgenomics.org/wp-content/uploads/2014/11/domestic-cat-renekyllingstad.jpg',
+      imageUrl: 'http://ghk.h-cdn.co/assets/cm/15/12/5508ec76dc341-fullerbrush-tidymaid2-xln.jpg',
       price: 3.00,
     });
 
