@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PetCard from './PetCard.jsx';
 import EnhancementCard from './EnhancementCard.jsx';
-// import AddToCartCard from './AddToCartCard.jsx';
+import AddToCartCard from './AddToCart.jsx';
 
 class ProductLab extends React.Component {
   constructor(props) {
@@ -49,7 +49,6 @@ class ProductLab extends React.Component {
             <div className="col s12"><AddToCartCard /></div> :
             null
           }
-          {/*<div className="col s12"><AddToCartCard /></div>*/}
         </div>
       </div>
     );
