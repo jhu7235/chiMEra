@@ -1,16 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {signup} from '../store';
-console.log('SIGN IN INITIALIZED');
-
-const handleSubmit2 = (event) => {
-  console.log("handleSubmit2");
-  event.preventDefault();
-  };
   
 const SignUp = (props) => {
   const {handleSubmit} = props;
-  console.log('SIGN UP', handleSubmit);
   return (
     <div className='center'>
     <form onSubmit={ handleSubmit } className='wrapper'>
