@@ -9,6 +9,7 @@ import {me} from './store';
 import SignUp from './components/SignUp.jsx';
 import LogIn from './components/LogIn.jsx';
 import ProductLab from './components/ProductLab.jsx';
+import Cart from './components/Cart.jsx';
 
 
 /**
@@ -31,6 +32,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={LogIn} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/cart" component={Cart} />
             <Route path="/" component={ProductLab} />
             {
               isLoggedIn ?
