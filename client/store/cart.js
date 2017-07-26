@@ -8,8 +8,8 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 
 // action Creators
 
-const getCart = orders => ({ type: GET_CART, orders });
-const addToCart = order => ({ type: ADD_TO_CART, order });
+const getCart = items => ({ type: GET_CART, items });
+const addToCart = item => ({ type: ADD_TO_CART, item });
 const removeFromCart = id => ({ type: REMOVE_FROM_CART, id });
 
 // action reducers
@@ -18,13 +18,13 @@ export default function reducer(cart = [], action) {
   switch (action.type) {
 
     case GET_CART:
-      return action.orders;
+      return action.items;
 
     case ADD_TO_CART:
-      return [action.order, ...cart]
+      return [action.item, ...cart]
 
     case REMOVE_FROM_CART:
-      return cart.filter(order => order.id !== action.id);
+      return cart.filter(item => item.id !== action.id);
 
     default:
       return cart;
@@ -33,21 +33,21 @@ export default function reducer(cart = [], action) {
 }
 
 export const fetchCart = (userId) => (dispatch) => {
-  axios.get(`/api/orders/${userId}`)
+  axios.get(`/api/items/${userId}`)
     .then(res => dispatch(getCart(res.data)))
     .then(err => console.error('fetching cart unsucessful', err))
 };
 
-export const createOrder = (order) => (dispatch) => {
-  axios.post(`/api/order`, order)
+export const createItem = (item) => (dispatch) => {
+  axios.post(`/api/item`, item)
     .then(res => res.data)
-    .then((createdOrder) => {
-      dispatch(addToCart(createdOrder));
+    .then((createdItem) => {
+      dispatch(addToCart(createdItem));
     });
 };
 
-export const removeOrder = (id) => (dispatch) => {
+export const removeItem = (id) => (dispatch) => {
   dispatch(removeFromCart(id));
-  axios.delete(`/api/order/${id}`)
-    .catch(err => console.error('removing order unsucessful', err));
+  axios.delete(`/api/item/${id}`)
+    .catch(err => console.error('removing item unsucessful', err));
 }

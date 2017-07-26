@@ -1,35 +1,43 @@
 const router = require('express').Router();
-const { User, Order } = require('../db/models');
+const { User, Item } = require('../db/models');
 
-// api/orders/:id
+// api/items/:id
 
 router.get('/:id', (req, res, next) => {
   const userId = +req.params.id;
-  Order.findAll({ where: { userId } })
-    .then(orders => res.json(orders))
+  Item.findAll({ where: { userId } })
+    .then(items => res.json(items))
     .catch(next);
 });
 
+// api/items/
 
-// api/orders/admin/:id
+router.post('/', (req, res, next) => {
+  Item.create(req.body)
+  .then(item => res.json(item))
+  .catch(next);
+})
+
+
+// api/items/admin/:id
 // need a post so that the admin status is only sent by us in the front-end
 
 router.post('/admin', (req, res, next) => {
   const adminStatus = req.body.adminStatus;
   if (adminStatus) {
-    Order.findAll()
-      .then(orders => res.json(orders))
+    Item.findAll()
+      .then(items => res.json(items))
       .catch(next);
   }
 });
 
-// api/order/:id/admin/:id
+// api/item/:id/admin/:id
 router.post(':id/admin', (req, res, next) => {
   const adminStatus = req.body.adminStatus;
   const id = req.params.id;
   if (adminStatus) {
-    Order.findOne({ where: { id } })
-      .then(order => res.json(order))
+    Item.findOne({ where: { id } })
+      .then(item => res.json(item))
       .catch(next)
   }
 });
