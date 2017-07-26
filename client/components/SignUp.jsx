@@ -9,7 +9,7 @@ const handleSubmit2 = (event) => {
   };
   
 const SignUp = (props) => {
-  const {handleSubmit} = props;
+  const {handleSubmit, error} = props;
   console.log('SIGN UP', handleSubmit);
   return (
     <div className='center'>

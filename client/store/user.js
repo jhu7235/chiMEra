@@ -21,6 +21,7 @@ const removeUser = () => ({type: REMOVE_USER});
 /**
  * THUNK CREATORS
  */
+// check who is logged in
 export const me = () =>
   dispatch =>
     axios.get('/auth/me')
@@ -32,7 +33,6 @@ export const signup = (email, password, firstName, lastName) =>
   dispatch =>
     axios.post("/auth/signup/", { email, password, firstName, lastName })
       .then(res => {
-        console.log('THUNK SIGN UP')
         dispatch(getUser(res.data));
         history.push('/home');
       })
