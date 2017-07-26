@@ -1,21 +1,40 @@
-body {
-  font-family: sans-serif;
+// body {
+//   font-family: sans-serif;
 
-  a {
-    text-decoration: none;
+//   a {
+//     text-decoration: none;
+//   }
+
+//   label {
+//     display: block;
+//   }
+
+//   // nav a {
+//   //   display: inline-block;
+//   //   margin: 1em;
+//   // }
+
+//   form div {
+//     margin: 1em;
+//     display: inline-block;
+//   }
+// }
+
+#add-to-cart-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .input-field {
+    width: 30px;
   }
-
-  label {
-    display: block;
+  button {
+    flex-shrink: .5;
   }
+}
 
-  // nav a {
-  //   display: inline-block;
-  //   margin: 1em;
-  // }
-
-  form div {
-    margin: 1em;
-    display: inline-block;
-  }
+#quantity-selector {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
 }

@@ -10,14 +10,14 @@ export default function PetCard({ animals, handlePetSelect, selectedPet }) {
           <Input s={12} type='select' label="Choose a pet" onChange={handlePetSelect}>
             {
               animals.map((animal) => {
-                return <option key={animal.id} value={animal.name}>{animal.name}</option>
+                return <option key={animal.id} value={animal.id}>{animal.name}</option>
               })
             }
           </Input>
         </Row>
       </CollectionItem>
       <CollectionItem>
-        <ProductCard />
+        <ProductCard product={selectedPet} />
       </CollectionItem>
     </Collection>
   );

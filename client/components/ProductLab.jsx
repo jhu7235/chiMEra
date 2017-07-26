@@ -18,7 +18,8 @@ class ProductLab extends React.Component {
   }
 
   handlePetSelect(e) {
-    this.setState({ selectedPet: e.target.value })
+    const selectedPet = this.props.animals.find(animal => animal.id === +e.target.value)
+    this.setState({ selectedPet })
   }
 
   handleEnhanceSelect(e) {
@@ -26,6 +27,7 @@ class ProductLab extends React.Component {
   }
 
   render() {
+    console.log('Current selected Pet', this.state.selectedPet)
     return (
       <div className="container">
         <div className="row">
@@ -46,7 +48,12 @@ class ProductLab extends React.Component {
             null
           }
           { Object.keys(this.state.selectedEnhancement).length ?
-            <div className="col s12"><AddToCartCard /></div> :
+            <div className="col s12">
+              <AddToCartCard
+                selectedPet={this.state.selectedPet}
+                selectedEnhancement={this.state.selectedEnhancement}
+              />
+            </div> :
             null
           }
         </div>
