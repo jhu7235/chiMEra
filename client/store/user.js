@@ -34,7 +34,7 @@ export const signup = (email, password, firstName, lastName) =>
       .then(res => {
         console.log('THUNK SIGN UP')
         dispatch(getUser(res.data));
-        // history.push('/home');
+        history.push('/home');
       })
       .catch(error =>
         dispatch(getUser({error})));
