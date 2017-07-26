@@ -3,20 +3,20 @@
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width initial-scale=1.0'>
-    <title>Boilermaker</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script defer src="/bundle.js"></script>
+    <title>chiMEra</title>
+    <!-- Import Google Icon Font -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Import materialize.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" rel="stylesheet">
   </head>
   <body>
     <div id="app"></div>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
-    <script>
-      $(document).ready(function() {
-    $('select').material_select()})
-    </script>
-  </body>
-</html>
 
+    <!-- Import jQuery before materialize.js -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <!-- And then your bundled js -->
+    <script src="/bundle.js"></script>
+
+</body>
+</html>
