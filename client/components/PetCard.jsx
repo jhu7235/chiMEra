@@ -13,6 +13,7 @@ export default function PetCard() {
             <option value="2">horsea</option>
             <option value="3">birdy</option>
           </select>
+
         </li>
         <li className="collection-item"><ProductCard /></li>
 
