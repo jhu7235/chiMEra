@@ -1,31 +1,31 @@
-// body {
-//   font-family: sans-serif;
+body {
+  font-family: sans-serif;
 
-//   a {
-//     text-decoration: none;
-//   }
+  a {
+    text-decoration: none;
+  }
 
-//   label {
-//     display: block;
-//   }
+  label {
+    display: block;
+  }
 
-//   // nav a {
-//   //   display: inline-block;
-//   //   margin: 1em;
-//   // }
+  // nav a {
+  //   display: inline-block;
+  //   margin: 1em;
+  // }
 
-//   form div {
-//     margin: 1em;
-//     display: inline-block;
-//   }
-// }
+  form div {
+    margin: 1em;
+    display: inline-block;
+  }
+}
 
 #add-to-cart-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
   .input-field {
-    width: 30px;
+    width: 50px;
   }
   button {
     flex-shrink: .5;
@@ -42,4 +42,4 @@
 .errorMessage {
   background: pink;
   color: red;
-} 
+}

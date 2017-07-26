@@ -20,7 +20,7 @@ import Cart from './components/Cart.jsx';
  */
 class Routes extends Component {
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData();
   }
 

@@ -1,46 +1,64 @@
 import React from 'react';
+import { Row, Input } from 'react-materialize';
 
-function AddToCartCard() {
-  return (
-    <div>
-      <h5>Your pet, but better!</h5>
-      <div id="add-to-cart-card">
-        <div>
-          <img
-            width="100"
-            src="http://static.boredpanda.com/blog/wp-content/uploads/2016/12/Meet-Zo-the-cat-who-literally-wears-her-heart-on-her-chest-585db8837f1a1__700.jpg"
-          />
-          <img
-            width="100"
-            src="https://cdn.shopify.com/s/files/1/0584/3841/products/polyester-yummy-world-large-taco-plush-5.jpg?v=1457039883"
-          />
-        </div>
-        <div>
-          <h5>Insert Product Name</h5>
-          <div id="quantity-selector">
-            <label display="inline" htmlFor="quantity">Quantity: </label>
-            <div className="input-field" display="inline">
-              <select>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+class AddToCartCard extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      quantity: 1
+    }
+
+    this.quantitySelect = this.quantitySelect.bind(this);
+  }
+
+  quantitySelect(e) {
+    this.setState({ quantity: +e.target.value })
+  }
+
+  render() {
+    const { selectedPet, selectedEnhancement } = this.props;
+    return (
+      <div>
+        <h5>A pet, but better!</h5>
+        <div id="add-to-cart-card">
+          <div>
+            <img
+              width="100"
+              src={selectedPet.imageUrl}
+            />
+            <img
+              width="100"
+              src={selectedEnhancement.imageUrl}
+            />
+          </div>
+          <div>
+            <h5>{selectedPet.name} with a {selectedEnhancement.name} enhancement</h5>
+            <div id="quantity-selector">
+              <label display="inline" htmlFor="quantity">Quantity: </label>
+              <Row>
+                <Input s={12} type='select' onChange={this.quantitySelect}>
+                  {
+                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+                      return <option key={num} value={num}>{num}</option>
+                    })
+                  }
+                </Input>
+              </Row>
+              <p>${+selectedPet.price + +selectedEnhancement.price} each</p>
             </div>
-            <p>$100 each</p>
+          </div>
+          <div>
+            <p>Total: ${this.state.quantity * (+selectedPet.price + +selectedEnhancement.price) }</p>
+            <button className="btn waves-effect waves-light" type="submit" name="action">
+              Add to Cart
+              <i className="material-icons right">send</i>
+            </button>
           </div>
         </div>
-        <div>
-          <p>Total: $100</p>
-          <button className="btn waves-effect waves-light" type="submit" name="action">
-            Add to Cart
-            <i className="material-icons right">send</i>
-          </button>
-        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default AddToCartCard;

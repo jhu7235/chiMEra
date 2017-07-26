@@ -11,23 +11,31 @@ class ProductLab extends React.Component {
     this.state = {
       selectedPet: {},
       selectedEnhancement: {},
+      showEnhancements: false,
+      showAddToCart: false,
     };
 
     this.handlePetSelect = this.handlePetSelect.bind(this);
     this.handleEnhanceSelect = this.handleEnhanceSelect.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    const selectedPet = newProps.animals.find(animal => animal.id === 1) || {};
+    const selectedEnhancement = newProps.enhancements.find(enhancement => enhancement.id === 1) || {};
+    this.setState({ selectedPet, selectedEnhancement });
+  }
+
   handlePetSelect(e) {
     const selectedPet = this.props.animals.find(animal => animal.id === +e.target.value)
-    this.setState({ selectedPet })
+    this.setState({ selectedPet, showEnhancements: true });
   }
 
   handleEnhanceSelect(e) {
-    this.setState({ selectedEnhancement: e.target.value })
+    const selectedEnhancement = this.props.enhancements.find(enhancement => enhancement.id === +e.target.value)
+    this.setState({ selectedEnhancement, showAddToCart: true });
   }
 
   render() {
-    console.log('Current selected Pet', this.state.selectedPet)
     return (
       <div className="container">
         <div className="row">
@@ -37,8 +45,8 @@ class ProductLab extends React.Component {
               selectedPet={this.state.selectedPet}
             />
           </div>
-          { Object.keys(this.state.selectedPet).length ?
-            <div className="col s6">
+          { this.state.showEnhancements ?
+            <div className="col s6" >
               <EnhancementCard
                 enhancements={this.props.enhancements}
                 handleEnhanceSelect={this.handleEnhanceSelect}
@@ -47,7 +55,7 @@ class ProductLab extends React.Component {
             </div> :
             null
           }
-          { Object.keys(this.state.selectedEnhancement).length ?
+          { this.state.showAddToCart ?
             <div className="col s12">
               <AddToCartCard
                 selectedPet={this.state.selectedPet}

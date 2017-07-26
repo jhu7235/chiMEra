@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signup } from '../store';
-  
+
 const SignUp = (props) => {
   const {handleSubmit, error} = props;
   return (
@@ -60,7 +60,7 @@ const SignUp = (props) => {
         </div>
         <br />
         {error && error.response && <div className='errorMessage'> {error.response.data} </div>}
-        {error.passwordMismatch && <div className='errorMessage' id="passwordMismatch"> {error.response.data} </div>}
+        {error && error.passwordMismatch && <div className='errorMessage' id="passwordMismatch"> {error.response.data} </div>}
         <label><input type="checkbox" name="terms" /> I agree with the <a href="#">Terms and Conditions</a>.</label>
         <div>
           <button type="submit" className='btn'>SIGN UP</button>
