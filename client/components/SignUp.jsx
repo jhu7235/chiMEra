@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { signup } from '../store';
 
 const SignUp = (props) => {
-  const {handleSubmit, error} = props;
+  const { handleSubmit, error } = props;
   return (
     <div className='center'>
     <form onSubmit={ handleSubmit } className='wrapper'>
@@ -73,7 +73,7 @@ const SignUp = (props) => {
 
 const mapLogin = (state) => {
   return {
-    error: state.user.error
+    error: state.user.error,
   };
 };
 
@@ -87,7 +87,7 @@ const mapDispatch = (dispatch) => {
       const email = event.target.email.value;
       const password = event.target.password.value;
       const repassword = event.target.repassword.value;
-      dispatch(signup(email, password, repassword, firstName, lastName)); //need to add first name and last name
+      dispatch(signup(email, password, repassword, firstName, lastName));
     },
   };
 };
