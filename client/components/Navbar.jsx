@@ -1,11 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom';
+import { logout } from '../store/user';
 
-function isLoggedInPlaceholder() {
-  return true;
+function isLoggedIn(user) {
+  if (Object.keys(user).length) {
+    return true;
+  }
+  return false;
 }
 
 function Navbar(props) {
+  let user = props.currentUser;
   return (
     <div>
       <ul id="login" className="dropdown-content">
@@ -24,8 +30,8 @@ function Navbar(props) {
             <li><NavLink to="/contact">Contact Us</NavLink></li>
             <li><NavLink to="/cart" >Cart</NavLink></li>
             {
-              isLoggedInPlaceholder() ?
-                <li><a className="dropdown-button" href="#!" data-activates="user">[Insert Name]<i className="material-icons right">arrow_drop_down</i></a></li> :
+              isLoggedIn(user) ?
+                <li><a className="dropdown-button" href="#!" data-activates="user">{user.firstName} {user.lastName}<i className="material-icons right">arrow_drop_down</i></a></li> :
                 <li><a className="dropdown-button" href="#!" data-activates="login">Login/Sign Up<i className="material-icons right">arrow_drop_down</i></a></li>
             }
           </ul>
@@ -35,4 +41,12 @@ function Navbar(props) {
   );
 }
 
-export default Navbar;
+const mapStateToProps = state => ({ currentUser: state.user });
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => {
+    dispatch(logout())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
