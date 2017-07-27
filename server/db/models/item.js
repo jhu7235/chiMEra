@@ -9,10 +9,6 @@ const Item = db.define('item', {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
   },
-  pending: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
-  },
 });
 
 module.exports = Item;
