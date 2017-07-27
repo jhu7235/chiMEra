@@ -108,9 +108,9 @@ db.sync({ force: true })
   })
   .then(() => {
     return Promise.all([
-      Cart.create({ status: 'pending', shippingAddress: 'yo mamas house', billingAddress: 'fullstackHQ', billingCardInfo: 1234 }),
-      Cart.create({ status: 'shipping', shippingAddress: '15 cat lane', billingAddress: '2 doghowse', billingCardInfo: 'nicks card' }),
-      Cart.create({ status: 'complete', shippingAddress: 'off of navy pier', billingAddress: 'sharksgottaeat', billingCardInfo: '7 28' }),
+      Cart.create({ userId: 1, status: 'pending', shippingAddress: 'yo mamas house', billingAddress: 'fullstackHQ', billingCardInfo: 1234 }),
+      Cart.create({ userId: 2, status: 'shipping', shippingAddress: '15 cat lane', billingAddress: '2 doghowse', billingCardInfo: 'nicks card' }),
+      Cart.create({ userId: 3, status: 'complete', shippingAddress: 'off of navy pier', billingAddress: 'sharksgottaeat', billingCardInfo: '7 28' }),
     ]);
   })
   .then(() => {
