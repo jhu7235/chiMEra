@@ -21,7 +21,7 @@ function Navibar(props) {
             props.isLoggedIn ?
               <div>
                 <li><NavLink to="/profile">Profile</NavLink></li>
-                <li><NavLink to='/orderHistory'>Order History</NavLink></li>
+                <li><NavLink to='/orders'>Order History</NavLink></li>
                 <li><NavLink to='/logout'>Log Out</NavLink></li>
               </div> :
               <div>
