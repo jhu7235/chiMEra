@@ -1,38 +1,50 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { Navbar, NavItem, Dropdown, Button } from 'react-materialize';
 import { NavLink } from 'react-router-dom';
+import { logout } from '../store/user';
 
-function isLoggedInPlaceholder() {
-  return true;
-}
 
-function Navbar(props) {
+function Navibar(props) {
+  let user = props.currentUser
+
   return (
     <div>
-      <ul id="login" className="dropdown-content">
-        <li><NavLink to="/login">Login</NavLink></li>
-        <li><NavLink to="/signup">SignUp</NavLink></li>
-      </ul>
-      <ul id="user" className="dropdown-content">
-        <li><NavLink to="/profile">Profile</NavLink></li>
-        <li><NavLink to="/logout">Logout</NavLink></li>
-      </ul>
-      <nav>
-        <div className="nav-wrapper">
-          <a href="/" className="brand-logo">chiMEra</a>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><NavLink to="/about" >About</NavLink></li>
-            <li><NavLink to="/contact">Contact Us</NavLink></li>
-            <li><NavLink to="/cart" >Cart</NavLink></li>
-            {
-              isLoggedInPlaceholder() ?
-                <li><a className="dropdown-button" href="#!" data-activates="user">[Insert Name]<i className="material-icons right">arrow_drop_down</i></a></li> :
-                <li><a className="dropdown-button" href="#!" data-activates="login">Login/Sign Up<i className="material-icons right">arrow_drop_down</i></a></li>
-            }
-          </ul>
-        </div>
-      </nav>
+      <Navbar brand="ChiMEra" right>
+        <li><NavLink to="/about">About </NavLink></li>
+        <li><NavLink to="/contact">Contact Us</NavLink></li>
+        <li><NavLink to="/cart">Cart </NavLink></li>
+        <Dropdown trigger={
+          <NavItem>{ user.firstName || 'Login/Signup'}</NavItem>
+        }>
+          {
+            props.isLoggedIn ?
+              <div>
+                <li><NavLink to="/profile">Profile</NavLink></li>
+                <li><NavLink to='/orders'>Order History</NavLink></li>
+                <li><NavLink to='/logout'>Log Out</NavLink></li>
+              </div> :
+              <div>
+                <li><NavLink to="/signup">Sign Up</NavLink></li>
+                <li><NavLink to="/login">Log In</NavLink></li>
+              </div>
+          }
+        </Dropdown>
+      </Navbar>
     </div>
-  );
+  )
 }
 
-export default Navbar;
+
+const mapStateToProps = state => ({
+  currentUser: state.user,
+  isLoggedIn: !!state.user.id,
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => {
+    dispatch(logout())
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navibar);
