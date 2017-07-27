@@ -1,6 +1,9 @@
+// why this file when there's already user.js that does a lot of the auth stuff?
+
+
 'use strict';
 //Defining relevant constants to be used by our reducer
-export const axios = require('axios');
+export const axios = require('axios'); // ???
 
 
 //Constants

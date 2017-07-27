@@ -24,7 +24,7 @@ class AddToCartCard extends React.Component {
         <div id="add-to-cart-card">
           <div>
             <img
-              width="100"
+              width="100" {/* should be abstracted into css */}
               src={selectedPet.imageUrl}
             />
             <img
@@ -45,7 +45,7 @@ class AddToCartCard extends React.Component {
                   }
                 </Input>
               </Row>
-              <p>${+selectedPet.price + +selectedEnhancement.price} each</p>
+              <p>${+selectedPet.price + +selectedEnhancement.price} each</p> {/* why are the prices not already numbers? */}
             </div>
           </div>
           <div>

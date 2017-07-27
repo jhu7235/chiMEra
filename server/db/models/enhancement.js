@@ -8,7 +8,7 @@ const Enhancement = db.define('enhancement', {
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false,
+    allowNull: false, // unnecessary new line
 
   },
   imageUrl: {
@@ -27,6 +27,8 @@ const Enhancement = db.define('enhancement', {
 });
 
 module.exports = Enhancement;
+
+// again with removing empty comments
 
 /**
  * instanceMethods

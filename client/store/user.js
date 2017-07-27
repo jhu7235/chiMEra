@@ -31,6 +31,9 @@ export const me = () =>
 
 export const signup = (email, password, repassword, firstName, lastName) =>
   dispatch => {
+
+    // this stuff should not be happening here - this should be local form validation
+    // not handled by redux
     if (password !== repassword) {
       let error = {
         passwordMismatch: true,
@@ -51,6 +54,7 @@ export const signup = (email, password, repassword, firstName, lastName) =>
   };
 
 // create session later
+// ^what is this comment about?
 
 export const login = (email, password) =>
   dispatch =>

@@ -1,3 +1,5 @@
+// respect the style guide
+
 const router = require('express').Router();
 const { Enhancement } = require('../db/models');
 
@@ -10,15 +12,15 @@ router.get('/', (req, res, next) => {
 
 // add new enhancements
 router.post('/', (req, res, next) => {
-	Enhancement.create(req.body)
-	.then(enhancement => res.json(enhancement))
+	Enhancement.create(req.body) // be specific
+	.then(enhancement => res.json(enhancement)) //201 status
 	.catch(next);
 });
 
 // delete enhancement
 router.delete('/', (req, res, next) => {
-	Enhancement.destroy({where: req.body})
-	.then(() => res.sendStatus(200))
+	Enhancement.destroy({where: req.body}) // bespecific
+	.then(() => res.sendStatus(200)) // 204
 	.catch(next);
 });
 

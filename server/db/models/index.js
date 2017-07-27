@@ -18,7 +18,7 @@ const Cart = require('./cart');
  */
 
 Item.belongsTo(Animal);
-Item.belongsTo(User);
+Item.belongsTo(User); // if we use updated schema, where 1 user = 1 cart, this wouldn't be necessary
 Item.belongsTo(Enhancement);
 Item.belongsTo(Cart);
 Cart.hasMany(Item);

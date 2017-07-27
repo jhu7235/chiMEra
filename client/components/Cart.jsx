@@ -42,7 +42,7 @@ export default function Cart() {
       <div className="row">
         <div className="col s6"><h3>Total: 3 fity</h3></div>
         <div className="col s6">
-	        <Button waves="light">Purchase<Icon right>hot_tub</Icon></Button>
+	        <Button waves="light">Purchase<Icon right>hot_tub</Icon></Button> {/* mised tabs and spaces */}
         </div>
       </div>
     </div>

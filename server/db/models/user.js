@@ -25,7 +25,7 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING,
   },
-  adminStatus: {
+  adminStatus: { // personal opinion: I like 'isAdmin' better - fits will with boolean value
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
