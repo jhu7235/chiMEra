@@ -18,7 +18,7 @@ router.get('/:id', (req, res, next) => {
 // api/items/
 
 // again, 'POST'ing an item is only relevant to a specific cart/order, so it 
-// might make most sense for it to be nested 
+// might make most sense for it to be nested e.g. POST /cart/:cartid/items
 router.post('/', (req, res, next) => {
   Item.create(req.body)
   .then(item => res.json(item))

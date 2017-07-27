@@ -5,6 +5,8 @@ module.exports = router;
 
 // api/users
 router.get('/', (req, res, next) => {
+  // example about authorization - maybe only admins should be able to 
+  // get all users - check req.user object to determine this
   User.findAll({
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
