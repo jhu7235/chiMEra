@@ -4,7 +4,8 @@ import ProductCard from './ProductCard.jsx';
 
 export default function EnhancementCard({ enhancements, handleEnhanceSelect, selectedEnhancement }) {
   return (
-    <Collection header="Step 2: Pick an Enhancement">
+    <Collection>
+      <CollectionItem><h5>Step 2: Pick an Enhancement</h5></CollectionItem>
       <CollectionItem>
         <Row>
           <Input s={12} type='select' label="Choose an enhancement" onChange={handleEnhanceSelect}>
