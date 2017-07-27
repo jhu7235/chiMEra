@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { signup } from '../store';
 import { Row, Input, Button } from 'react-materialize';
 
-const PurchaseForm = (props) => {
+export default function PurchaseForm(props) {
   return (
     <div className="container">
       <h5>Shipping Address</h5>
@@ -33,26 +33,3 @@ const PurchaseForm = (props) => {
     </div>
   );
 };
-
-const mapLogin = (state) => {
-  return {
-    error: state.user.error,
-  };
-};
-
-
-const mapDispatch = (dispatch) => {
-  return {
-    handleSubmit(event) {
-      event.preventDefault();
-      const firstName = event.target.first.value;
-      const lastName = event.target.last.value;
-      const email = event.target.email.value;
-      const password = event.target.password.value;
-      const repassword = event.target.repassword.value;
-      dispatch(signup(email, password, repassword, firstName, lastName));
-    },
-  };
-};
-
-export default connect(mapLogin, mapDispatch)(PurchaseForm);
