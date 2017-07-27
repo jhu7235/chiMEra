@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signup } from '../store';
 
@@ -32,7 +33,7 @@ const SignUp = (props) => {
           <label htmlFor="email"><small>Email</small></label>
           <input
             name="email"
-            type="text"
+            type="email"
             className="form-control"
             required
           />
@@ -64,6 +65,11 @@ const SignUp = (props) => {
         <label><input type="checkbox" name="terms" /> I agree with the <a href="#">Terms and Conditions</a>.</label>
         <div>
           <button type="submit" className='btn'>SIGN UP</button>
+        </div>
+        <div>
+          <Link to="/login">
+            <button className="btn-flat">LOG IN</button>
+          </Link>
         </div>
       </form>
       <a href="/auth/google">Sign up with Google</a>
