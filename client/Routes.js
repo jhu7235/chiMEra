@@ -15,9 +15,8 @@ import ProductLab from './components/ProductLab.jsx';
 import Cart from './components/Cart.jsx';
 import PurchaseForm from './components/PurchaseForm.jsx';
 import UserHome from './components/user-home';
-
-console.log('User Home: ', UserHome)
-console.log('Purchase Form: ', PurchaseForm)
+import ProfileUpdate from './components/ProfileUpdate.jsx';
+import PreviousCarts from './components/PreviousCarts.jsx';
 
 /**
  * COMPONENT
@@ -31,7 +30,7 @@ class Routes extends Component {
   render () {
 
     const { isLoggedIn } = this.props;
-    console.log('Is logged in?', isLoggedIn)
+
     return (
       <Router history={history}>
         <Main>
@@ -46,7 +45,8 @@ class Routes extends Component {
               isLoggedIn ?
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
+                  <Route path="/profile" component={ProfileUpdate} />
+                  <Route path="/orders" component={PreviousCarts} />
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
