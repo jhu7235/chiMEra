@@ -23,7 +23,6 @@ CartItem.belongsTo(Animal);
 CartItem.belongsTo(Enhancement);
 CartItem.belongsTo(Cart);
 Cart.hasMany(CartItem);
-Cart.belongsTo(User);
 User.belongsTo(Cart);
 
 PastOrderItem.belongsTo(Animal);
