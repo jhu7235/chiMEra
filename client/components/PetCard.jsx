@@ -4,7 +4,8 @@ import ProductCard from './ProductCard.jsx';
 
 export default function PetCard({ animals, handlePetSelect, selectedPet }) {
   return (
-    <Collection header="Step 1: Pick a Pet">
+    <Collection>
+      <CollectionItem><h5>Step 1: Pick a Pet</h5></CollectionItem>
       <CollectionItem>
         <Row>
           <Input s={12} type='select' label="Choose a pet" onChange={handlePetSelect}>
