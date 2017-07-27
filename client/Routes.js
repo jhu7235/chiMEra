@@ -7,14 +7,17 @@ import {Router} from 'react-router';
 import {Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import {Main, UserHome } from './components';
+import {Main } from './components';
 import {me} from './store';
 import SignUp from './components/SignUp.jsx';
 import LogIn from './components/LogIn.jsx';
 import ProductLab from './components/ProductLab.jsx';
 import Cart from './components/Cart.jsx';
 import PurchaseForm from './components/PurchaseForm.jsx';
+import UserHome from './components/user-home';
 
+console.log('User Home: ', UserHome)
+console.log('Purchase Form: ', PurchaseForm)
 
 /**
  * COMPONENT
@@ -27,8 +30,8 @@ class Routes extends Component {
 
   render () {
 
-    const {isLoggedIn} = this.props;
-
+    const { isLoggedIn } = this.props;
+    console.log('Is logged in?', isLoggedIn)
     return (
       <Router history={history}>
         <Main>
@@ -38,7 +41,7 @@ class Routes extends Component {
             <Route path="/signup" component={SignUp} />
             <Route path="/cart" component={Cart} />
             <Route path="/purchase" component={PurchaseForm} />
-            <Route path="/" component={ProductLab} />
+            <Route exact path="/" component={ProductLab} />
             {
               isLoggedIn ?
                 <Switch>
