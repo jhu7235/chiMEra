@@ -15,8 +15,8 @@ const defaultUser = {};
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user});
-const removeUser = () => ({type: REMOVE_USER});
+const getUser = user => ({ type: GET_USER, user });
+const removeUser = () => ({ type: REMOVE_USER });
 
 /**
  * THUNK CREATORS
@@ -30,15 +30,15 @@ export const me = () =>
       .catch(err => console.log(err));
 
 export const signup = (email, password, repassword, firstName, lastName) =>
-  dispatch =>
-    {
-      if(password !== repassword) {
-        let error = {
-          passwordMismatch: true,
-          response: {data: 'Password mismatch'},
-        };
-        return dispatch(getUser({error}));
-      }
+  dispatch => {
+    if (password !== repassword) {
+      let error = {
+        passwordMismatch: true,
+        response: { data: 'Password mismatch' },
+      };
+      return dispatch(getUser({ error }));
+    }
+
 
       return axios.post("/auth/signup/", { email, password, firstName, lastName })
       .then(res => {
@@ -46,8 +46,10 @@ export const signup = (email, password, repassword, firstName, lastName) =>
         history.push('/home');
       })
       .catch(error =>
+
         dispatch(getUser({error})));
   };
+
 // create session later
 
 export const login = (email, password) =>
@@ -58,7 +60,7 @@ export const login = (email, password) =>
         history.push('/home');
       })
       .catch(error =>
-        dispatch(getUser({error})));
+        dispatch(getUser({ error })));
 
 export const logout = () =>
   dispatch =>

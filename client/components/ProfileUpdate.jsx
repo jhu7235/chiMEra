@@ -7,7 +7,7 @@ import { Row, Input, Button } from 'react-materialize';
  * COMPONENT
  */
 
-function UserHome({ firstName, lastName, email }) {
+function ProfileUpdate({ firstName, lastName, email }) {
   return (
     <div className="container">
       <h5>Your Profile</h5>
@@ -34,12 +34,12 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState, null)(UserHome);
+export default connect(mapState, null)(ProfileUpdate);
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+ProfileUpdate.propTypes = {
   email: PropTypes.string
 }
 
