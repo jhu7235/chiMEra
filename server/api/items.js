@@ -14,8 +14,8 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   Item.create(req.body)
-  .then(item => res.json(item))
-  .catch(next);
+    .then(item => res.json(item))
+    .catch(next);
 })
 
 

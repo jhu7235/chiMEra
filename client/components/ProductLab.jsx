@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PetCard from './PetCard.jsx';
 import EnhancementCard from './EnhancementCard.jsx';
 import AddToCartCard from './AddToCart.jsx';
+import { createItem } from '../store/cart';
 
 class ProductLab extends React.Component {
   constructor(props) {
@@ -77,6 +78,14 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = null;
+const mapDispatch = (dispatch) => {
+  return {
+    addItem() {
+      // quantity, totalprice, animalId, enhanceId, userId, cartId
+
+      dispatch(createItem());
+    }
+  }
+}
 
 export default connect(mapState, mapDispatch)(ProductLab);
