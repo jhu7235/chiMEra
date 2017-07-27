@@ -13,6 +13,7 @@ import SignUp from './components/SignUp.jsx';
 import LogIn from './components/LogIn.jsx';
 import ProductLab from './components/ProductLab.jsx';
 import Cart from './components/Cart.jsx';
+import PurchaseForm from './components/PurchaseForm.jsx';
 
 
 /**
@@ -36,6 +37,7 @@ class Routes extends Component {
             <Route path="/login" component={LogIn} />
             <Route path="/signup" component={SignUp} />
             <Route path="/cart" component={Cart} />
+            <Route path="/purchase" component={PurchaseForm} />
             <Route path="/" component={ProductLab} />
             {
               isLoggedIn ?

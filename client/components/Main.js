@@ -22,8 +22,8 @@ const Main = (props) => {
       <hr />
       {children}
     </div>
-  )
-}
+  );
+};
 
 /**
  * CONTAINER
