@@ -1,6 +1,6 @@
 const models = require('./server/db/models');
 
-const { Order, Animal, Enhancement, User } = models;
+const { Item, Animal, Enhancement, User, Cart } = models;
 
 const db = require('./server/db/db')
 
@@ -108,17 +108,25 @@ db.sync({ force: true })
   })
   .then(() => {
     return Promise.all([
-      Order.create({ quantity: 3, price: 1.00, animalId: 1, enhancementId: 4, userId: 1 }),
-      Order.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, userId: 2 }),
-      Order.create({ quantity: 4, price: 3.00, animalId: 3, enhancementId: 2, userId: 3 }),
-      Order.create({ quantity: 9, price: 4.00, animalId: 4, enhancementId: 3, userId: 1 }),
-      Order.create({ quantity: 6, price: 5.00, animalId: 5, enhancementId: 5, userId: 1 }),
-      Order.create({ quantity: 4, price: 5.00, animalId: 2, enhancementId: 6, userId: 3 }),
-      Order.create({ quantity: 1, price: 5.00, animalId: 3, enhancementId: 5, userId: 2 }),
+      Cart.create({ status: 'pending', shippingAddress: 'yo mamas house', billingAddress: 'fullstackHQ', billingCardInfo: 1234 }),
+      Cart.create({ status: 'shipping', shippingAddress: '15 cat lane', billingAddress: '2 doghowse', billingCardInfo: 'nicks card' }),
+      Cart.create({ status: 'complete', shippingAddress: 'off of navy pier', billingAddress: 'sharksgottaeat', billingCardInfo: '7 28' }),
+    ]);
+  })
+  .then(() => {
+    return Promise.all([
+      Item.create({ quantity: 3, price: 1.00, animalId: 1, enhancementId: 4, userId: 1, cartId: 1 }),
+      Item.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, userId: 2, cartId: 1 }),
+      Item.create({ quantity: 4, price: 3.00, animalId: 3, enhancementId: 2, userId: 3, cartId: 2 }),
+      Item.create({ quantity: 9, price: 4.00, animalId: 4, enhancementId: 3, userId: 1, cartId: 2 }),
+      Item.create({ quantity: 6, price: 5.00, animalId: 5, enhancementId: 5, userId: 1, cartId: 3 }),
+      Item.create({ quantity: 4, price: 5.00, animalId: 2, enhancementId: 6, userId: 3, cartId: 3 }),
+      Item.create({ quantity: 1, price: 5.00, animalId: 3, enhancementId: 5, userId: 2, cartId: 3 }),
     ]);
   })
   .then(() => {
     console.log('finished seeding')
+    db.close()
   })
   .catch();
 
