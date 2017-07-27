@@ -8,7 +8,7 @@ const Animal = db.define('animal', {
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false,
+    allowNull: false, // unnecessary new line below
 
   },
   imageUrl: {
@@ -18,7 +18,7 @@ const Animal = db.define('animal', {
     },
   },
   tags: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
+    type: Sequelize.ARRAY(Sequelize.TEXT), // STRING probably better for this column
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
@@ -27,6 +27,8 @@ const Animal = db.define('animal', {
 });
 
 module.exports = Animal;
+
+// remove these comments if they're not to be used
 
 /**
  * instanceMethods

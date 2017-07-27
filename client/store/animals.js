@@ -9,7 +9,7 @@ const GET_ANIMALS = 'GET_ANIMALS';
 /**
  * INITIAL STATE
  */
-const defaultPets = [];
+const defaultPets = []; // pets, animals, choose one
 
 /**
  * ACTION CREATORS
@@ -26,7 +26,7 @@ export const fetchAnimals = () =>
       .then((animals) => {
         dispatch(getAnimals(animals));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err)); // might eventually want to handle errors differently
   }
 
 /**

@@ -1,3 +1,5 @@
+// set up a seed script in package.json?
+
 const models = require('./server/db/models');
 
 const { Item, Animal, Enhancement, User, Cart } = models;

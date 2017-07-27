@@ -13,3 +13,7 @@ const store = createStore(reducer, middleware);
 
 export default store;
 export * from './user';
+// follow same convention and export forward
+
+// also general note about structural consistency across files - each reducer file
+// has a slightly different layout - please use a uniform structure!

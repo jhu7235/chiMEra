@@ -35,7 +35,7 @@ export default function reducer(cart = [], action) {
 export const fetchCart = (userId) => (dispatch) => {
   axios.get(`/api/items/${userId}`)
     .then(res => dispatch(getCart(res.data)))
-    .then(err => console.error('fetching cart unsucessful', err))
+    .then(err => console.error('fetching cart unsucessful', err)) //.catch not then
 };
 
 export const createItem = (item) => (dispatch) => {
@@ -43,11 +43,11 @@ export const createItem = (item) => (dispatch) => {
     .then(res => res.data)
     .then((createdItem) => {
       dispatch(addToCart(createdItem));
-    });
+    }); // don't forget to catch errors
 };
 
 export const removeItem = (id) => (dispatch) => {
-  dispatch(removeFromCart(id));
+  dispatch(removeFromCart(id)); // removeFromCart should only happen if server says it happened!
   axios.delete(`/api/item/${id}`)
     .catch(err => console.error('removing item unsucessful', err));
 }

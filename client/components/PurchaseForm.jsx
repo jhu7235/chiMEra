@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { signup } from '../store';
 import { Row, Input, Button } from 'react-materialize';
 
+
+// validations?
 export default function PurchaseForm(props) {
   return (
     <div className="container">

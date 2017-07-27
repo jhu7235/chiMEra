@@ -1,4 +1,4 @@
-
+// please respect your style guide
 import { fetchAnimals } from './store/animals';
 import { fetchEnhancements } from './store/enhancements';
 import React, {Component} from 'react';
@@ -9,6 +9,10 @@ import PropTypes from 'prop-types';
 import history from './history';
 import {Main } from './components';
 import {me} from './store';
+
+// all these components should be being exported from one central file in the
+// components folder (check the index file there) - the idea is so that we can aoivd making
+// a ton of imports here like below
 import SignUp from './components/SignUp.jsx';
 import LogIn from './components/LogIn.jsx';
 import ProductLab from './components/ProductLab.jsx';
