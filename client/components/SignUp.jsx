@@ -72,7 +72,7 @@ const SignUp = (props) => {
           </Link>
         </div>
       </form>
-      <a href="/auth/google">Sign up with Google</a>
+      <a href="/auth/google"><img src="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-128.png" alt="" />Sign up with Google</a>
     </div>
   );
 };
