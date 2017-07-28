@@ -149,8 +149,8 @@ db.sync({ force: true })
     ]);
   })
   .then(() => {
-    console.log('finished seeding')
-    db.close()
+    console.log('finished seeding');
+    db.close();
   })
   .catch();
 
