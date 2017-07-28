@@ -10,7 +10,8 @@ router.get('/', (req, res, next) => {
 
 // add new enhancements
 router.post('/', (req, res, next) => {
-  Enhancement.create(req.body)
+  const { name, description, imageUrl, tags, price } = req.body;
+  Enhancement.create({ name, description, imageUrl, tags, price })
     .then(enhancement => res.json(enhancement))
     .catch(next);
 });

@@ -10,26 +10,30 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-// create animal
-router.post('/', (req, res, next) => {
-  Animal.create(req.body)
-    .then(animal => res.json(animal))
-    .catch(next);
-});
-
-// delete animals
-router.delete('/', (req, res, next) => {
-  Animal.destroy({ where: req.body })
-    .then(() => res.sendStatus(200))
-    .catch(next);
-});
-
-// get animal by id **NOT Necessary, possibly should be an update route
 router.get('/:id', (req, res, next) => {
   Animal.findById(req.params.id)
     .then(animal => res.json(animal))
     .catch(next);
 });
+
+// create animal
+router.post('/', (req, res, next) => {
+  const { name, description, imageUrl, tags, price } = req.body;
+  Animal.create({
+    name, description, imageUrl, tags, price,
+  })
+    .then(animal => res.json(animal))
+    .catch(next);
+});
+
+// delete animal
+router.delete('/:id', (req, res, next) => {
+  const id = req.params.id;
+  Animal.destroy({ where: { id } })
+    .then(() => res.sendStatus(200))
+    .catch(next);
+});
+
 
 
 module.exports = router;
