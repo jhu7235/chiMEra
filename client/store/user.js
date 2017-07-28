@@ -32,7 +32,7 @@ export const me = () =>
 export const signup = (email, password, repassword, firstName, lastName) =>
   dispatch => {
     if (password !== repassword) {
-      let error = {
+      const error = {
         passwordMismatch: true,
         response: { data: 'Password mismatch' },
       };
@@ -40,22 +40,22 @@ export const signup = (email, password, repassword, firstName, lastName) =>
     }
 
 
-      return axios.post("/auth/signup/", { email, password, firstName, lastName })
-      .then(res => {
+      return axios.post('/auth/signup/', { email, password, firstName, lastName })
+      .then((res) => {
         dispatch(getUser(res.data));
         history.push('/home');
       })
       .catch(error =>
 
-        dispatch(getUser({error})));
+        dispatch(getUser({ error })));
   };
 
 // create session later
 
 export const login = (email, password) =>
   dispatch =>
-    axios.post("/auth/login", { email, password })
-      .then(res => {
+    axios.post('/auth/login', { email, password })
+      .then((res) => {
         dispatch(getUser(res.data));
         history.goBack();
       })
@@ -65,7 +65,8 @@ export const login = (email, password) =>
 export const logout = () =>
   dispatch =>
     axios.post('/auth/logout')
-      .then(res => {
+      .then((res) => {
+        dispatch(removeUser());
         history.push('/login');
       })
       .catch(err => console.log(err));
