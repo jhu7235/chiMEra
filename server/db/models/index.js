@@ -18,7 +18,6 @@ const Cart = require('./cart');
  */
 
 Item.belongsTo(Animal);
-Item.belongsTo(User);
 Item.belongsTo(Enhancement);
 Item.belongsTo(Cart);
 Cart.hasMany(Item);

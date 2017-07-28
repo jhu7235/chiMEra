@@ -115,13 +115,13 @@ db.sync({ force: true })
   })
   .then(() => {
     return Promise.all([
-      Item.create({ quantity: 3, price: 1.00, animalId: 1, enhancementId: 4, userId: 1, cartId: 1 }),
-      Item.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, userId: 2, cartId: 1 }),
-      Item.create({ quantity: 4, price: 3.00, animalId: 3, enhancementId: 2, userId: 3, cartId: 2 }),
-      Item.create({ quantity: 9, price: 4.00, animalId: 4, enhancementId: 3, userId: 1, cartId: 2 }),
-      Item.create({ quantity: 6, price: 5.00, animalId: 5, enhancementId: 5, userId: 1, cartId: 3 }),
-      Item.create({ quantity: 4, price: 5.00, animalId: 2, enhancementId: 6, userId: 3, cartId: 3 }),
-      Item.create({ quantity: 1, price: 5.00, animalId: 3, enhancementId: 5, userId: 2, cartId: 3 }),
+      Item.create({ quantity: 3, price: 1.00, animalId: 1, enhancementId: 4, cartId: 1 }),
+      Item.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, cartId: 1 }),
+      Item.create({ quantity: 4, price: 3.00, animalId: 3, enhancementId: 2, cartId: 2 }),
+      Item.create({ quantity: 9, price: 4.00, animalId: 4, enhancementId: 3, cartId: 2 }),
+      Item.create({ quantity: 6, price: 5.00, animalId: 5, enhancementId: 5, cartId: 3 }),
+      Item.create({ quantity: 4, price: 5.00, animalId: 2, enhancementId: 6, cartId: 3 }),
+      Item.create({ quantity: 1, price: 5.00, animalId: 3, enhancementId: 5, cartId: 3 }),
     ]);
   })
   .then(() => {
