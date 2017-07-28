@@ -1,8 +1,10 @@
 const User = require('./user');
 const Animal = require('./animal');
-const Item = require('./item');
+const CartItem = require('./cartItem');
 const Enhancement = require('./enhancement');
 const Cart = require('./cart');
+const PastOrder = require('./pastOrder');
+const PastOrderItem = require('./pastOrderItem');
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -17,12 +19,18 @@ const Cart = require('./cart');
  * instead of: const User = require('../db/models/user')
  */
 
-Item.belongsTo(Animal);
-Item.belongsTo(User);
-Item.belongsTo(Enhancement);
-Item.belongsTo(Cart);
-Cart.hasMany(Item);
-Cart.belongsTo(User);
+CartItem.belongsTo(Animal);
+CartItem.belongsTo(Enhancement);
+CartItem.belongsTo(Cart);
+Cart.hasMany(CartItem);
+User.belongsTo(Cart);
 
-module.exports = { User, Animal, Item, Enhancement, Cart };
+PastOrderItem.belongsTo(Animal);
+PastOrderItem.belongsTo(Enhancement);
+PastOrderItem.belongsTo(PastOrder);
+PastOrder.hasMany(PastOrderItem);
+PastOrder.belongsTo(User);
+User.hasMany(PastOrder);
+
+module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem };
 
