@@ -1,11 +1,15 @@
 const router = require('express').Router();
-const { Cart, CartItem } = require('../db/models');
+const { CartItem, User } = require('../db/models');
 
 router.get('/', (req, res, next) => {
   const userId = req.user.id;
-  Cart.findOne({ where: { userId } })
+  User.findById(userId)
+    .then((user) => {
+      if (!user) next(new Error('User not found'));
+      else return user.getCart();
+    })
     .then((cart) => {
-      if (!cart) next(new Error('Cart not found'));
+      if (!cart) next(new Error('No cart created'));
       else res.json(cart);
     })
     .catch(next);
@@ -13,10 +17,14 @@ router.get('/', (req, res, next) => {
 
 router.delete('/', (req, res, next) => {
   const userId = req.user.id;
-  Cart.findOne({ userId })
+  User.findById(userId)
+    .then((user) => {
+      if (!user) next(new Error('User not found'));
+      else return user.getCart();
+    })
     .then((cart) => {
       if (!cart) next(new Error('Cart not found'));
-      else return cart.destroy;
+      else return cart.destroy();
     })
     .then(() => res.sendStatus(200))
     .catch(next);
@@ -25,7 +33,8 @@ router.delete('/', (req, res, next) => {
 router.post('/item', (req, res, next) => {
   const userId = req.user.id;
   const { animalId, enhancementId, quantity, price } = req.body;
-  Cart.findOrCreate({ where: { userId } })
+  User.findById(userId)
+    .then(user => user.getCart())
     .then((cart) => {
       return CartItem.create({
         where: { animalId, enhancementId, quantity, price, cartId: cart.id },
@@ -42,7 +51,7 @@ router.put('/item/:itemId', (req, res, next) => {
       if (!cartItem) next(new Error('Cart item not found'));
       else return cartItem.update({ quantity });
     })
-    .then(updatedCart => res.json(updatedCart))
+    .then(updatedCartItem => res.json(updatedCartItem))
     .catch(next);
 });
 
@@ -56,3 +65,5 @@ router.delete('/item/:itemId', (req, res, next) => {
     .then(() => res.status(200).send(itemId))
     .catch(next);
 });
+
+module.exports = router;
