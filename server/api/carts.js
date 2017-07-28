@@ -35,8 +35,12 @@ router.post('/item', (req, res, next) => {
   const { animalId, enhancementId, quantity, price } = req.body;
   User.findById(userId)
     .then((user) => {
-      const cartPromise = user.getCart();
-      return Promise.all([cartPromise, user])
+      if (!user) {
+        next(new Error('User not found'));
+      } else {
+        const cartPromise = user.getCart();
+        return Promise.all([cartPromise, user]);
+      }
     })
     .then(([cart, user]) => {
       if (!cart) return user.addCart();
