@@ -57,7 +57,7 @@ export const login = (email, password) =>
     axios.post("/auth/login", { email, password })
       .then(res => {
         dispatch(getUser(res.data));
-        history.push('/home');
+        history.goBack();
       })
       .catch(error =>
         dispatch(getUser({ error })));
@@ -66,8 +66,6 @@ export const logout = () =>
   dispatch =>
     axios.post('/auth/logout')
       .then(res => {
-        dispatch(removeUser());
-        console.log('API LOG OUT', history)
         history.push('/login');
       })
       .catch(err => console.log(err));
