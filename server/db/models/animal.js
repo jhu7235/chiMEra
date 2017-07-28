@@ -9,7 +9,6 @@ const Animal = db.define('animal', {
   description: {
     type: Sequelize.TEXT,
     allowNull: false,
-
   },
   imageUrl: {
     type: Sequelize.STRING,
