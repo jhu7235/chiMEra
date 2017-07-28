@@ -22,15 +22,15 @@ const PastOrderItem = require('./pastOrderItem');
 CartItem.belongsTo(Animal);
 CartItem.belongsTo(Enhancement);
 CartItem.belongsTo(Cart);
-Cart.hasMany(CartItem);
-User.belongsTo(Cart);
+Cart.hasMany(CartItem, { onDelete: 'cascade', hooks: true });
+User.belongsTo(Cart, { onDelete: 'cascade', hooks: true });
 
 PastOrderItem.belongsTo(Animal);
 PastOrderItem.belongsTo(Enhancement);
 PastOrderItem.belongsTo(PastOrder);
-PastOrder.hasMany(PastOrderItem);
+PastOrder.hasMany(PastOrderItem, { onDelete: 'cascade', hooks: true });
 PastOrder.belongsTo(User);
-User.hasMany(PastOrder);
+User.hasMany(PastOrder, { onDelete: 'cascade', hooks: true });
 
 module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem };
 
