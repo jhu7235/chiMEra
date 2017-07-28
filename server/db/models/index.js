@@ -24,13 +24,14 @@ const Address = require('./address');
 CartItem.belongsTo(Animal);
 CartItem.belongsTo(Enhancement);
 CartItem.belongsTo(Cart);
-Cart.hasMany(CartItem);
-User.hasOne(Cart);
+Cart.hasMany(CartItem, { onDelete: 'cascade', hooks: true });
+User.belongsTo(Cart, { onDelete: 'cascade', hooks: true });
+
 
 PastOrderItem.belongsTo(Animal);
 PastOrderItem.belongsTo(Enhancement);
 PastOrderItem.belongsTo(PastOrder);
-PastOrder.hasMany(PastOrderItem);
+PastOrder.hasMany(PastOrderItem, { onDelete: 'cascade', hooks: true });
 PastOrder.belongsTo(User);
 
 Address.belongsTo(User);
