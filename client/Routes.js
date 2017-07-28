@@ -7,6 +7,7 @@ import { Router } from 'react-router';
 import { fetchAnimals } from './store/animals';
 import SignUp from './components/SignUp.jsx';
 import { fetchEnhancements } from './store/enhancements';
+import { fetchCart } from './store/cart';
 import history from './history';
 import { Main } from './components';
 import { me } from './store';
@@ -71,6 +72,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData() {
       dispatch(fetchAnimals());
       dispatch(fetchEnhancements());
+      dispatch(fetchCart());
       dispatch(me());
     }
   };

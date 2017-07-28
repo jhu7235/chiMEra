@@ -18,30 +18,33 @@ const removeFromCart = id => ({ type: REMOVE_FROM_CART, id });
 
 export default function reducer(cart = [], action) {
   switch (action.type) {
-
     case GET_CART:
       return action.items;
 
     case ADD_TO_CART:
-      return [action.item, ...cart]
+      return [action.item, ...cart];
 
     case REMOVE_FROM_CART:
       return cart.filter(item => item.id !== action.id);
 
     default:
       return cart;
-
   }
 }
 
-export const fetchCart = (userId) => (dispatch) => {
-  axios.get(`/api/items/${userId}`)
-    .then(res => dispatch(getCart(res.data)))
+export const fetchCart = () => (dispatch) => {
+  axios.get('/api/cart')
+    .then(res => res.data)
+    .then((cart) => {
+      console.log('Hi?');
+      dispatch(getCart(cart.cartItems));
+    })
     .catch(err => console.error('fetching cart unsucessful', err));
 };
 
-export const createItem = (item) => (dispatch) => {
-  axios.post(`/api/item`, item)
+export const createItem = itemObj => (dispatch) => {
+  const { quantity, price, animalId, enhancementId } = itemObj;
+  return axios.post('/api/cart/item', { quantity, price, animalId, enhancementId })
     .then(res => res.data)
     .then((createdItem) => {
       dispatch(addToCart(createdItem));
@@ -49,7 +52,7 @@ export const createItem = (item) => (dispatch) => {
     .catch(err => console.error('create item unsucessful', err));
 };
 
-export const removeItem = (id) => (dispatch) => {
+export const removeItem = id => (dispatch) => {
   dispatch(removeFromCart(id));
   axios.delete(`/api/item/${id}`)
     .catch(err => console.error('removing item unsucessful', err));

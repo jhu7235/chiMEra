@@ -16,14 +16,17 @@ class ProductLab extends React.Component {
       showAddToCart: false,
     };
 
+    this.initialState = {};
+
     this.handlePetSelect = this.handlePetSelect.bind(this);
     this.handleEnhanceSelect = this.handleEnhanceSelect.bind(this);
+    this.handleAddItem = this.handleAddItem.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
     const selectedPet = newProps.animals.find(animal => animal.id === 1) || {};
     const selectedEnhancement = newProps.enhancements.find(enhancement => enhancement.id === 1) || {};
-    this.setState({ selectedPet, selectedEnhancement });
+    this.setState({ selectedPet, selectedEnhancement }, () => { this.initialState = this.state; });
   }
 
   handlePetSelect(e) {
@@ -34,6 +37,11 @@ class ProductLab extends React.Component {
   handleEnhanceSelect(e) {
     const selectedEnhancement = this.props.enhancements.find(enhancement => enhancement.id === +e.target.value)
     this.setState({ selectedEnhancement, showAddToCart: true });
+  }
+
+  handleAddItem({ quantity, price, animalId, enhancementId }) {
+    this.props.addItem({ quantity, price, animalId, enhancementId })
+      .then(() => this.setState(this.initialState));
   }
 
   render() {
@@ -61,6 +69,8 @@ class ProductLab extends React.Component {
               <AddToCartCard
                 selectedPet={this.state.selectedPet}
                 selectedEnhancement={this.state.selectedEnhancement}
+                addItem={this.handleAddItem}
+                history={this.props.history}
               />
             </div> :
             null
@@ -83,12 +93,10 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    addItem() {
-      // quantity, totalprice, animalId, enhanceId, userId, cartId
-
-      dispatch(createItem());
-    }
-  }
-}
+    addItem: ({ quantity, price, animalId, enhancementId }) => {
+      return dispatch(createItem({ quantity, price, animalId, enhancementId }));
+    },
+  };
+};
 
 export default connect(mapState, mapDispatch)(ProductLab);
