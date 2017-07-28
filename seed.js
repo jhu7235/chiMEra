@@ -1,6 +1,6 @@
 const models = require('./server/db/models');
 
-const { Item, Animal, Enhancement, User, Cart } = models;
+const { CartItem, Animal, Enhancement, User, Cart, PastOrder, PastOrderItem, Address } = models;
 
 const db = require('./server/db/db')
 
@@ -103,25 +103,49 @@ db.sync({ force: true })
       imageUrl: 'http://ghk.h-cdn.co/assets/cm/15/12/5508ec76dc341-fullerbrush-tidymaid2-xln.jpg',
       price: 3.00,
     });
+    const address1 = Address.create({
+      streetAddress: '202 hellmuffin lane',
+      city: 'Chicato',
+      state: 'illlinoice',
+      zipCode: 53403,
+    });
 
-    return Promise.all([animal1, animal2, animal3, animal4, animal5, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6]);
+    return Promise.all([animal1, animal2, animal3, animal4, animal5, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6, address1]);
   })
   .then(() => {
     return Promise.all([
-      Cart.create({ userId: 1, status: 'pending', shippingAddress: 'yo mamas house', billingAddress: 'fullstackHQ', billingCardInfo: 1234 }),
-      Cart.create({ userId: 2, status: 'shipping', shippingAddress: '15 cat lane', billingAddress: '2 doghowse', billingCardInfo: 'nicks card' }),
-      Cart.create({ userId: 3, status: 'complete', shippingAddress: 'off of navy pier', billingAddress: 'sharksgottaeat', billingCardInfo: '7 28' }),
+      Cart.create({ userId: 1 }),
+      Cart.create({ userId: 2 }),
+      Cart.create({ userId: 3, promoCode: 'pleaaaase' }),
     ]);
   })
   .then(() => {
     return Promise.all([
-      Item.create({ quantity: 3, price: 1.00, animalId: 1, enhancementId: 4, userId: 1, cartId: 1 }),
-      Item.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, userId: 2, cartId: 1 }),
-      Item.create({ quantity: 4, price: 3.00, animalId: 3, enhancementId: 2, userId: 3, cartId: 2 }),
-      Item.create({ quantity: 9, price: 4.00, animalId: 4, enhancementId: 3, userId: 1, cartId: 2 }),
-      Item.create({ quantity: 6, price: 5.00, animalId: 5, enhancementId: 5, userId: 1, cartId: 3 }),
-      Item.create({ quantity: 4, price: 5.00, animalId: 2, enhancementId: 6, userId: 3, cartId: 3 }),
-      Item.create({ quantity: 1, price: 5.00, animalId: 3, enhancementId: 5, userId: 2, cartId: 3 }),
+      CartItem.create({ quantity: 3, price: 1.00, animalId: 1, enhancementId: 4, cartId: 1 }),
+      CartItem.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, cartId: 1 }),
+      CartItem.create({ quantity: 5, price: 3.00, animalId: 3, enhancementId: 2, cartId: 2 }),
+      CartItem.create({ quantity: 9, price: 4.00, animalId: 4, enhancementId: 3, cartId: 2 }),
+      CartItem.create({ quantity: 5, price: 5.00, animalId: 5, enhancementId: 5, cartId: 3 }),
+      CartItem.create({ quantity: 3, price: 5.00, animalId: 2, enhancementId: 6, cartId: 3 }),
+      CartItem.create({ quantity: 1, price: 5.00, animalId: 3, enhancementId: 5, cartId: 3 }),
+    ]);
+  })
+  .then(() => {
+    return Promise.all([
+      PastOrder.create({ userId: 1, shippingAddress: 1, billingAddress: 1 }),
+      PastOrder.create({ userId: 2 }),
+      PastOrder.create({ userId: 3 }),
+    ]);
+  })
+  .then(() => {
+    return Promise.all([
+      PastOrderItem.create({ quantity: 2, price: 1.00, animalId: 1, enhancementId: 4, pastOrderId: 1 }),
+      PastOrderItem.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, pastOrderId: 1 }),
+      PastOrderItem.create({ quantity: 4, price: 3.00, animalId: 3, enhancementId: 2, pastOrderId: 2 }),
+      PastOrderItem.create({ quantity: 8, price: 4.00, animalId: 4, enhancementId: 3, pastOrderId: 2 }),
+      PastOrderItem.create({ quantity: 6, price: 5.00, animalId: 5, enhancementId: 5, pastOrderId: 3 }),
+      PastOrderItem.create({ quantity: 4, price: 5.00, animalId: 2, enhancementId: 6, pastOrderId: 3 }),
+      PastOrderItem.create({ quantity: 1, price: 5.00, animalId: 3, enhancementId: 5, pastOrderId: 3 }),
     ]);
   })
   .then(() => {
