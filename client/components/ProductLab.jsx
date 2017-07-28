@@ -66,6 +66,9 @@ class ProductLab extends React.Component {
             null
           }
         </div>
+        <div className="row center">
+          <img className="center" id="centerpaw" src='/big_paw_red.png'></img>
+        </div>
       </div>
     );
   }

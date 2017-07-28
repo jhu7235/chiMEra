@@ -5,6 +5,8 @@ const Enhancement = require('./enhancement');
 const Cart = require('./cart');
 const PastOrder = require('./pastOrder');
 const PastOrderItem = require('./pastOrderItem');
+const Address = require('./address');
+
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -23,16 +25,21 @@ const PastOrderItem = require('./pastOrderItem');
 CartItem.belongsTo(Animal);
 CartItem.belongsTo(Enhancement);
 CartItem.belongsTo(Cart);
-Cart.hasMany(CartItem);
-User.belongsTo(Cart);
+Cart.hasMany(CartItem, { onDelete: 'cascade', hooks: true });
+User.belongsTo(Cart, { onDelete: 'cascade', hooks: true });
+
 
 
 PastOrderItem.belongsTo(Animal);
 PastOrderItem.belongsTo(Enhancement);
 PastOrderItem.belongsTo(PastOrder);
-PastOrder.hasMany(PastOrderItem);
+PastOrder.hasMany(PastOrderItem, { onDelete: 'cascade', hooks: true });
 PastOrder.belongsTo(User);
-User.hasMany(PastOrder);
 
-module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem };
+Address.belongsTo(User);
+PastOrder.belongsTo(Address, { as: 'shippingAddress' });
+PastOrder.belongsTo(Address, { as: 'billingAddress' });
+
+
+module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem, Address };
 

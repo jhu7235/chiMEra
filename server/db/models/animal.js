@@ -9,7 +9,6 @@ const Animal = db.define('animal', {
   description: {
     type: Sequelize.TEXT,
     allowNull: false,
-
   },
   imageUrl: {
     type: Sequelize.STRING,
@@ -18,7 +17,7 @@ const Animal = db.define('animal', {
     },
   },
   tags: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
+    type: Sequelize.ARRAY(Sequelize.STRING),
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
@@ -27,17 +26,3 @@ const Animal = db.define('animal', {
 });
 
 module.exports = Animal;
-
-/**
- * instanceMethods
- */
-
-
-/**
- * classMethods
- */
-
-
-/**
- * hooks
- */
