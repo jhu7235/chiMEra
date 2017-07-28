@@ -34,12 +34,17 @@ router.post('/item', (req, res, next) => {
   const userId = req.user.id;
   const { animalId, enhancementId, quantity, price } = req.body;
   User.findById(userId)
-    .then(user => user.getCart())
-    .then((cart) => {
-      return CartItem.create({
-        where: { animalId, enhancementId, quantity, price, cartId: cart.id },
-      });
+    .then((user) => {
+      const cartPromise = user.getCart();
+      return Promise.all([cartPromise, user])
     })
+    .then(([cart, user]) => {
+      if (!cart) return user.addCart();
+      return cart;
+    })
+    .then(cart => CartItem.create({
+      where: { animalId, enhancementId, quantity, price, cartId: cart.id },
+    }))
     .then(cartItem => res.status(201).json(cartItem))
     .catch(next);
 });
