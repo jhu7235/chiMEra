@@ -1,18 +1,26 @@
 const router = require('express').Router();
-const { Carts } = require('../../db/models');
+const { Cart } = require('../../db/models');
 
-// api/admin/past_Orders
+// api/admin/carts
 router.get('/', (req, res, next) => {
-  Carts.findAll()
-    .then(pastOrders => res.json(pastOrders))
+  Cart.findAll()
+    .then((carts) => {
+      if (!carts) next(new Error('failure to get carts'))
+      else res.json(carts);
+    })
     .catch(next);
 });
 
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  Carts.findOne({ where: { id } })
-    .then(order => res.json(order))
+  Cart.findById(id)
+    .then((cart) => {
+      if (!cart) next(new Error('failure to find cart'))
+      else res.json(cart);
+    })
     .catch(next);
 });
+
+
 
 module.exports = router;

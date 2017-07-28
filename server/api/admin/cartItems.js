@@ -5,17 +5,23 @@ const { CartItem } = require('../../db/models');
 
 router.get('/', (req, res, next) => {
   CartItem.findAll()
-    .then(items => res.json(items))
+    .then((items) => {
+      if (!items) next(new Error('Items not found'))
+      else res.json(items)
+    })
     .catch(next);
 });
 
 
 // api/items/admin/:id
 
-router.post('/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  CartItem.findOne({ where: { id } })
-    .then(items => res.json(items))
+  CartItem.findById(id)
+    .then((item) => {
+      if (!item) next(new Error('Cart item not found'))
+      else res.json(item);
+    })
     .catch(next);
 });
 

@@ -4,31 +4,56 @@ const { Enhancement } = require('../../db/models');
 // **************ENHANCEMENTS************************
 router.get('/', (req, res, next) => {
   Enhancement.findAll()
-    .then(enhancements => res.json(enhancements))
+    .then((enhancements) => {
+      if (!enhancements) next(new Error('Error acessing enhancements'));
+      else res.json(enhancements);
+    })
     .catch(next);
 });
 
-// add new enhancements
-router.post('/', (req, res, next) => {
-  const { name, description, imageUrl, tags, price } = req.body;
-  Enhancement.create({ name, description, imageUrl, tags, price })
-    .then(enhancement => res.json(enhancement))
-    .catch(next);
-});
-
-// delete enhancement
-router.delete('/', (req, res, next) => {
-  Enhancement.destroy({ where: req.body })
-    .then(() => res.sendStatus(200))
-    .catch(next);
-});
-
-// get by id ** Prop should be an update
 router.get('/:id', (req, res, next) => {
   Enhancement.findById(req.params.id)
-    .then(enhancement => res.json(enhancement))
+    .then((enhancement) => {
+      if (!enhancement) next(new Error('Enhancement not found')); else res.json(enhancement);
+    })
+    .catch(next);
+});
+// create enhancement
+router.post('/', (req, res, next) => {
+  const { name, description, imageUrl, tags, price } = req.body;
+
+  Enhancement.create({ name, description, imageUrl, tags, price })
+    .then((enhancement) => {
+      if (!enhancement) next(new Error('failure to create enhancement'));
+      else res.json(enhancement);
+    })
     .catch(next);
 });
 
-module.exports = router;
+// update enhancement
+router.put('/:id', (req, res, next) => {
+  const enhancementObj = req.body;
+  const id = req.params.id;
+  Object.keys(enhancementObj).forEach((key) => {
+    if (enhancementObj[key] === undefined) {
+      delete enhancementObj[key];
+    }
+  });
+  Enhancement.findById(id)
+    .then((enhancement) => {
+      if (!enhancement) next(new Error('Animal not found'));
+      else return enhancement.update(enhancementObj);
+    })
+    .then((updatedAnimal) => res.json(updatedAnimal))
+    .catch(next);
+});
+// delete enhancement
+router.delete('/:id', (req, res, next) => {
+  const id = req.params.id;
+  Enhancement.destroy({ where: { id } })
+    .then(() => res.sendStatus(204))
+    .catch(next);
+});
 
+
+module.exports = router;
