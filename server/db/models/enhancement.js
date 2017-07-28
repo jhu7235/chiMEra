@@ -27,17 +27,3 @@ const Enhancement = db.define('enhancement', {
 });
 
 module.exports = Enhancement;
-
-/**
- * instanceMethods
- */
-
-
-/**
- * classMethods
- */
-
-
-/**
- * hooks
- */

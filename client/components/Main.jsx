@@ -19,7 +19,6 @@ const Main = (props) => {
   return (
     <div>
       <Navbar />
-      <hr />
       {children}
     </div>
   );
@@ -36,7 +35,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleClick() {
       dispatch(logout())
     }
   }

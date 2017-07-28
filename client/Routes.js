@@ -1,20 +1,19 @@
 
-import { fetchAnimals } from './store/animals';
-import { fetchEnhancements } from './store/enhancements';
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Router} from 'react-router';
-import {Route, Switch} from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import history from './history';
-import {Main } from './components';
-import {me} from './store';
+import { Router } from 'react-router';
+import { fetchAnimals } from './store/animals';
 import SignUp from './components/SignUp.jsx';
+import { fetchEnhancements } from './store/enhancements';
+import history from './history';
+import { Main } from './components';
+import { me } from './store';
 import LogIn from './components/LogIn.jsx';
 import ProductLab from './components/ProductLab.jsx';
 import Cart from './components/Cart.jsx';
 import PurchaseForm from './components/PurchaseForm.jsx';
-import UserHome from './components/user-home';
 import ProfileUpdate from './components/ProfileUpdate.jsx';
 import PreviousCarts from './components/PreviousCarts.jsx';
 
@@ -27,7 +26,7 @@ class Routes extends Component {
     this.props.loadInitialData();
   }
 
-  render () {
+  render() {
 
     const { isLoggedIn } = this.props;
 
@@ -63,9 +62,7 @@ class Routes extends Component {
  */
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
   };
 };
 
@@ -86,5 +83,5 @@ export default connect(mapState, mapDispatch)(Routes);
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
 };

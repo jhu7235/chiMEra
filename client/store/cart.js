@@ -1,13 +1,15 @@
 import axios from 'axios';
 
-// Action types
-
+/**
+ * ACTION TYPES
+ */
 const GET_CART = 'GET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 
-// action Creators
-
+/**
+ * ACTION CREATORS
+ */
 const getCart = items => ({ type: GET_CART, items });
 const addToCart = item => ({ type: ADD_TO_CART, item });
 const removeFromCart = id => ({ type: REMOVE_FROM_CART, id });
@@ -35,7 +37,7 @@ export default function reducer(cart = [], action) {
 export const fetchCart = (userId) => (dispatch) => {
   axios.get(`/api/items/${userId}`)
     .then(res => dispatch(getCart(res.data)))
-    .then(err => console.error('fetching cart unsucessful', err))
+    .catch(err => console.error('fetching cart unsucessful', err));
 };
 
 export const createItem = (item) => (dispatch) => {
@@ -43,7 +45,8 @@ export const createItem = (item) => (dispatch) => {
     .then(res => res.data)
     .then((createdItem) => {
       dispatch(addToCart(createdItem));
-    });
+    })
+    .catch(err => console.error('create item unsucessful', err));
 };
 
 export const removeItem = (id) => (dispatch) => {
