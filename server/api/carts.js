@@ -10,18 +10,18 @@ router.get('/:userid', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   Cart.create(req.body)
-  .then(cart => res.json(cart))
-  .catch(next);
+    .then(cart => res.json(cart))
+    .catch(next);
 });
 
 router.delete('/', (req, res, next) => {
   Cart.destroy({ where: req.body })
-  .then(() => res.sendStatus(200))
-  .catch(next);
+    .then(() => res.sendStatus(200))
+    .catch(next);
 });
 
 router.put('/:cartid', (req, res, next) => {
   Cart.findById(req.params.cartid)
-  .then(cart => cart.update(req.body))
-  .catch(next);
+    .then(cart => cart.update(req.body))
+    .catch(next);
 });
