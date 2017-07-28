@@ -30,7 +30,7 @@ PastOrderItem.belongsTo(Enhancement);
 PastOrderItem.belongsTo(PastOrder);
 PastOrder.hasMany(PastOrderItem, { onDelete: 'cascade', hooks: true });
 PastOrder.belongsTo(User);
-User.hasMany(PastOrder, { onDelete: 'cascade', hooks: true });
+User.hasMany(PastOrder);
 
 module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem };
 
