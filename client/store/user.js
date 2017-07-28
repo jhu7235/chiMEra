@@ -67,6 +67,7 @@ export const logout = () =>
     axios.post('/auth/logout')
       .then(res => {
         dispatch(removeUser());
+        console.log('API LOG OUT', history)
         history.push('/login');
       })
       .catch(err => console.log(err));
