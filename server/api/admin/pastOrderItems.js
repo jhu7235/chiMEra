@@ -13,8 +13,6 @@ router.get('/', (req, res, next) => {
 });
 
 
-// api/items/admin/:id
-
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
 
