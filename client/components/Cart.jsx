@@ -17,21 +17,23 @@ function Cart(props) {
               <th>Price</th>
               <th>Quantity</th>
               <th>Item Total</th>
-              <th>Remove buttons</th>
             </tr>
           </thead>
 
           <tbody>
             {
               props.cart.map((item) => {
+                const itemEnhancement = props.enhancements.find(enhancement =>
+                  enhancement.id === item.enhancementId);
+                const itemAnimal = props.animals.find(animal => animal.id === item.animalId);
                 return (
                   <tr key={item.id}>
-                    <td>{props.enhancements.find(enhancement => enhancement.id === item.enhancementId).name}</td>
-                    <td>{props.animals.find(animal => animal.id === item.animalId).name}</td>
-                    <td>Unit Price</td>
+                    <td>{itemEnhancement.name}</td>
+                    <td>{itemAnimal.name}</td>
+                    <td>{+itemEnhancement.price + +itemAnimal.price}</td>
                     <td>{item.quantity}</td>
                     <td>{item.price}</td>
-                    <td><button>Delete</button></td>
+                    <td><Button floating small className="red" waves="light" icon="delete" /></td>
                   </tr>
                 );
               })
@@ -40,7 +42,9 @@ function Cart(props) {
         </table>
       </div>
       <div className="row">
-        <div className="col s6"><h3>Total: 3 fity</h3></div>
+        <div className="col s6"><h3>Total: ${
+          props.cart.reduce((sum, item) => sum + +item.price, 0)
+        }</h3></div>
         <div className="col s6">
           <Button waves="light">Purchase<Icon right>hot_tub</Icon></Button>
         </div>
