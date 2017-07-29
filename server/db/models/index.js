@@ -21,11 +21,13 @@ const Address = require('./address');
  * instead of: const User = require('../db/models/user')
  */
 
+
 CartItem.belongsTo(Animal);
 CartItem.belongsTo(Enhancement);
 CartItem.belongsTo(Cart);
 Cart.hasMany(CartItem, { onDelete: 'cascade', hooks: true });
 User.belongsTo(Cart, { onDelete: 'cascade', hooks: true });
+
 
 
 PastOrderItem.belongsTo(Animal);

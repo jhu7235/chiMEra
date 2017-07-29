@@ -1,17 +1,26 @@
 const router = require('express').Router();
-const { CartItem, User } = require('../db/models');
+const { Cart, CartItem, User } = require('../db/models');
 
 router.get('/', (req, res, next) => {
   const userId = req.user.id;
   User.findById(userId)
     .then((user) => {
       if (!user) next(new Error('User not found'));
-      else return user.getCart();
+      else {
+        const cartPromise = user.getCart();
+        return Promise.all([cartPromise, user])
+      }
     })
-    .then((cart) => {
-      if (!cart) next(new Error('No cart created'));
-      else res.json(cart);
+    .then(([cart, user]) => {
+      if (!cart) {
+        return Cart.create()
+          .then(newCart => user.setCart(newCart))
+          .then(user => user.getCart())
+          .catch(next);
+      }
+      return cart;
     })
+    .then(cart => res.json(cart))
     .catch(next);
 });
 
@@ -46,9 +55,9 @@ router.post('/item', (req, res, next) => {
       if (!cart) return user.addCart();
       return cart;
     })
-    .then(cart => CartItem.create({
-      where: { animalId, enhancementId, quantity, price, cartId: cart.id },
-    }))
+    .then((cart) => {
+      return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
+    })
     .then(cartItem => res.status(201).json(cartItem))
     .catch(next);
 });
