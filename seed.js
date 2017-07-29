@@ -2,7 +2,7 @@ const models = require('./server/db/models');
 
 const { CartItem, Animal, Enhancement, User, Cart, PastOrder, PastOrderItem, Address } = models;
 
-const db = require('./server/db/db')
+const db = require('./server/db/db');
 
 db.sync({ force: true })
   .then(() => {
@@ -35,6 +35,30 @@ db.sync({ force: true })
       name: 'Shark',
       description: "I'm a SHARK!",
       imageUrl: 'https://i.ytimg.com/vi/0BQzsNatQOY/maxresdefault.jpg',
+      price: 50.00,
+    });
+    const animal6 = Animal.create({
+      name: 'Cheetah',
+      description: 'What is the fastest mammal!',
+      imageUrl: 'http://www.safariwest.com/wp-content/uploads/2014/03/cheetah-sitting1.jpg',
+      price: 25.50,
+    });
+    const animal7 = Animal.create({
+      name: 'Hamster',
+      description: 'I love tiny burritos!',
+      imageUrl: 'http://www.petakids.com/wp-content/uploads/2016/10/Brown-Hamster.jpg',
+      price: 0.50,
+    });
+    const animal8 = Animal.create({
+      name: 'Guinea Pig',
+      description: 'I poop everywhere',
+      imageUrl: 'http://www.petmd.com/sites/default/files/diarrhea-guinea-pigs.jpg',
+      price: 1.50,
+    });
+    const animal9 = Animal.create({
+      name: 'Goat',
+      description: 'I will eat everything',
+      imageUrl: 'https://media.mnn.com/assets/images/2016/07/goats-wattles.jpg.838x0_q80.jpg',
       price: 0.50,
     });
 
@@ -110,7 +134,7 @@ db.sync({ force: true })
       zipCode: 53403,
     });
 
-    return Promise.all([animal1, animal2, animal3, animal4, animal5, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6, address1]);
+    return Promise.all([animal1, animal2, animal3, animal4, animal5, animal6, animal7, animal8, animal9, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6, address1]);
   })
   .then(() => {
     return Promise.all([
