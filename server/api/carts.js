@@ -78,7 +78,7 @@ router.delete('/item/:itemId', (req, res, next) => {
   CartItem.findById(itemId)
     .then((cartItem) => {
       if (!cartItem) next(new Error('Cart item not found'));
-      else return cartItem.destroy;
+      else return cartItem.destroy();
     })
     .then(() => res.status(200).send(itemId))
     .catch(next);

@@ -58,7 +58,7 @@ export const createItem = itemObj => (dispatch) => {
 };
 
 export const removeItem = id => (dispatch) => {
-  dispatch(removeFromCart(id));
-  axios.delete(`/api/item/${id}`)
+  return axios.delete(`/api/cart/item/${id}`)
+    .then(() => dispatch(removeFromCart(id)))
     .catch(err => console.error('removing item unsucessful', err));
 }

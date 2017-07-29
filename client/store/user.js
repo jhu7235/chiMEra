@@ -35,7 +35,6 @@ export default function (state = defaultUser, action) {
 /**
  * THUNK CREATORS
  */
-// check who is logged in
 export const me = () =>
   dispatch =>
     axios.get('/auth/me')
@@ -60,8 +59,6 @@ export const signup = (email, password, repassword, firstName, lastName) =>
       .catch(error =>
         dispatch(getUser({ error })));
   };
-
-// create session later
 
 export const login = (email, password) =>
   dispatch =>
