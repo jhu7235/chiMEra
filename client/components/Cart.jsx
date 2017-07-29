@@ -66,6 +66,8 @@ const mapState = state => ({
   animals: state.animals,
 });
 
-const mapDispatch = { onDelete: removeItem };
+const mapDispatch = dispatch => ({
+  onDelete: () => dispatch(removeItem()),
+});
 
 export default connect(mapState, mapDispatch)(Cart);
