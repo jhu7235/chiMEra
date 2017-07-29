@@ -3,34 +3,29 @@ import axios from 'axios';
 /**
  * ACTION TYPES
  */
-const GET_CART = 'GET_CART';
-const ADD_TO_CART = 'ADD_TO_CART';
-const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+const GET_PAST_ORDERS = 'GET_PAST_ORDERS';
+const ADD_PAST_ORDER = 'ADD_PAST_ORDER';
 
 /**
  * ACTION CREATORS
  */
-const getCart = items => ({ type: GET_CART, items });
-const addToCart = item => ({ type: ADD_TO_CART, item });
-const removeFromCart = id => ({ type: REMOVE_FROM_CART, id });
+const getPastOrders = orders => ({ type: GET_PAST_ORDERS, orders });
+const addPastOrder = order => ({ type: ADD_PAST_ORDER, order });
 
 /**
  * REDUCER
  */
 
-export default function reducer(cart = [], action) {
+export default function reducer(pastOrders = [], action) {
   switch (action.type) {
-    case GET_CART:
-      return action.items;
+    case GET_PAST_ORDERS:
+      return action.orders;
 
-    case ADD_TO_CART:
-      return [action.item, ...cart];
-
-    case REMOVE_FROM_CART:
-      return cart.filter(item => item.id !== action.id);
+    case ADD_PAST_ORDER:
+      return [action.order, ...pastOrders];
 
     default:
-      return cart;
+      return pastOrders;
   }
 }
 
@@ -38,7 +33,7 @@ export default function reducer(cart = [], action) {
  * THUNK CREATORS
  */
 
-export const fetchCart = () => (dispatch) => {
+export const fetchPastOrders = () => (dispatch) => {
   axios.get('/api/cart')
     .then(res => res.data)
     .then((cart) => {

@@ -17,6 +17,18 @@ const defaultEnhancements = [];
 const getEnhancements = enhancements => ({ type: GET_ENHANCEMENTS, enhancements });
 
 /**
+ * REDUCER
+ */
+export default function (state = defaultEnhancements, action) {
+  switch (action.type) {
+    case GET_ENHANCEMENTS:
+      return action.enhancements;
+    default:
+      return state;
+  }
+}
+
+/**
  * THUNK CREATORS
  */
 export const fetchEnhancements = () =>
@@ -29,14 +41,3 @@ export const fetchEnhancements = () =>
       .catch(err => console.log(err));
   }
 
-/**
- * REDUCER
- */
-export default function (state = defaultEnhancements, action) {
-  switch (action.type) {
-    case GET_ENHANCEMENTS:
-      return action.enhancements;
-    default:
-      return state;
-  }
-}

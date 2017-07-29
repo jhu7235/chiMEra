@@ -19,6 +19,20 @@ const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
 
 /**
+ * REDUCER
+ */
+export default function (state = defaultUser, action) {
+  switch (action.type) {
+    case GET_USER:
+      return action.user;
+    case REMOVE_USER:
+      return defaultUser;
+    default:
+      return state;
+  }
+}
+
+/**
  * THUNK CREATORS
  */
 // check who is logged in
@@ -68,16 +82,3 @@ export const logout = () =>
       })
       .catch(err => console.log(err));
 
-/**
- * REDUCER
- */
-export default function (state = defaultUser, action) {
-  switch (action.type) {
-    case GET_USER:
-      return action.user;
-    case REMOVE_USER:
-      return defaultUser;
-    default:
-      return state;
-  }
-}
