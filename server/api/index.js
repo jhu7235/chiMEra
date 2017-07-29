@@ -2,10 +2,9 @@ const router = require('express').Router();
 
 module.exports = router;
 
-router.use('/users', require('./users'));
-router.use('/items', require('./items'));
 router.use('/animals', require('./animals'));
 router.use('/enhancements', require('./enhancements'));
+router.use('/admin', require('./admin'));
 router.use('/cart', require('./carts'));
 
 router.use((req, res, next) => {
