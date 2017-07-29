@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
 
 // api/items/admin/:id
 
-router.post('/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
   const id = req.params.id;
 
   PastOrderItem.findById(id)
