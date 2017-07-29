@@ -6,6 +6,7 @@ import history from '../history';
  */
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
+const UPDATE_USER = 'UPDATE_USER';
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {};
  */
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
+const updateUser = user => ({ type: UPDATE_USER, user });
 
 /**
  * REDUCER
@@ -79,3 +81,29 @@ export const logout = () =>
       })
       .catch(err => console.log(err));
 
+<<<<<<< HEAD
+=======
+export const updateProfile = (firstName, lastName, email) =>
+  dispatch =>
+    axios.put('/api/user/', { firstName, lastName, email })
+      .then((res) => {
+        dispatch(updateUser(res.data));
+      })
+      .catch(console.log);
+
+/**
+ * REDUCER
+ */
+export default function (state = defaultUser, action) {
+  switch (action.type) {
+    case GET_USER:
+      return action.user;
+    case REMOVE_USER:
+      return defaultUser;
+    case UPDATE_USER:
+      return action.user;
+    default:
+      return state;
+  }
+}
+>>>>>>> master
