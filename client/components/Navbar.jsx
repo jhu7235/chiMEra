@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import { Navbar, NavItem, Dropdown, Button } from 'react-materialize';
+import { connect } from 'react-redux';
+import { Navbar, NavItem, Dropdown } from 'react-materialize';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../store/user';
 
 
 function Navibar(props) {
-  let user = props.currentUser
+  const user = props.currentUser;
 
   return (
     <div>
@@ -20,9 +20,15 @@ function Navibar(props) {
           {
             props.isLoggedIn ?
               <div>
+                {
+                  props.isAdmin ?
+                    <div>
+                      <li><NavLink to="/admin">AdminPage</NavLink></li>
+                    </div> : null
+                }
                 <li><NavLink to="/profile">Profile</NavLink></li>
-                <li><NavLink to='/orders'>Order History</NavLink></li>
-                <li><NavLink to='/' onClick={props.logout}>Log Out</NavLink></li>
+                <li><NavLink to="/orders">Order History</NavLink></li>
+                <li><NavLink to="/" onClick={props.logout}>Log Out</NavLink></li>
               </div> :
               <div>
                 <li><NavLink to="/signup">Sign Up</NavLink></li>
@@ -39,12 +45,13 @@ function Navibar(props) {
 const mapStateToProps = state => ({
   currentUser: state.user,
   isLoggedIn: !!state.user.id,
+  isAdmin: state.user.adminStatus,
 });
 
 const mapDispatchToProps = dispatch => ({
   logout: () => {
-    dispatch(logout())
-  }
-})
+    dispatch(logout());
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navibar);

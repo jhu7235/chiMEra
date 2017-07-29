@@ -9,7 +9,7 @@ import SignUp from './components/SignUp.jsx';
 import { fetchEnhancements } from './store/enhancements';
 import { fetchCart } from './store/cart';
 import history from './history';
-import { Main } from './components';
+import { Main } from './components/index.jsx';
 import { me } from './store';
 import LogIn from './components/LogIn.jsx';
 import ProductLab from './components/ProductLab.jsx';
@@ -17,6 +17,7 @@ import Cart from './components/Cart.jsx';
 import PurchaseForm from './components/PurchaseForm.jsx';
 import ProfileUpdate from './components/ProfileUpdate.jsx';
 import PreviousCarts from './components/PreviousCarts.jsx';
+import Admin from './components/Admin.jsx';
 
 /**
  * COMPONENT
@@ -47,6 +48,7 @@ class Routes extends Component {
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/profile" component={ProfileUpdate} />
                   <Route path="/orders" component={PreviousCarts} />
+                  <Route path="/admin" component={Admin} />
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
