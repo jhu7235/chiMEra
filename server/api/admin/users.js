@@ -10,21 +10,27 @@ router.get('/', (req, res, next) => {
     // send everything to anyone who asks!
     attributes: ['id', 'email'],
   })
-    .then(users => res.json(users))
+    .then((users) => {
+      if (!users) next(new Error('error acessing users'));
+      else res.json(users);
+    })
     .catch(next);
 });
 
 // api/admin/users/:id
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  User.findById(id)
-    .then(user => res.json(user))
+  User.findOne({ where: { id }, attributes: ['id', 'email'] })
+    .then((user) => {
+      if (!user) next(new Error('no user found'));
+      else res.json(user);
+    })
     .catch(next);
 });
 
 // ** Admin create admin **
 // api/admin/users/:id
-router.post('/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   const id = req.params.id;
   User.findById(id)
     .then(user => user.update({ adminStatus: true }))
@@ -39,7 +45,11 @@ router.post('/:id', (req, res, next) => {
 // api/admin/users/:id
 router.delete('/:id', (req, res, next) => {
   const id = req.params.id;
-  User.destroy(id)
+  User.findById(id)
+    .then((user) => {
+      if (!user) next(new Error('User not found'));
+      else return user.destroy();
+    })
     .then(() => res.status(204).end)
     .catch(next);
 });
