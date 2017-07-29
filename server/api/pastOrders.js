@@ -11,7 +11,6 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-<<<<<<< HEAD
 router.post('/', (req, res, next) => {
   const userId = req.user.id;
   const { shippingAddress, billingAddress, billingCardInfo } = req.body;
@@ -52,6 +51,4 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-=======
->>>>>>> master
 module.exports = router;

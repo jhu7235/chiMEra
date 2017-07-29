@@ -81,8 +81,6 @@ export const logout = () =>
       })
       .catch(err => console.log(err));
 
-<<<<<<< HEAD
-=======
 export const updateProfile = (firstName, lastName, email) =>
   dispatch =>
     axios.put('/api/user/', { firstName, lastName, email })
@@ -106,4 +104,3 @@ export default function (state = defaultUser, action) {
       return state;
   }
 }
->>>>>>> master
