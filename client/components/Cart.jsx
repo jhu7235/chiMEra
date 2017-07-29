@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'react-materialize';
 import { connect } from 'react-redux';
+import { removeItem } from '../store/cart';
 
 function Cart(props) {
   return (
@@ -33,7 +34,13 @@ function Cart(props) {
                     <td>{+itemEnhancement.price + +itemAnimal.price}</td>
                     <td>{item.quantity}</td>
                     <td>{item.price}</td>
-                    <td><Button floating className="red" waves="light" icon="delete" /></td>
+                    <td><Button
+                      onClick={() => props.onDelete(item.id)}
+                      floating
+                      className="red"
+                      waves="light"
+                      icon="delete"
+                    /></td>
                   </tr>
                 );
               })
@@ -53,14 +60,12 @@ function Cart(props) {
   );
 }
 
-const mapState = (state) => {
-  return {
-    cart: state.cart,
-    enhancements: state.enhancements,
-    animals: state.animals,
-  };
-};
+const mapState = state => ({
+  cart: state.cart,
+  enhancements: state.enhancements,
+  animals: state.animals,
+});
 
-const mapDispatch = null;
+const mapDispatch = { onDelete: removeItem };
 
 export default connect(mapState, mapDispatch)(Cart);
