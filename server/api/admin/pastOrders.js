@@ -5,7 +5,8 @@ const { PastOrders } = require('../../db/models');
 router.get('/', (req, res, next) => {
   PastOrders.findAll()
     .then((pastOrders) => {
-      if (!pastOrders) next(new Error('unable to access orders')); else res.json(pastOrders)
+      if (!pastOrders) next(new Error('unable to access orders')); 
+      else res.json(pastOrders)
     })
     .catch(next);
 });
