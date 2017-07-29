@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const PastOrderItem = db.define('pastOrderitem', {
+const PastOrderItem = db.define('pastOrderItem', {
   quantity: {
     type: Sequelize.INTEGER,
   },

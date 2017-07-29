@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon } from 'react-materialize';
 import { connect } from 'react-redux';
 import { removeItem } from '../store/cart';
+import { purchase } from '../store/pastOrders';
 
 function Cart(props) {
   return (
@@ -53,7 +54,7 @@ function Cart(props) {
           props.cart.reduce((sum, item) => sum + +item.price, 0)
         }</h3></div>
         <div className="col s6">
-          <Button waves="light">Purchase<Icon right>hot_tub</Icon></Button>
+          <Button onClick={props.purchase} waves="light">Purchase<Icon right>hot_tub</Icon></Button>
         </div>
       </div>
     </div>
@@ -66,6 +67,9 @@ const mapState = state => ({
   animals: state.animals,
 });
 
-const mapDispatch = { onDelete: removeItem };
+const mapDispatch = dispatch => ({
+  onDelete: removeItem,
+  purchase: dispatch(purchase()),
+})
 
 export default connect(mapState, mapDispatch)(Cart);
