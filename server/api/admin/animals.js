@@ -49,7 +49,7 @@ router.put('/:id', (req, res, next) => {
       if (!animal) next(new Error('Animal not found'));
       else return animal.update(animalObj);
     })
-    .then((updatedAnimal) => res.json(updatedAnimal))
+    .then(updatedAnimal => res.json(updatedAnimal))
     .catch(next);
 });
 

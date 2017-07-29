@@ -7,15 +7,15 @@ router.use('/', (req, res, next) => {
     res.sendStatus(401);
   }
   next();
-})
+});
 
 
 router.use('/users', require('./users'));
 router.use('/animals', require('./animals'));
 router.use('/enhancements', require('./enhancements'));
-router.use('/cart_items', require('./cartItems'));
-router.use('/cart_order_item', require('./cartItems'));
-router.use('/past_orders', require('./pastOrders'));
+router.use('/cart-items', require('./cartItems'));
+router.use('/past-order-items', require('./pastOrderItems'));
+router.use('/past-orders', require('./pastOrders'));
 router.use('/carts', require('./carts'));
 
 router.use((req, res, next) => {

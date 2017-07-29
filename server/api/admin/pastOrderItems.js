@@ -5,7 +5,10 @@ const { PastOrderItem } = require('../../db/models');
 
 router.get('/', (req, res, next) => {
   PastOrderItem.findAll()
-    .then(items => res.json(items))
+    .then((items) => {
+      if (!items) next(new Error('Error getting past order items'))
+      else res.json(items);
+    })
     .catch(next);
 });
 
@@ -14,10 +17,13 @@ router.get('/', (req, res, next) => {
 
 router.post('/:id', (req, res, next) => {
   const id = req.params.id;
-  PastOrderItem.findOne({ where: { id } })
-    .then(items => res.json(items))
+
+  PastOrderItem.findById(id)
+    .then((items) => {
+      if (!items) next(new Error('Purchased Item not found'))
+      else res.json(items);
+    })
     .catch(next);
 });
-
 
 module.exports = router;
