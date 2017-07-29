@@ -20,7 +20,7 @@ function ProfileUpdate({ firstName, lastName, email }) {
         <Button s={4} waves="light">Update Profile</Button>
       </Row>
     </div>
-  )
+  );
 }
 
 /**
@@ -31,8 +31,8 @@ const mapState = (state) => {
     firstName: state.user.firstName,
     lastName: state.user.lastName,
     email: state.user.email,
-  }
-}
+  };
+};
 
 export default connect(mapState, null)(ProfileUpdate);
 
@@ -40,6 +40,8 @@ export default connect(mapState, null)(ProfileUpdate);
  * PROP TYPES
  */
 ProfileUpdate.propTypes = {
-  email: PropTypes.string
-}
+  email: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+};
 
