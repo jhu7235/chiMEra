@@ -23,12 +23,6 @@ class ProductLab extends React.Component {
     this.handleAddItem = this.handleAddItem.bind(this);
   }
 
-  // componentWillReceiveProps(newProps) {
-  //   const selectedPet = newProps.animals.find(animal => animal.id === 1) || {};
-  //   const selectedEnhancement = newProps.enhancements.find(enhancement => enhancement.id === 1) || {};
-  //   this.setState({ selectedPet, selectedEnhancement }, () => { this.initialState = this.state; });
-  // }
-
   handlePetSelect(e) {
     const selectedPet = this.props.animals.find(animal => animal.id === +e.target.value)
     this.setState({ selectedPet, showEnhancements: true });
