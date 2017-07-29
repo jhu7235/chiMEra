@@ -3,21 +3,21 @@ import { Row, Input } from 'react-materialize';
 
 class AddToCartCard extends React.Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
-      quantity: 1
-    }
+      quantity: 1,
+    };
 
     this.quantitySelect = this.quantitySelect.bind(this);
   }
 
   quantitySelect(e) {
-    this.setState({ quantity: +e.target.value })
+    this.setState({ quantity: +e.target.value });
   }
 
   render() {
-    const { selectedPet, selectedEnhancement } = this.props;
+    const { selectedPet, selectedEnhancement, addItem } = this.props;
     return (
       <div>
         <h5>A pet, but better!</h5>
@@ -50,7 +50,16 @@ class AddToCartCard extends React.Component {
           </div>
           <div>
             <p>Total: ${this.state.quantity * (+selectedPet.price + +selectedEnhancement.price) }</p>
-            <button className="btn waves-effect waves-light" type="submit" name="action">
+            <button
+              onClick={() => addItem({
+                animalId: selectedPet.id,
+                enhancementId: selectedEnhancement.id,
+                price: (this.state.quantity * (+selectedPet.price + +selectedEnhancement.price)).toFixed(2),
+                quantity: this.state.quantity,
+              })}
+              className="btn waves-effect waves-light"
+              type="submit"
+              name="action">
               Add to Cart
               <i className="material-icons right">send</i>
             </button>

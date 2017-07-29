@@ -40,7 +40,7 @@ const LogIn = (props) => {
           </Link>
         </div>
       </form>
-      <a href="/auth/google">Log in with Google</a>
+      <a href="/auth/google"><img id="google-icon" src="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-128.png" alt="" />Log in with Google</a>
     </div>
   );
 };

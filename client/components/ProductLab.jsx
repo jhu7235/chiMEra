@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PetCard from './PetCard.jsx';
 import EnhancementCard from './EnhancementCard.jsx';
 import AddToCartCard from './AddToCart.jsx';
+import { createItem } from '../store/cart';
 
 class ProductLab extends React.Component {
   constructor(props) {
@@ -15,14 +16,11 @@ class ProductLab extends React.Component {
       showAddToCart: false,
     };
 
+    this.initialState = {};
+
     this.handlePetSelect = this.handlePetSelect.bind(this);
     this.handleEnhanceSelect = this.handleEnhanceSelect.bind(this);
-  }
-
-  componentWillReceiveProps(newProps) {
-    const selectedPet = newProps.animals.find(animal => animal.id === 1) || {};
-    const selectedEnhancement = newProps.enhancements.find(enhancement => enhancement.id === 1) || {};
-    this.setState({ selectedPet, selectedEnhancement });
+    this.handleAddItem = this.handleAddItem.bind(this);
   }
 
   handlePetSelect(e) {
@@ -33,6 +31,11 @@ class ProductLab extends React.Component {
   handleEnhanceSelect(e) {
     const selectedEnhancement = this.props.enhancements.find(enhancement => enhancement.id === +e.target.value)
     this.setState({ selectedEnhancement, showAddToCart: true });
+  }
+
+  handleAddItem({ quantity, price, animalId, enhancementId }) {
+    this.props.addItem({ quantity, price, animalId, enhancementId })
+      .then(() => this.setState({ selectedEnhancement: {}, selectedPet: {}, showAddToCart: false, showEnhancements: false }));
   }
 
   render() {
@@ -60,6 +63,8 @@ class ProductLab extends React.Component {
               <AddToCartCard
                 selectedPet={this.state.selectedPet}
                 selectedEnhancement={this.state.selectedEnhancement}
+                addItem={this.handleAddItem}
+                history={this.props.history}
               />
             </div> :
             null
@@ -80,6 +85,12 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = null;
+const mapDispatch = (dispatch) => {
+  return {
+    addItem: ({ quantity, price, animalId, enhancementId }) => {
+      return dispatch(createItem({ quantity, price, animalId, enhancementId }));
+    },
+  };
+};
 
 export default connect(mapState, mapDispatch)(ProductLab);
