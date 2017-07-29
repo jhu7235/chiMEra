@@ -30,7 +30,7 @@ export const me = () =>
       .catch(err => console.log(err));
 
 export const signup = (email, password, repassword, firstName, lastName) =>
-  dispatch => {
+  (dispatch) => {
     if (password !== repassword) {
       const error = {
         passwordMismatch: true,
@@ -38,15 +38,12 @@ export const signup = (email, password, repassword, firstName, lastName) =>
       };
       return dispatch(getUser({ error }));
     }
-
-
-      return axios.post('/auth/signup/', { email, password, firstName, lastName })
+    return axios.post('/auth/signup/', { email, password, firstName, lastName })
       .then((res) => {
         dispatch(getUser(res.data));
-        history.push('/home');
+        history.goBack();
       })
       .catch(error =>
-
         dispatch(getUser({ error })));
   };
 
@@ -67,7 +64,7 @@ export const logout = () =>
     axios.post('/auth/logout')
       .then((res) => {
         dispatch(removeUser());
-        history.push('/login');
+        history.push('/');
       })
       .catch(err => console.log(err));
 
