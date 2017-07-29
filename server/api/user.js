@@ -4,7 +4,6 @@ const { User } = require('../db/models');
 // api/users/:id
 router.put('/', (req, res, next) => {
   const { firstName, lastName, email } = req.body;
-  console.log('API USER', firstName, lastName, email);
   const user = req.user;
   user.update({ firstName, lastName, email })
     .then((user) => {
