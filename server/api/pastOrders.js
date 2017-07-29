@@ -6,7 +6,7 @@ router.get('/', (req, res, next) => {
   PastOrder.findAll({ where: { userId } })
     .then((pastOrders) => {
       if (!pastOrders) next(new Error('Orders not found'));
-      res.json(pastOrders)
+      res.json(pastOrders);
     })
     .catch(next);
 });
@@ -31,19 +31,21 @@ router.post('/', (req, res, next) => {
       }
     })
     .then(([pastOrder, cart]) => {
-      cart.cartItems
+      const pastOrderItemPromises = cart.cartItems.map((cartItem) => {
+        const { quantity, price, animalId, enhancementId } = cartItem;
+        return PastOrderItem.create({ quantity, price, animalId, enhancementId });
+      });
+      return Promise.all([cart, pastOrder, ...pastOrderItemPromises]);
     })
-    .then((cart) => {
-      return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
+    .then(([cart, pastOrder, ...pastOrderItems]) => {
+      const pastOrderWithItemsPromise = pastOrder.addPastOrderItems(pastOrderItems);
+      return Promise.all([cart, pastOrderWithItemsPromise]);
     })
-    .then(cartItem => res.status(201).json(cartItem))
+    .then(([cart, completedPastOrder]) => {
+      cart.destroy();
+      res.status(201).json(completedPastOrder)
+    })
     .catch(next);
 });
 
 module.exports = router;
-
-   // create a past order, set user
-      // create pastOrderItems
-      // add items to past order
-      // delete cart
-      // send pastOrder
