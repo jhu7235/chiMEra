@@ -14,7 +14,8 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   Enhancement.findById(req.params.id)
     .then((enhancement) => {
-      if (!enhancement) next(new Error('Enhancement not found')); else res.json(enhancement);
+      if (!enhancement) next(new Error('Enhancement not found')); 
+      else res.json(enhancement);
     })
     .catch(next);
 });
