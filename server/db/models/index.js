@@ -26,7 +26,7 @@ CartItem.belongsTo(Animal);
 CartItem.belongsTo(Enhancement);
 CartItem.belongsTo(Cart);
 Cart.hasMany(CartItem, { onDelete: 'cascade', hooks: true });
-User.belongsTo(Cart, { onDelete: 'cascade', hooks: true });
+User.belongsTo(Cart);
 
 
 

@@ -42,8 +42,8 @@ export const fetchPastOrders = () => (dispatch) => {
     .catch(err => console.error('fetching cart unsucessful', err));
 };
 
-export const purchase = () => (dispatch) => {
-  return axios.post('/api/past-order')
+export const purchase = (shippingAddress, billingAddress, billingCardInfo) => (dispatch) => {
+  return axios.post('/api/past-orders', { shippingAddress, billingAddress, billingCardInfo })
     .then(res => res.data)
     .then((createdPastOrder) => {
       console.log('Past Order: ', createdPastOrder);

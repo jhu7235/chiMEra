@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { PastOrder, PastOrderItem, User, Cart } = require('../db/models');
+const { PastOrder, PastOrderItem, User, Cart, Address } = require('../db/models');
 
 router.get('/', (req, res, next) => {
   const userId = req.user.id;
@@ -13,24 +13,27 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const userId = req.user.id;
+  const { shippingAddress, billingAddress, billingCardInfo } = req.body;
   User.findById(userId)
     .then((user) => {
       if (!user) {
         next(new Error('User not found'));
       } else {
-        const cartPromise = user.getCart();
-        return Promise.all([cartPromise, user]);
+        return user.getCart();
       }
     })
-    .then(([cart, user]) => {
+    .then((cart) => {
+      console.log('Cart? ', cart)
       if (!cart) {
         next(new Error('Cart not found'));
       } else {
-        const pastOrderPromise = PastOrder.create({ userId: user.id });
-        return Promise.all([pastOrderPromise, cart]);
+        const pastOrderPromise = PastOrder.create({ userId: req.user.id });
+        const shippingAddressPromise = Address.create(shippingAddress);
+        const billingAddressPromise = Address.create(billingAddress);
+        return Promise.all([pastOrderPromise, cart, shippingAddress, billingAddress]);
       }
     })
-    .then(([pastOrder, cart]) => {
+    .then(([pastOrder, cart, shippingAddress, billingAddress]) => {
       const pastOrderItemPromises = cart.cartItems.map((cartItem) => {
         const { quantity, price, animalId, enhancementId } = cartItem;
         return PastOrderItem.create({ quantity, price, animalId, enhancementId });
@@ -43,7 +46,7 @@ router.post('/', (req, res, next) => {
     })
     .then(([cart, completedPastOrder]) => {
       cart.destroy();
-      res.status(201).json(completedPastOrder)
+      res.status(201).json(completedPastOrder);
     })
     .catch(next);
 });
