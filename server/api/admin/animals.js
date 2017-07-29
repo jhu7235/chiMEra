@@ -30,7 +30,8 @@ router.post('/', (req, res, next) => {
     name, description, imageUrl, tags, price,
   })
     .then((animal) => {
-      if (!animal) next(new Error('failure to create animal')); else res.json(animal);
+      if (!animal) next(new Error('failure to create animal')); 
+      else res.json(animal);
     })
     .catch(next);
 });
