@@ -71,7 +71,6 @@ export const updateProfile = (firstName, lastName, email) =>
   dispatch =>
     axios.put('/api/user/', { firstName, lastName, email })
       .then((res) => {
-        console.log('UPDATE PROFILE', res.data)
         dispatch(updateUser(res.data));
       })
       .catch(console.log);
