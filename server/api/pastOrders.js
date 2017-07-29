@@ -23,21 +23,22 @@ router.post('/', (req, res, next) => {
       }
     })
     .then((cart) => {
-      console.log('Cart? ', cart)
       if (!cart) {
         next(new Error('Cart not found'));
       } else {
-        const pastOrderPromise = PastOrder.create({ userId: req.user.id });
-        const shippingAddressPromise = Address.create(shippingAddress);
-        const billingAddressPromise = Address.create(billingAddress);
-        return Promise.all([pastOrderPromise, cart, shippingAddress, billingAddress]);
+        const pastOrderPromise = PastOrder.create({ billingCardInfo, userId: req.user.id });
+        const shippingAddressPromise = Address.create(Object.assign(shippingAddress, { userId: req.user.id }));
+        const billingAddressPromise = Address.create(Object.assign(billingAddress, { userId: req.user.id }));
+        return Promise.all([pastOrderPromise, cart, shippingAddressPromise, billingAddressPromise]);
       }
     })
-    .then(([pastOrder, cart, shippingAddress, billingAddress]) => {
+    .then(([pastOrder, cart, dbShippingAddress, dbBillingAddress]) => {
       const pastOrderItemPromises = cart.cartItems.map((cartItem) => {
         const { quantity, price, animalId, enhancementId } = cartItem;
         return PastOrderItem.create({ quantity, price, animalId, enhancementId });
       });
+      pastOrder.setBillingAddress(dbBillingAddress);
+      pastOrder.setShippingAddress(dbShippingAddress);
       return Promise.all([cart, pastOrder, ...pastOrderItemPromises]);
     })
     .then(([cart, pastOrder, ...pastOrderItems]) => {

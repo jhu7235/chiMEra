@@ -3,21 +3,21 @@ import { Row, Input, Button } from 'react-materialize';
 import { connect } from 'react-redux';
 import { purchase } from '../store/pastOrders';
 
-function createShippingAddress (e) {
+function createShippingAddress(e) {
   return {
     streetAddress: e.target.shippingAddress.value,
     city: e.target.shippingCity.value,
     state: e.target.shippingState.value,
-    zipcode: e.target.shippingZip.value,
+    zipCode: e.target.shippingZip.value,
   }
 }
 
-function createBillingAddress (e) {
+function createBillingAddress(e) {
   return {
     streetAddress: e.target.billingAddress.value,
     city: e.target.billingCity.value,
     state: e.target.billingState.value,
-    zipcode: e.target.billingZip.value,
+    zipCode: e.target.billingZip.value,
   }
 }
 
