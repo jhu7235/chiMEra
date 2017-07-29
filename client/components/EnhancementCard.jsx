@@ -8,7 +8,8 @@ export default function EnhancementCard({ enhancements, handleEnhanceSelect, sel
       <CollectionItem><h5>Step 2: Pick an Enhancement</h5></CollectionItem>
       <CollectionItem>
         <Row>
-          <Input s={12} type='select' label="Choose an enhancement" onChange={handleEnhanceSelect}>
+          <Input s={12} type='select' onChange={handleEnhanceSelect} defaultValue="0">
+            <option disabled value="0" >Choose an enhancement...</option>
             {
               enhancements.map((enhancement) => {
                 return <option key={enhancement.id} value={enhancement.id}>{enhancement.name}</option>
@@ -17,9 +18,13 @@ export default function EnhancementCard({ enhancements, handleEnhanceSelect, sel
           </Input>
         </Row>
       </CollectionItem>
-      <CollectionItem>
-        <ProductCard product={selectedEnhancement} />
-      </CollectionItem>
+      {
+        selectedEnhancement.id ?
+          <CollectionItem>
+            <ProductCard product={selectedEnhancement} />
+          </CollectionItem> :
+          <CollectionItem className="placeholder-card"></CollectionItem>
+      }
     </Collection>
   );
 }

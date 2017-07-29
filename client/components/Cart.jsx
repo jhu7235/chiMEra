@@ -33,7 +33,7 @@ function Cart(props) {
                     <td>{+itemEnhancement.price + +itemAnimal.price}</td>
                     <td>{item.quantity}</td>
                     <td>{item.price}</td>
-                    <td><Button floating small className="red" waves="light" icon="delete" /></td>
+                    <td><Button floating className="red" waves="light" icon="delete" /></td>
                   </tr>
                 );
               })

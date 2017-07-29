@@ -23,11 +23,11 @@ class ProductLab extends React.Component {
     this.handleAddItem = this.handleAddItem.bind(this);
   }
 
-  componentWillReceiveProps(newProps) {
-    const selectedPet = newProps.animals.find(animal => animal.id === 1) || {};
-    const selectedEnhancement = newProps.enhancements.find(enhancement => enhancement.id === 1) || {};
-    this.setState({ selectedPet, selectedEnhancement }, () => { this.initialState = this.state; });
-  }
+  // componentWillReceiveProps(newProps) {
+  //   const selectedPet = newProps.animals.find(animal => animal.id === 1) || {};
+  //   const selectedEnhancement = newProps.enhancements.find(enhancement => enhancement.id === 1) || {};
+  //   this.setState({ selectedPet, selectedEnhancement }, () => { this.initialState = this.state; });
+  // }
 
   handlePetSelect(e) {
     const selectedPet = this.props.animals.find(animal => animal.id === +e.target.value)
@@ -41,7 +41,7 @@ class ProductLab extends React.Component {
 
   handleAddItem({ quantity, price, animalId, enhancementId }) {
     this.props.addItem({ quantity, price, animalId, enhancementId })
-      .then(() => this.setState(this.initialState));
+      .then(() => this.setState({ selectedEnhancement: {}, selectedPet: {}, showAddToCart: false, showEnhancements: false }));
   }
 
   render() {
