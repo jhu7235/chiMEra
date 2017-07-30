@@ -29,51 +29,49 @@ class OrderHistory extends React.Component {
                 <div className="row center" key={pastOrder.id}>
                   <div className="col s12 m12 l11">
                     <div className="card">
-                      <span className="card-title">Order: {pastOrder.id}</span>
+                      <span className="card-title">Order# {pastOrder.id}</span>
                       <div className="card-content">
-                        <div className="order-row">
-                          <div className="row">
-                            <table className="highlight">
-                              <thead>
-                                <tr>
-                                  <th>Enhancement</th>
-                                  <th>Pet</th>
-                                  <th>Price</th>
-                                  <th>Quantity</th>
-                                  <th>Item Total</th>
-                                </tr>
-                              </thead>
+                        <div className="order-row row">
+                          <table className="highlight">
+                            <thead>
+                              <tr>
+                                <th>Enhancement</th>
+                                <th>Pet</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Item Total</th>
+                              </tr>
+                            </thead>
 
-                              <tbody>
-                                {pastOrder.pastOrderitems.map((item) => {
-                                  const itemEnhancement = this.props.enhancements.find(enhancement =>
-                                    enhancement.id === item.enhancementId);
-                                  const itemAnimal = this.props.animals.find(animal => animal.id === item.animalId);
-                                  return (
-                                    <tr key={item.id}>
-                                      <td>{itemEnhancement.name}</td>
-                                      <td>{itemAnimal.name}</td>
-                                      <td>{+itemEnhancement.price + +itemAnimal.price}</td>
-                                      <td>{item.quantity}</td>
-                                      <td>{item.price}</td>
-                                    </tr>
-                                  );
-                                })}
-                                <tr>
-                                  <td />
-                                  <td />
-                                  <td />
-                                  <td>Total: </td>
-                                  <td>${pastOrder.pastOrderitems.reduce((sum, item) => sum + +item.price, 0)}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                            <tbody>
+                              {pastOrder.pastOrderitems.map((item) => {
+                                const itemEnhancement = this.props.enhancements.find(enhancement =>
+                                  enhancement.id === item.enhancementId);
+                                const itemAnimal = this.props.animals.find(animal => animal.id === item.animalId);
+                                return (
+                                  <tr key={item.id}>
+                                    <td>{itemEnhancement.name}</td>
+                                    <td>{itemAnimal.name}</td>
+                                    <td>{+itemEnhancement.price + +itemAnimal.price}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>{item.price}</td>
+                                  </tr>
+                                );
+                              })}
+                              <tr>
+                                <td />
+                                <td />
+                                <td />
+                                <td>Total: </td>
+                                <td>${pastOrder.pastOrderitems.reduce((sum, item) => sum + +item.price, 0)}</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <div className="card-action">
+{/*                      <div className="card-action">
                         <a href="#">View Details</a>
-                      </div>
+                      </div>*/}
                     </div>
                   </div>
                 </div>
@@ -88,42 +86,6 @@ class OrderHistory extends React.Component {
   }
 }
 
-/*        <div id="pastOrders">
-          {pastOrders.map(pastOrder => {
-            // console.log('RENDER', pastOrder);
-            return (<div className="row center" key={pastOrder.id}>
-              <div className="col s12 m12 l11">
-                <div className="card">
-                  <span className="card-title">Order: {pastOrder.id}</span>
-                  <div className="card-image">
-                    {pastOrder.pastOrderitems.map((pastOrderItem) => {
-                      const animalImageUrl = this.props.animals.find(animal => animal.id === pastOrderItem.animalId).imageUrl;
-                      const enhancementImageUrl = this.props.enhancements.find(enhancement => enhancement.id === pastOrderItem.enhancementId).imageUrl;
-                      return (
-                        <div key={pastOrderItem.id} className="row">
-                          <div
-                            className="col s12 m2 l1 center-cropped"
-                            style={{ backgroundImage: animalImageUrl }}
-                          >
-                            <img alt="" src={animalImageUrl} />
-                          </div>
-                          <div className="col s12 m2 l1"><img alt="" src={enhancementImageUrl} /></div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="card-content">
-                    <p>I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.</p>
-                  </div>
-                  <div className="card-action">
-                    <a href="#">This is a link</a>
-                  </div>
-                </div>
-              </div>
-            </div>)}
-          )}
-        </div>*/
 
 const mapState = (state) => {
   return {
