@@ -21,7 +21,7 @@ const getEnhancements = enhancements => ({ type: GET_ENHANCEMENTS, enhancements 
  */
 export const fetchEnhancements = () =>
   (dispatch) => {
-    axios.get('/api/enhancements')
+    return axios.get('/api/enhancements')
       .then(res => res.data)
       .then((enhancements) => {
         dispatch(getEnhancements(enhancements));

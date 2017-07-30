@@ -74,7 +74,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchEnhancements());
       dispatch(fetchCart());
       dispatch(me());
-    }
+    },
   };
 };
 
