@@ -27,7 +27,6 @@ function ProfileUpdate({ firstName, lastName, email, onUpdateSubmit }) {
         </Row>
         <Row>
           <Button
-            s={4}
             waves="light"
             className="submit"
             type="submit"
