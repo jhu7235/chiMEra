@@ -6,6 +6,7 @@ import axios from 'axios';
 const GET_CART = 'GET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+const REMOVE_CART = 'REMOVE_CART';
 
 /**
  * ACTION CREATORS
@@ -13,6 +14,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const getCart = items => ({ type: GET_CART, items });
 const addToCart = item => ({ type: ADD_TO_CART, item });
 const removeFromCart = id => ({ type: REMOVE_FROM_CART, id });
+export const removeCart = () => ({ type: REMOVE_CART });
 
 /**
  * REDUCER
@@ -29,6 +31,9 @@ export default function reducer(cart = [], action) {
     case REMOVE_FROM_CART:
       return cart.filter(item => item.id !== action.id);
 
+    case REMOVE_CART:
+      return [];
+
     default:
       return cart;
   }
@@ -42,7 +47,8 @@ export const fetchCart = () => (dispatch) => {
   axios.get('/api/cart')
     .then(res => res.data)
     .then((cart) => {
-      dispatch(getCart(cart.cartItems));
+      if (cart.cartItems) dispatch(getCart(cart.cartItems));
+      else dispatch(getCart([]));
     })
     .catch(err => console.error('fetching cart unsucessful', err));
 };

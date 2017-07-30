@@ -12,16 +12,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const userId = req.user.id;
   const { shippingAddress, billingAddress, billingCardInfo } = req.body;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        next(new Error('User not found'));
-      } else {
-        return user.getCart();
-      }
-    })
+  req.user.getCart()
     .then((cart) => {
       if (!cart) {
         next(new Error('Cart not found'));
