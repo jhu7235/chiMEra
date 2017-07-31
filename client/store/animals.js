@@ -62,7 +62,6 @@ export const createAnimal = createObj => (dispatch) => {
   axios.post('/api/admin/animals', createObj)
     .then((res) => {
       dispatch(create(res.data));
-      dispatch(fetchAnimals());
     })
     .catch(err => console.error('unable to create animal', err))
 }
