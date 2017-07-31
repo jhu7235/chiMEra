@@ -6,10 +6,14 @@ const session = require('express-session');
 const passport = require('passport');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./db');
+const Cart = require('./db/models/cart');
+
 const sessionStore = new SequelizeStore({ db });
+const Session = db.models.Session;
 const PORT = process.env.PORT || 8080;
 const app = express();
 module.exports = app;
+
 
 /**
  * In your development environment, you can keep all of your
@@ -21,6 +25,7 @@ module.exports = app;
  */
 if (process.env.NODE_ENV === 'development') require('../secrets');
 
+Session.belongsTo(Cart, { onDelete: 'cascade', hooks: true });
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));

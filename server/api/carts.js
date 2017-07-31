@@ -1,70 +1,57 @@
 const router = require('express').Router();
-const { Cart, CartItem, User } = require('../db/models');
+const { Cart, CartItem } = require('../db/models');
 
 router.get('/', (req, res, next) => {
-  const userId = req.user.id;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) next(new Error('User not found'));
-      else {
-        const cartPromise = user.getCart();
-        return Promise.all([cartPromise, user])
-      }
-    })
-    .then(([cart, user]) => {
-      if (!cart) {
+  const user = req.user;
+  if (user) {
+    const userId = req.user.id;
+    Cart.findOrCreate({ where: userId })
+      .then(cart => res.json(cart))
+      .catch(next);
+  }
+  else {
+    const Session = req.sessionStore.sessionModel;
+    Session.find({ where: { sid: req.sessionID } })
+      .then(session => {
+        if (session.cartId) {
+          return Cart.findById(session.cartId)
+            .then(cart => res.json(cart))
+            .catch(next);
+        }
         return Cart.create()
-          .then(newCart => user.setCart(newCart))
+          .then(cart => session.setCart(cart))
+          .then(cart => res.json(cart))
           .catch(next);
-      }
-      return cart;
-    })
-    .then(cart => {
-      return res.json(cart);
-    })
-    .catch(next);
+      })
+      .catch(next);
+  }
 });
 
 router.delete('/', (req, res, next) => {
-  const userId = req.user.id;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) next(new Error('User not found'));
-      else return user.getCart();
-    })
-    .then((cart) => {
-      if (!cart) next(new Error('Cart not found'));
-      else return cart.destroy();
-    })
+  const user = req.user;
+  Cart.destroy({ where: { userId: user.id } })
     .then(() => res.sendStatus(200))
     .catch(next);
 });
 
 router.post('/item', (req, res, next) => {
-  const userId = req.user.id;
   const { animalId, enhancementId, quantity, price } = req.body;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        next(new Error('User not found'));
-      } else {
-        const cartPromise = user.getCart();
-        return Promise.all([cartPromise, user]);
-      }
+  const user = req.user;
+  const identifierPromise = new Promise((resolve) => {
+    if (user) resolve({ userId: user.id });
+    else {
+      const Session = req.sessionStore.sessionModel;
+      Session.findOne({ where: { sid: req.sessionID } })
+        .then(session => resolve({ id: session.cartId }))
+        .catch(next);
+    }
+  })
+    .then((identifier) => {
+      Cart.find({ where: identifier })
+        .then(cart => CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id }))
+        .then(cartItem => res.status(201).json(cartItem))
+        .catch(next);
     })
-    .then(([cart, user]) => {
-      if (!cart) {
-        return Cart.create()
-          .then(newCart => user.setCart(newCart))
-          .then(user => user.getCart())
-          .catch(next);
-      }
-      return cart;
-    })
-    .then((cart) => {
-      return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
-    })
-    .then(cartItem => res.status(201).json(cartItem))
     .catch(next);
 });
 
