@@ -22,6 +22,7 @@ import PreviousCarts from './components/PreviousCarts.jsx';
 import Admin from './components/Admin/Admin.jsx';
 import OrderHistory from './components/OrderHistory.jsx';
 import Loading from './components/Loading.jsx';
+import Reviews from './components/Reviews.jsx'
 
 /**
  * COMPONENT
@@ -45,6 +46,7 @@ class Routes extends Component {
             <Route path="/signup" component={SignUp} />
             <Route path="/cart" component={Cart} />
             <Route path="/purchase" component={PurchaseForm} />
+            <Route path="/reviews" component={Reviews} />
             <Route exact path="/" component={ProductLab} />
             {
               isLoggedIn ?
