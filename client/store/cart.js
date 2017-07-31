@@ -33,7 +33,7 @@ export default function reducer(cart = [], action) {
 }
 
 export const fetchCart = () => (dispatch) => {
-  axios.get('/api/cart')
+  return axios.get('/api/cart')
     .then(res => res.data)
     .then((cart) => {
       dispatch(getCart(cart.cartItems));
