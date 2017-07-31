@@ -26,11 +26,19 @@ class ProductLab extends React.Component {
       selectedPet: {},
       selectedEnhancement: {},
       petTags: [],
+      enhancementTags: [],
       showEnhancements: false,
       showAddToCart: false,
     };
 
-    this.initialState = {};
+    this.initialState = {
+      selectedPet: {},
+      selectedEnhancement: {},
+      petTags: [],
+      enhancementTags: [],
+      showEnhancements: false,
+      showAddToCart: false,
+    };
 
     this.handlePetSelect = this.handlePetSelect.bind(this);
     this.handleEnhanceSelect = this.handleEnhanceSelect.bind(this);
@@ -53,9 +61,11 @@ class ProductLab extends React.Component {
     if (tagType === 'petTags') {
       allKey = 'animalTags';
       selectedKey = 'petTags';
+    } else if (tagType === 'enhancementTags') {
+      allKey = 'allEnhancementTags';
+      selectedKey = 'enhancementTags';
     } else {
-      allKey = 'enhancementTags';
-      selectedKey = 'petTags';
+      throw new Error('Unexpected tag type');
     }
 
     const newPetTag = this.props[allKey].find(tag => tag.id === +e.target.value);
@@ -76,7 +86,7 @@ class ProductLab extends React.Component {
 
   handleAddItem({ quantity, price, animalId, enhancementId }) {
     this.props.addItem({ quantity, price, animalId, enhancementId })
-      .then(() => this.setState({ selectedEnhancement: {}, selectedPet: {}, showAddToCart: false, showEnhancements: false }));
+      .then(() => this.setState(this.initialState));
   }
 
   render() {
@@ -91,8 +101,8 @@ class ProductLab extends React.Component {
               handlePetSelect={this.handlePetSelect}
               selectedPet={this.state.selectedPet}
               animalTags={this.props.animalTags}
-              handlePetFilter={this.addFilter}
               petTags={this.state.petTags}
+              handlePetFilter={this.addFilter}
               removeFilter={this.removeFilter}
             />
           </div>
@@ -102,6 +112,10 @@ class ProductLab extends React.Component {
                 enhancements={filteredEnhancements}
                 handleEnhanceSelect={this.handleEnhanceSelect}
                 selectedEnhancement={this.state.selectedEnhancement}
+                allEnhancementTags={this.props.allEnhancementTags}
+                selectedEnhancementTags={this.state.enhancementTags}
+                handleEnhancementFilter={this.addFilter}
+                removeFilter={this.removeFilter}
               />
             </div> :
             null
@@ -131,7 +145,7 @@ const mapState = (state) => {
     animals: state.animals,
     enhancements: state.enhancements,
     animalTags: state.animalTags,
-    enhancementTags: state.enhancementTags,
+    allEnhancementTags: state.enhancementTags,
   };
 };
 

@@ -9,6 +9,7 @@ import { fetchAnimals } from './store/animals';
 import { fetchEnhancements } from './store/enhancements';
 import { fetchCart } from './store/cart';
 import { fetchAnimalTags } from './store/animalTags';
+import { fetchEnhancementTags } from './store/enhancementTags';
 import history from './history';
 import { Main } from './components';
 import { me } from './store';
@@ -78,6 +79,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchEnhancements());
       dispatch(fetchCart());
       dispatch(fetchAnimalTags());
+      dispatch(fetchEnhancementTags());
       dispatch(me());
     },
   };

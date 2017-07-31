@@ -40,7 +40,7 @@ export default function reducer(enhancementTags = [], action) {
  */
 
 export const fetchEnhancementTags = () => (dispatch) => {
-  return axios.get('/api/animal-tags')
+  return axios.get('/api/enhancement-tags')
     .then(res => res.data)
     .then((tags) => {
       dispatch(getEnhancementTags(tags));
