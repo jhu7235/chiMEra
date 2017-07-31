@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Icon } from 'react-materialize';
 import { connect } from 'react-redux';
 import { removeItem } from '../store/cart';
@@ -53,7 +54,7 @@ function Cart(props) {
           props.cart.reduce((sum, item) => sum + +item.price, 0)
         }</h3></div>
         <div className="col s6">
-          <Button waves="light">Purchase<Icon right>hot_tub</Icon></Button>
+          <Link to="/purchase"><Button waves="light">Purchase<Icon right>hot_tub</Icon></Button></Link>
         </div>
       </div>
     </div>
@@ -69,5 +70,6 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   onDelete: id => dispatch(removeItem(id)),
 });
+
 
 export default connect(mapState, mapDispatch)(Cart);

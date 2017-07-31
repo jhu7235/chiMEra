@@ -15,13 +15,16 @@ router.get('/', (req, res, next) => {
       if (!cart) {
         return Cart.create()
           .then(newCart => user.setCart(newCart))
-          .then(user => user.getCart())
           .catch(next);
       }
       return cart;
     })
-    .then(cart => res.json(cart))
-    .catch(next);
+    .then(cart => {
+      res.json(cart)
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 router.delete('/', (req, res, next) => {
@@ -52,7 +55,12 @@ router.post('/item', (req, res, next) => {
       }
     })
     .then(([cart, user]) => {
-      if (!cart) return user.addCart();
+      if (!cart) {
+        return Cart.create()
+          .then(newCart => user.setCart(newCart))
+          .then(user => user.getCart())
+          .catch(next);
+      }
       return cart;
     })
     .then((cart) => {

@@ -21,6 +21,20 @@ const removeUser = () => ({ type: REMOVE_USER });
 const updateUser = user => ({ type: UPDATE_USER, user });
 
 /**
+ * REDUCER
+ */
+export default function (state = defaultUser, action) {
+  switch (action.type) {
+    case GET_USER:
+      return action.user;
+    case REMOVE_USER:
+      return defaultUser;
+    default:
+      return state;
+  }
+}
+
+/**
  * THUNK CREATORS
  */
 export const me = () =>
@@ -74,19 +88,3 @@ export const updateProfile = (firstName, lastName, email) =>
         dispatch(updateUser(res.data));
       })
       .catch(console.log);
-
-/**
- * REDUCER
- */
-export default function (state = defaultUser, action) {
-  switch (action.type) {
-    case GET_USER:
-      return action.user;
-    case REMOVE_USER:
-      return defaultUser;
-    case UPDATE_USER:
-      return action.user;
-    default:
-      return state;
-  }
-}
