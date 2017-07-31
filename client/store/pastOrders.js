@@ -34,7 +34,7 @@ export default function reducer(pastOrders = [], action) {
  */
 
 export const fetchPastOrders = () => (dispatch) => {
-  axios.get('/api/past-orders')
+  return axios.get('/api/past-orders')
     .then(res => res.data)
     .then((pastOrders) => {
       console.log('FETCH PAST ORDERS', pastOrders);
@@ -47,7 +47,6 @@ export const purchase = (shippingAddress, billingAddress, billingCardInfo) => (d
   return axios.post('/api/past-orders', { shippingAddress, billingAddress, billingCardInfo })
     .then(res => res.data)
     .then((createdPastOrder) => {
-      console.log('Past Order: ', createdPastOrder);
       dispatch(addPastOrder(createdPastOrder));
     })
     .catch(err => console.error('create item unsucessful', err));
