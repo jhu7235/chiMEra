@@ -7,12 +7,11 @@ import { updateEnhancement } from '../../store/enhancements';
 function EditForm({ product, onUpdateSubmit, type }) {
   return (
     <div className="container">
-      <h5>Your Profile</h5>
+      <h5>Profile</h5>
       <form onSubmit={(event) => { onUpdateSubmit(event, product, type); }}>
         <Row>
           <Input s={6} name="name" label="Name" defaultValue={product.name} />
           <Input s={6} name="description" label="Description" defaultValue={product.description} />
-          <Input s={6} name="tags" label="Tags" defaultValue={product.tags} />
           <Input s={6} name="price" label="price" defaultValue={product.price} />
           <Input s={6} name="imageUrl" label="imageUrl" defaultValue={product.imageUrl} />
           <div className="card-image">
@@ -39,11 +38,10 @@ const mapDispatch = (dispatch) => {
       const name = event.target.name.value;
       const description =
         event.target.description.value;
-      const tags = event.target.tags.value;
       const price = event.target.price.value;
       const imageUrl = event.target.imageUrl.value;
       const id = product.id
-      const updateObj = { name, description, tags, price, imageUrl, id };
+      const updateObj = { name, description, price, imageUrl, id };
 
       if (type === 'animal') {
         dispatch(updateAnimal(updateObj));
