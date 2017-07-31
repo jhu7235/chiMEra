@@ -51,4 +51,4 @@ export const updateAnimal = (updateObj) => (dispatch) => {
       dispatch(update(res.data));
     })
     .catch(err => console.error('updating animal unsucessful', err));
-}
+};

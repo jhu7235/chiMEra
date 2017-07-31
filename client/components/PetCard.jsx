@@ -1,11 +1,28 @@
 import React from 'react';
-import { Collection, CollectionItem, Row, Input } from 'react-materialize';
+import { Collection, CollectionItem, Row, Input, Button, Icon } from 'react-materialize';
 import ProductCard from './ProductCard.jsx';
 
-export default function PetCard({ animals, handlePetSelect, selectedPet }) {
+export default function PetCard({ animals, handlePetSelect, selectedPet, animalTags, handlePetFilter, petTags, removeFilter }) {
   return (
     <Collection>
       <CollectionItem><h5>Step 1: Pick a Pet</h5></CollectionItem>
+      <CollectionItem>
+        <Row>
+          <Input s={12} type='select' onChange={e => handlePetFilter(e, 'petTags')} defaultValue="0">
+            <option disabled value="0" >Filter based on category...</option>
+            {
+              animalTags.map((tag) => {
+                return <option key={tag.id} value={tag.id}>{tag.tagName}</option>
+              })
+            }
+          </Input>
+        </Row>
+        <Row>
+          {
+            petTags.map(tag => <Button onClick={() => removeFilter(tag.id, 'petTags')} key={tag.id} waves='teal'>{tag.tagName}<Icon right >close</Icon></Button>)
+          }
+        </Row>
+      </CollectionItem>
       <CollectionItem>
         <Row>
           <Input s={12} type='select' onChange={handlePetSelect} defaultValue="0">

@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Router } from 'react-router';
-import { fetchAnimals } from './store/animals';
 import SignUp from './components/SignUp.jsx';
+import { fetchAnimals } from './store/animals';
 import { fetchEnhancements } from './store/enhancements';
 import { fetchCart } from './store/cart';
+import { fetchAnimalTags } from './store/animalTags';
+import { fetchEnhancementTags } from './store/enhancementTags';
 import history from './history';
 import { Main } from './components/index.jsx';
 import { me } from './store';
@@ -78,6 +80,8 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchAnimals());
       dispatch(fetchEnhancements());
       dispatch(fetchCart());
+      dispatch(fetchAnimalTags());
+      dispatch(fetchEnhancementTags());
       dispatch(me());
     },
   };

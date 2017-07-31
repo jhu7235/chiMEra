@@ -5,6 +5,19 @@ import EnhancementCard from './EnhancementCard.jsx';
 import AddToCartCard from './AddToCart.jsx';
 import { createItem } from '../store/cart';
 
+// ******
+// Helper Functions
+
+function categoryFilter(productArr, selectedTagArr) {
+  return productArr.filter((product) => {
+    return selectedTagArr.every(selectedTag => {
+      return product.tags.findIndex(petTag => petTag.id === selectedTag.id) !== -1;
+    });
+  });
+}
+
+// ******
+
 class ProductLab extends React.Component {
   constructor(props) {
     super(props);
@@ -12,15 +25,53 @@ class ProductLab extends React.Component {
     this.state = {
       selectedPet: {},
       selectedEnhancement: {},
+      petTags: [],
+      enhancementTags: [],
       showEnhancements: false,
       showAddToCart: false,
     };
 
-    this.initialState = {};
+    this.initialState = {
+      selectedPet: {},
+      selectedEnhancement: {},
+      petTags: [],
+      enhancementTags: [],
+      showEnhancements: false,
+      showAddToCart: false,
+    };
 
     this.handlePetSelect = this.handlePetSelect.bind(this);
     this.handleEnhanceSelect = this.handleEnhanceSelect.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
+    this.addFilter = this.addFilter.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
+  }
+
+  removeFilter(tagId, tagType) {
+    const removalIdx = this.state[tagType].findIndex(tag => tag.id === tagId);
+    let updatedTags = this.state[tagType].slice(0, removalIdx).concat(this.state[tagType].slice(removalIdx + 1));
+    if (!updatedTags) updatedTags = [];
+    this.setState({ [tagType]: updatedTags });
+  }
+
+  addFilter(e, tagType) {
+    let allKey;
+    let selectedKey;
+
+    if (tagType === 'petTags') {
+      allKey = 'animalTags';
+      selectedKey = 'petTags';
+    } else if (tagType === 'enhancementTags') {
+      allKey = 'allEnhancementTags';
+      selectedKey = 'enhancementTags';
+    } else {
+      throw new Error('Unexpected tag type');
+    }
+
+    const newPetTag = this.props[allKey].find(tag => tag.id === +e.target.value);
+    if (this.state[selectedKey].findIndex(petTag => petTag.id === newPetTag.id) === -1) {
+      this.setState(prevState => ({ [selectedKey]: [...prevState[selectedKey], newPetTag] }));
+    }
   }
 
   handlePetSelect(e) {
@@ -35,25 +86,36 @@ class ProductLab extends React.Component {
 
   handleAddItem({ quantity, price, animalId, enhancementId }) {
     this.props.addItem({ quantity, price, animalId, enhancementId })
-      .then(() => this.setState({ selectedEnhancement: {}, selectedPet: {}, showAddToCart: false, showEnhancements: false }));
+      .then(() => this.setState(this.initialState));
   }
 
   render() {
+    const filteredAnimals = categoryFilter(this.props.animals, this.state.petTags);
+    const filteredEnhancements = categoryFilter(this.props.enhancements, this.state.enhancementTags);
     return (
       <div className="container">
         <div className="row">
           <div className="col s6">
-            <PetCard animals={this.props.animals}
+            <PetCard
+              animals={filteredAnimals}
               handlePetSelect={this.handlePetSelect}
               selectedPet={this.state.selectedPet}
+              animalTags={this.props.animalTags}
+              petTags={this.state.petTags}
+              handlePetFilter={this.addFilter}
+              removeFilter={this.removeFilter}
             />
           </div>
           { this.state.showEnhancements ?
             <div className="col s6" >
               <EnhancementCard
-                enhancements={this.props.enhancements}
+                enhancements={filteredEnhancements}
                 handleEnhanceSelect={this.handleEnhanceSelect}
                 selectedEnhancement={this.state.selectedEnhancement}
+                allEnhancementTags={this.props.allEnhancementTags}
+                selectedEnhancementTags={this.state.enhancementTags}
+                handleEnhancementFilter={this.addFilter}
+                removeFilter={this.removeFilter}
               />
             </div> :
             null
@@ -82,6 +144,8 @@ const mapState = (state) => {
   return {
     animals: state.animals,
     enhancements: state.enhancements,
+    animalTags: state.animalTags,
+    allEnhancementTags: state.enhancementTags,
   };
 };
 
@@ -94,3 +158,4 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(ProductLab);
+
