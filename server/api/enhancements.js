@@ -3,9 +3,9 @@ const { Enhancement } = require('../db/models');
 
 // get all enhancements
 router.get('/', (req, res, next) => {
-	Enhancement.findAll()
-	.then(enhancements => res.json(enhancements))
-	.catch( next );
+  return Enhancement.findAll()
+    .then(enhancements => res.json(enhancements))
+    .catch(next);
 });
 
 

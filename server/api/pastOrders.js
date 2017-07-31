@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { PastOrder } = require('../db/models');
+const { PastOrder, Address, PastOrderItem } = require('../db/models');
 
 router.get('/', (req, res, next) => {
   const userId = req.user.id;
