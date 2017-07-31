@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
+// use for validation eventually
+// const tags = ['domestic', 'exotic', 'feline', 'canine', 'small', 'aquatic', 'bird', 'dangerous'];
+
 const Animal = db.define('animal', {
   name: {
     type: Sequelize.STRING,

@@ -5,6 +5,12 @@ import EnhancementCard from './EnhancementCard.jsx';
 import AddToCartCard from './AddToCart.jsx';
 import { createItem } from '../store/cart';
 
+// Helper Functions
+
+function categoryFilter(arr, category) {
+  return arr.filter(element => element.tags.includes(category));
+}
+
 class ProductLab extends React.Component {
   constructor(props) {
     super(props);

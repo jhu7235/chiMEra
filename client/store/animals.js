@@ -33,5 +33,5 @@ export const fetchAnimals = () => (dispatch) => {
     .then((animals) => {
       dispatch(getAnimals(animals));
     })
-    .catch(err => console.error("fetching animals unsucessful", err));
+    .catch(err => console.error('fetching animals unsucessful', err));
 }
