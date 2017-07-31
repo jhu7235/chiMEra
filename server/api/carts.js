@@ -37,7 +37,7 @@ router.delete('/', (req, res, next) => {
 router.post('/item', (req, res, next) => {
   const { animalId, enhancementId, quantity, price } = req.body;
   const user = req.user;
-  const identifierPromise = new Promise((resolve) => {
+  new Promise((resolve) => {
     if (user) resolve({ userId: user.id });
     else {
       const Session = req.sessionStore.sessionModel;
