@@ -38,8 +38,8 @@ export default function reducer(pastOrders = [], action) {
 export const fetchPastOrders = () => (dispatch) => {
   return axios.get('/api/past-orders')
     .then(res => res.data)
-    .then((pastOrder) => {
-      dispatch(getPastOrders(pastOrder.pastOrderItems));
+    .then((pastOrders) => {
+      return dispatch(getPastOrders(pastOrders));
     })
     .catch(err => console.error('fetching cart unsucessful', err));
 };
