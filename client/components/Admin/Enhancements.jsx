@@ -21,7 +21,7 @@ function Enhancements(props) {
               return (<Modal
                 header='Edit Enhancement'
                 trigger={
-                  <Button waves='light'><option key={enhancement.id} value={enhancement.id}>{enhancement.name}</option></Button>
+                  <Button waves='light'>{enhancement.name}</Button>
                 }>
                 <EditForm product={enhancement} type={'enhancement'} />
               </Modal>);

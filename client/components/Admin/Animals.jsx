@@ -21,7 +21,7 @@ function Animals(props) {
               return (<Modal
                 header='Edit Animal'
                 trigger={
-                  <Button waves='light'><option key={animal.id} value={animal.id}>{animal.name}</option></Button>
+                  <Button waves='light'>{animal.name}</Button>
                 }>
                 <EditForm product={animal} type={'animal'}/>
               </Modal>);

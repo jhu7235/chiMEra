@@ -8,18 +8,7 @@ function EditForm({ product, onUpdateSubmit, type }) {
   return (
     <div className="container">
       <h5>Your Profile</h5>
-      <form onSubmit={(event) => {
-        event.preventDefault();
-        const name = event.target.name.value;
-        const description =
-        event.target.description.value;
-        const tags = event.target.tags.value;
-        const price = event.target.price.value;
-        const imageUrl = event.target.imageUrl.value;
-        const id = product.id;
-        onUpdateSubmit({ name, description, tags, price, imageUrl, id }, type);
-      }}
-      >
+      <form onSubmit={(event) => { onUpdateSubmit(event, product, type); }}>
         <Row>
           <Input s={6} name="name" label="Name" defaultValue={product.name} />
           <Input s={6} name="description" label="Description" defaultValue={product.description} />
@@ -42,9 +31,20 @@ function EditForm({ product, onUpdateSubmit, type }) {
   );
 }
 
+
 const mapDispatch = (dispatch) => {
   return {
-    onUpdateSubmit: (updateObj, type) => {
+    onUpdateSubmit(event, product, type) {
+      event.preventDefault();
+      const name = event.target.name.value;
+      const description =
+        event.target.description.value;
+      const tags = event.target.tags.value;
+      const price = event.target.price.value;
+      const imageUrl = event.target.imageUrl.value;
+      const id = product.id
+      const updateObj = { name, description, tags, price, imageUrl, id };
+
       if (type === 'animal') {
         dispatch(updateAnimal(updateObj));
       }
