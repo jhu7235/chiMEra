@@ -25,7 +25,7 @@ class Admin extends React.Component {
         <div className="row">
           <Tabs className="tab-demo z-depth-1">
             <Tab title="Animals"><Animals /></Tab>
-            <Tab title="Enhancements">Enhancements</Tab>
+            <Tab title="Enhancements"><Enhancements /></Tab>
             <Tab title="Users">Users</Tab>
             <Tab title="Carts">Carts</Tab>
             <Tab title="Past Orders">Past Orders</Tab>

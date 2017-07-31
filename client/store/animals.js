@@ -4,7 +4,7 @@ import axios from 'axios';
  * ACTION TYPES
  */
 const GET_ANIMALS = 'GET_ANIMALS';
-const UPDATE_ANIMAL = 'UPDATE_ANIMAL'
+const UPDATE_ANIMAL = 'UPDATE_ANIMAL';
 
 /**
  * ACTION CREATORS
@@ -49,8 +49,7 @@ export const updateAnimal = (updateObj) => (dispatch) => {
   const id = updateObj.id;
   axios.put(`/api/admin/animals/${id}`, updateObj)
     .then((res) => {
-      console.log('RES', res)
       dispatch(update(res.data));
     })
-    .catch(console.log);
+    .catch(err => console.error('updating animal unsucessful', err));
 }

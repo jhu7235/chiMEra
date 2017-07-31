@@ -17,7 +17,7 @@ function EditForm({ product, onUpdateSubmit, type }) {
         const price = event.target.price.value;
         const imageUrl = event.target.imageUrl.value;
         const id = product.id;
-        onUpdateSubmit({ name, description, tags, price, imageUrl, id });
+        onUpdateSubmit({ name, description, tags, price, imageUrl, id }, type);
       }}
       >
         <Row>
@@ -44,7 +44,14 @@ function EditForm({ product, onUpdateSubmit, type }) {
 
 const mapDispatch = (dispatch) => {
   return {
-    onUpdateSubmit: updateObj => dispatch(updateAnimal(updateObj)),
+    onUpdateSubmit: (updateObj, type) => {
+      if (type === 'animal') {
+        dispatch(updateAnimal(updateObj));
+      }
+      if (type === 'enhancement') {
+        dispatch(updateEnhancement(updateObj));
+      }
+    },
   };
 };
 

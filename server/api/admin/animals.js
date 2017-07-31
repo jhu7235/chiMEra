@@ -45,10 +45,8 @@ router.put('/:id', (req, res, next) => {
       delete animalObj[key];
     }
   });
-  console.log('Passed In Data', animalObj)
   Animal.findById(id)
     .then((animal) => {
-      console.log("Found Animal", animal)
       if (!animal) next(new Error('Animal not found'));
       else return animal.update(animalObj);
     })
