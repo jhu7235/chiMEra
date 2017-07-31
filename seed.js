@@ -85,48 +85,6 @@ db.sync({ force: true })
       password: 'jim',
       adminStatus: true,
     });
-
-    const enhancement1 = Enhancement.create({
-      name: 'Laser',
-      description: 'PEW PEW PEW!',
-      imageUrl: 'http://thumbs2.ebaystatic.com/d/l225/m/mBtRkSBvFpj15u36aqkhIog.jpg',
-      price: 2.00,
-    });
-
-    const enhancement2 = Enhancement.create({
-      name: 'Wings',
-      description: 'I want to fly away.',
-      imageUrl: 'http://theamazingbat.com/wp-content/uploads/2016/02/bat-wing-no-text.jpg',
-      price: 3.00,
-    });
-
-    const enhancement3 = Enhancement.create({
-      name: 'Bread',
-      description: 'Yum',
-      imageUrl: 'https://c1.staticflickr.com/3/2355/2104039823_b47da37172_b.jpg',
-      price: 1.00,
-    });
-
-    const enhancement4 = Enhancement.create({
-      name: 'Fire Breath',
-      description: 'Burninate your foes!',
-      imageUrl: 'https://vignette4.wikia.nocookie.net/deadliestfiction/images/7/72/Fire_breath.jpg/revision/latest?cb=20110517193340',
-      price: 9.00,
-    });
-
-    const enhancement5 = Enhancement.create({
-      name: 'Taco',
-      description: 'For Tuesdays!',
-      imageUrl: 'http://www.krbe.com/wp-content/uploads/sites/115/2017/02/bftlarge.png',
-      price: 5.00,
-    });
-
-    const enhancement6 = Enhancement.create({
-      name: 'Vacuum Cleaner',
-      description: 'Its a cat!',
-      imageUrl: 'http://ghk.h-cdn.co/assets/cm/15/12/5508ec76dc341-fullerbrush-tidymaid2-xln.jpg',
-      price: 3.00,
-    });
     const address1 = Address.create({
       streetAddress: '202 hellmuffin lane',
       city: 'Chicato',
@@ -152,7 +110,7 @@ db.sync({ force: true })
       zipCode: 58207,
     });
 
-    return Promise.all([cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6, address1]);
+    return Promise.all([cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat, user1, user2, user3, address1, address2, address3, address4]);
   })
   .then(([cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat]) => {
     return Promise.all([
@@ -185,6 +143,73 @@ db.sync({ force: true })
     hamster.addTags([small]);
     guineaPig.addTags([small]);
     goat.addTags([domestic]);
+  })
+  .then(() => {
+    const laser = Enhancement.create({
+      name: 'Laser',
+      description: 'PEW PEW PEW!',
+      imageUrl: 'http://thumbs2.ebaystatic.com/d/l225/m/mBtRkSBvFpj15u36aqkhIog.jpg',
+      price: 2.00,
+    });
+
+    const wings = Enhancement.create({
+      name: 'Wings',
+      description: 'I want to fly away.',
+      imageUrl: 'http://theamazingbat.com/wp-content/uploads/2016/02/bat-wing-no-text.jpg',
+      price: 3.00,
+    });
+
+    const bread = Enhancement.create({
+      name: 'Bread',
+      description: 'Yum',
+      imageUrl: 'https://c1.staticflickr.com/3/2355/2104039823_b47da37172_b.jpg',
+      price: 1.00,
+    });
+
+    const fire = Enhancement.create({
+      name: 'Fire Breath',
+      description: 'Burninate your foes!',
+      imageUrl: 'https://vignette4.wikia.nocookie.net/deadliestfiction/images/7/72/Fire_breath.jpg/revision/latest?cb=20110517193340',
+      price: 9.00,
+    });
+
+    const taco = Enhancement.create({
+      name: 'Taco',
+      description: 'For Tuesdays!',
+      imageUrl: 'http://www.krbe.com/wp-content/uploads/sites/115/2017/02/bftlarge.png',
+      price: 5.00,
+    });
+
+    const vacuum = Enhancement.create({
+      name: 'Vacuum Cleaner',
+      description: 'Its a cat!',
+      imageUrl: 'http://ghk.h-cdn.co/assets/cm/15/12/5508ec76dc341-fullerbrush-tidymaid2-xln.jpg',
+      price: 3.00,
+    });
+
+    return Promise.all([laser, wings, bread, fire, taco, vacuum]);
+  })
+  .then(([laser, wings, bread, fire, taco, vacuum]) => {
+    return Promise.all([
+      EnhancementTag.create({ tagName: 'Appendages' }),
+      EnhancementTag.create({ tagName: 'Food' }),
+      EnhancementTag.create({ tagName: 'Electronics' }),
+      EnhancementTag.create({ tagName: 'Weapons' }),
+      laser,
+      wings,
+      bread,
+      fire,
+      taco,
+      vacuum,
+    ]);
+  })
+  .then(([appendages, food, electronics, weapon, laser, wings, bread, fire, taco, vacuum]) => {
+    laser.addTags([electronics, weapon]);
+    wings.addTags([appendages]);
+    bread.addTags([food]);
+    fire.addTags([weapon]);
+    taco.addTags([food]);
+    vacuum.addTags([electronics]);
   })
   .then(() => {
     return Promise.all([

@@ -8,7 +8,7 @@ export default function PetCard({ animals, handlePetSelect, selectedPet, animalT
       <CollectionItem><h5>Step 1: Pick a Pet</h5></CollectionItem>
       <CollectionItem>
         <Row>
-          <Input s={12} type='select' onChange={handlePetFilter} defaultValue="0">
+          <Input s={12} type='select' onChange={e => handlePetFilter(e, 'petTags')} defaultValue="0">
             <option disabled value="0" >Filter based on category...</option>
             {
               animalTags.map((tag) => {
@@ -19,7 +19,7 @@ export default function PetCard({ animals, handlePetSelect, selectedPet, animalT
         </Row>
         <Row>
           {
-            petTags.map(tag => <Button onClick={() => removeFilter(tag.id)} key={tag.id} waves='teal'>{tag.tagName}<Icon right >close</Icon></Button>)
+            petTags.map(tag => <Button onClick={() => removeFilter(tag.id, 'petTags')} key={tag.id} waves='teal'>{tag.tagName}<Icon right >close</Icon></Button>)
           }
         </Row>
       </CollectionItem>

@@ -45,6 +45,6 @@ export const fetchAnimalTags = () => (dispatch) => {
     .then((tags) => {
       dispatch(getAnimalTags(tags));
     })
-    .catch(err => console.error('fetching cart unsucessful', err));
+    .catch(err => console.error('fetching tags unsucessful', err));
 };
 

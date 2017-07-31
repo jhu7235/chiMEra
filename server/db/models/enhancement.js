@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const EnhancementTag = require('./enhancementTag');
 
 const Enhancement = db.define('enhancement', {
   name: {
@@ -23,6 +24,12 @@ const Enhancement = db.define('enhancement', {
   price: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
+  },
+}, {
+  defaultScope: {
+    include: [
+      { model: EnhancementTag, as: 'tags' },
+    ],
   },
 });
 

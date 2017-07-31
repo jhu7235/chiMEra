@@ -12,8 +12,8 @@ const EnhancementTag = require('./enhancementTag');
 
 Animal.belongsToMany(AnimalTag, { as: 'tags', through: 'animalTagJoin' });
 AnimalTag.belongsToMany(Animal, { as: 'tags', through: 'animalTagJoin' });
-Enhancement.belongsToMany(EnhancementTag, { through: 'enhancementTagJoin' });
-EnhancementTag.belongsToMany(Enhancement, { through: 'enhancementTagJoin' });
+Enhancement.belongsToMany(EnhancementTag, { as: 'tags', through: 'enhancementTagJoin' });
+EnhancementTag.belongsToMany(Enhancement, { as: 'tags', through: 'enhancementTagJoin' });
 
 
 CartItem.belongsTo(Animal);

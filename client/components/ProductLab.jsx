@@ -35,26 +35,32 @@ class ProductLab extends React.Component {
     this.handlePetSelect = this.handlePetSelect.bind(this);
     this.handleEnhanceSelect = this.handleEnhanceSelect.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
-    this.filterPetResults = this.filterPetResults.bind(this);
-    this.handlePetFilter = this.handlePetFilter.bind(this);
+    this.addFilter = this.addFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
   }
 
-  filterPetResults(product) {
-    return categoryFilter(this.props.animals, this.state.petCategory)
+  removeFilter(tagId, tagType) {
+    const removalIdx = this.state[tagType].findIndex(tag => tag.id === tagId);
+    let updatedTags = this.state[tagType].slice(0, removalIdx).concat(this.state[tagType].slice(removalIdx + 1));
+    if (!updatedTags) updatedTags = [];
+    this.setState({ [tagType]: updatedTags });
   }
 
-  removeFilter(tagId) {
-    const removalIdx = this.state.petTags.findIndex(tag => tag.id === tagId);
-    let updatedPetTags = this.state.petTags.slice(0, removalIdx) + this.state.petTags.slice(removalIdx + 1);
-    if (updatedPetTags) updatedPetTags = [];
-    this.setState({ petTags: updatedPetTags });
-  }
+  addFilter(e, tagType) {
+    let allKey;
+    let selectedKey;
 
-  handlePetFilter(e) {
-    const newPetTag = this.props.animalTags.find(tag => tag.id === +e.target.value);
-    if (this.state.petTags.findIndex(petTag => petTag.id === newPetTag.id) === -1) {
-      this.setState(prevState => ({ petTags: [...prevState.petTags, newPetTag] }));
+    if (tagType === 'petTags') {
+      allKey = 'animalTags';
+      selectedKey = 'petTags';
+    } else {
+      allKey = 'enhancementTags';
+      selectedKey = 'petTags';
+    }
+
+    const newPetTag = this.props[allKey].find(tag => tag.id === +e.target.value);
+    if (this.state[selectedKey].findIndex(petTag => petTag.id === newPetTag.id) === -1) {
+      this.setState(prevState => ({ [selectedKey]: [...prevState[selectedKey], newPetTag] }));
     }
   }
 
@@ -75,6 +81,7 @@ class ProductLab extends React.Component {
 
   render() {
     const filteredAnimals = categoryFilter(this.props.animals, this.state.petTags);
+    const filteredEnhancements = categoryFilter(this.props.enhancements, this.state.enhancementTags);
     return (
       <div className="container">
         <div className="row">
@@ -84,7 +91,7 @@ class ProductLab extends React.Component {
               handlePetSelect={this.handlePetSelect}
               selectedPet={this.state.selectedPet}
               animalTags={this.props.animalTags}
-              handlePetFilter={this.handlePetFilter}
+              handlePetFilter={this.addFilter}
               petTags={this.state.petTags}
               removeFilter={this.removeFilter}
             />
@@ -92,7 +99,7 @@ class ProductLab extends React.Component {
           { this.state.showEnhancements ?
             <div className="col s6" >
               <EnhancementCard
-                enhancements={this.props.enhancements}
+                enhancements={filteredEnhancements}
                 handleEnhanceSelect={this.handleEnhanceSelect}
                 selectedEnhancement={this.state.selectedEnhancement}
               />
@@ -124,6 +131,7 @@ const mapState = (state) => {
     animals: state.animals,
     enhancements: state.enhancements,
     animalTags: state.animalTags,
+    enhancementTags: state.enhancementTags,
   };
 };
 
