@@ -3,7 +3,7 @@ const { Cart, CartItem, User } = require('../db/models');
 
 router.get('/', (req, res, next) => {
   const userId = req.user.id;
-  User.findById(userId)
+  return User.findById(userId)
     .then((user) => {
       if (!user) next(new Error('User not found'));
       else {
