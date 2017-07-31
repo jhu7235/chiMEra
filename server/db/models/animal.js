@@ -27,7 +27,7 @@ const Animal = db.define('animal', {
 }, {
   defaultScope: {
     include: [
-      { model: AnimalTag },
+      { model: AnimalTag, as: 'tags' },
     ],
   },
 });

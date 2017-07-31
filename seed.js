@@ -176,15 +176,15 @@ db.sync({ force: true })
     ]);
   })
   .then(([domestic, exotic, feline, canine, birdTag, acquatic, small, dangerous, cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat]) => {
-    cat.addAnimalTags([domestic, feline]);
-    dog.addAnimalTags([domestic, canine]);
-    bird.addAnimalTags([birdTag]);
-    tiger.addAnimalTags([exotic, dangerous]);
-    shark.addAnimalTags([acquatic, dangerous]);
-    cheetah.addAnimalTags([exotic, feline]);
-    hamster.addAnimalTags([small]);
-    guineaPig.addAnimalTags([small]);
-    goat.addAnimalTags([domestic]);
+    cat.addTags([domestic, feline]);
+    dog.addTags([domestic, canine]);
+    bird.addTags([birdTag]);
+    tiger.addTags([exotic, dangerous]);
+    shark.addTags([acquatic, dangerous]);
+    cheetah.addTags([exotic, feline]);
+    hamster.addTags([small]);
+    guineaPig.addTags([small]);
+    goat.addTags([domestic]);
   })
   .then(() => {
     return Promise.all([

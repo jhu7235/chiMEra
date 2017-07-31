@@ -5,11 +5,18 @@ import EnhancementCard from './EnhancementCard.jsx';
 import AddToCartCard from './AddToCart.jsx';
 import { createItem } from '../store/cart';
 
+// ******
 // Helper Functions
 
-function categoryFilter(productArr, categoryArr) {
-  return arr.filter(element => element.tags.includes(category));
+function categoryFilter(productArr, selectedTagArr) {
+  return productArr.filter((product) => {
+    return selectedTagArr.every(selectedTag => {
+      return product.tags.findIndex(petTag => petTag.id === selectedTag.id) !== -1;
+    });
+  });
 }
+
+// ******
 
 class ProductLab extends React.Component {
   constructor(props) {
@@ -18,6 +25,7 @@ class ProductLab extends React.Component {
     this.state = {
       selectedPet: {},
       selectedEnhancement: {},
+      petTags: [],
       showEnhancements: false,
       showAddToCart: false,
     };
@@ -27,10 +35,27 @@ class ProductLab extends React.Component {
     this.handlePetSelect = this.handlePetSelect.bind(this);
     this.handleEnhanceSelect = this.handleEnhanceSelect.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
+    this.filterPetResults = this.filterPetResults.bind(this);
+    this.handlePetFilter = this.handlePetFilter.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
   }
 
   filterPetResults(product) {
     return categoryFilter(this.props.animals, this.state.petCategory)
+  }
+
+  removeFilter(tagId) {
+    const removalIdx = this.state.petTags.findIndex(tag => tag.id === tagId);
+    let updatedPetTags = this.state.petTags.slice(0, removalIdx) + this.state.petTags.slice(removalIdx + 1);
+    if (updatedPetTags) updatedPetTags = [];
+    this.setState({ petTags: updatedPetTags });
+  }
+
+  handlePetFilter(e) {
+    const newPetTag = this.props.animalTags.find(tag => tag.id === +e.target.value);
+    if (this.state.petTags.findIndex(petTag => petTag.id === newPetTag.id) === -1) {
+      this.setState(prevState => ({ petTags: [...prevState.petTags, newPetTag] }));
+    }
   }
 
   handlePetSelect(e) {
@@ -49,15 +74,19 @@ class ProductLab extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    const filteredAnimals = categoryFilter(this.props.animals, this.state.petTags);
     return (
       <div className="container">
         <div className="row">
           <div className="col s6">
-            <PetCard animals={this.props.animals}
+            <PetCard
+              animals={filteredAnimals}
               handlePetSelect={this.handlePetSelect}
               selectedPet={this.state.selectedPet}
               animalTags={this.props.animalTags}
+              handlePetFilter={this.handlePetFilter}
+              petTags={this.state.petTags}
+              removeFilter={this.removeFilter}
             />
           </div>
           { this.state.showEnhancements ?
@@ -91,7 +120,6 @@ class ProductLab extends React.Component {
 }
 
 const mapState = (state) => {
-  console.log('STATE: ', state)
   return {
     animals: state.animals,
     enhancements: state.enhancements,
@@ -108,3 +136,4 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(ProductLab);
+
