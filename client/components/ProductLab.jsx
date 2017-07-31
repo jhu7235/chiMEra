@@ -7,7 +7,7 @@ import { createItem } from '../store/cart';
 
 // Helper Functions
 
-function categoryFilter(arr, category) {
+function categoryFilter(productArr, categoryArr) {
   return arr.filter(element => element.tags.includes(category));
 }
 
@@ -29,6 +29,10 @@ class ProductLab extends React.Component {
     this.handleAddItem = this.handleAddItem.bind(this);
   }
 
+  filterPetResults(product) {
+    return categoryFilter(this.props.animals, this.state.petCategory)
+  }
+
   handlePetSelect(e) {
     const selectedPet = this.props.animals.find(animal => animal.id === +e.target.value)
     this.setState({ selectedPet, showEnhancements: true });
@@ -45,6 +49,7 @@ class ProductLab extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="container">
         <div className="row">
@@ -52,6 +57,7 @@ class ProductLab extends React.Component {
             <PetCard animals={this.props.animals}
               handlePetSelect={this.handlePetSelect}
               selectedPet={this.state.selectedPet}
+              animalTags={this.props.animalTags}
             />
           </div>
           { this.state.showEnhancements ?
@@ -85,9 +91,11 @@ class ProductLab extends React.Component {
 }
 
 const mapState = (state) => {
+  console.log('STATE: ', state)
   return {
     animals: state.animals,
     enhancements: state.enhancements,
+    animalTags: state.animalTags,
   };
 };
 

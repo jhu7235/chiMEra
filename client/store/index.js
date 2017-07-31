@@ -5,8 +5,9 @@ import user from './user';
 import animals from './animals';
 import enhancements from './enhancements';
 import cart from './cart';
+import animalTags from './animalTags';
 
-const reducer = combineReducers({ user, animals, enhancements, cart });
+const reducer = combineReducers({ user, animals, enhancements, cart, animalTags });
 const middleware = applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }));
 
 const store = createStore(reducer, middleware);

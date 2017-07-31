@@ -6,20 +6,14 @@ const Cart = require('./cart');
 const PastOrder = require('./pastOrder');
 const PastOrderItem = require('./pastOrderItem');
 const Address = require('./address');
+const AnimalTag = require('./animalTag');
+const EnhancementTag = require('./enhancementTag');
 
-/**
- * If we had any associations to make, this would be a great place to put them!
- * ex. if we had another model called BlogPost, we might say:
- *
- *    BlogPost.belongsTo(User)
- */
 
-/**
- * We'll export all of our models here, so that any time a module needs a model,
- * we can just require it from 'db/models'
- * for example, we can say: const {User} = require('../db/models')
- * instead of: const User = require('../db/models/user')
- */
+Animal.belongsToMany(AnimalTag, { through: 'animalTagJoin' });
+AnimalTag.belongsToMany(Animal, { through: 'animalTagJoin' });
+Enhancement.belongsToMany(EnhancementTag, { through: 'enhancementTagJoin' });
+EnhancementTag.belongsToMany(Enhancement, { through: 'enhancementTagJoin' });
 
 
 CartItem.belongsTo(Animal);
@@ -39,5 +33,5 @@ PastOrder.belongsTo(Address, { as: 'shippingAddress' });
 PastOrder.belongsTo(Address, { as: 'billingAddress' });
 
 
-module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem, Address };
+module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem, Address, AnimalTag, EnhancementTag };
 

@@ -1,61 +1,61 @@
 const models = require('./server/db/models');
 
-const { CartItem, Animal, Enhancement, User, Cart, PastOrder, PastOrderItem, Address } = models;
+const { CartItem, Animal, Enhancement, User, Cart, PastOrder, PastOrderItem, Address, AnimalTag, EnhancementTag } = models;
 
 const db = require('./server/db/db');
 
 db.sync({ force: true })
   .then(() => {
 
-    const animal1 = Animal.create({
+    const cat = Animal.create({
       name: 'Cat',
       description: 'Its a cat!',
       imageUrl: 'http://massgenomics.org/wp-content/uploads/2014/11/domestic-cat-renekyllingstad.jpg',
       price: 1.00,
     });
-    const animal2 = Animal.create({
+    const dog = Animal.create({
       name: 'Dog',
       description: 'Its a dog!',
       imageUrl: 'https://www.what-dog.net/Images/faces2/scroll0015.jpg',
       price: 2.50,
     });
-    const animal3 = Animal.create({
+    const bird = Animal.create({
       name: 'Bird',
       description: 'Its a bird!',
       imageUrl: 'https://lafeber.com/pet-birds/wp-content/uploads/Parakeet-Category-Image-300x300.jpg',
       price: 9.00,
     });
-    const animal4 = Animal.create({
+    const tiger = Animal.create({
       name: 'Tiger',
       description: 'Its a tiger!',
       imageUrl: 'https://s-media-cache-ak0.pinimg.com/736x/d9/07/ec/d907ec461fbfa0f172a1098a0d9e9324--wild-tiger-the-tiger.jpg',
       price: 13.00,
     });
-    const animal5 = Animal.create({
+    const shark = Animal.create({
       name: 'Shark',
       description: "I'm a SHARK!",
       imageUrl: 'https://i.ytimg.com/vi/0BQzsNatQOY/maxresdefault.jpg',
       price: 50.00,
     });
-    const animal6 = Animal.create({
+    const cheetah = Animal.create({
       name: 'Cheetah',
       description: 'What is the fastest mammal!',
       imageUrl: 'http://www.safariwest.com/wp-content/uploads/2014/03/cheetah-sitting1.jpg',
       price: 25.50,
     });
-    const animal7 = Animal.create({
+    const hamster = Animal.create({
       name: 'Hamster',
       description: 'I love tiny burritos!',
       imageUrl: 'http://www.petakids.com/wp-content/uploads/2016/10/Brown-Hamster.jpg',
       price: 0.50,
     });
-    const animal8 = Animal.create({
+    const guineaPig = Animal.create({
       name: 'Guinea Pig',
       description: 'I poop everywhere',
       imageUrl: 'http://www.petmd.com/sites/default/files/diarrhea-guinea-pigs.jpg',
       price: 1.50,
     });
-    const animal9 = Animal.create({
+    const goat = Animal.create({
       name: 'Goat',
       description: 'I will eat everything',
       imageUrl: 'https://media.mnn.com/assets/images/2016/07/goats-wattles.jpg.838x0_q80.jpg',
@@ -134,7 +134,39 @@ db.sync({ force: true })
       zipCode: 53403,
     });
 
-    return Promise.all([animal1, animal2, animal3, animal4, animal5, animal6, animal7, animal8, animal9, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6, address1]);
+    return Promise.all([cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6, address1]);
+  })
+  .then(([cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat]) => {
+    return Promise.all([
+      AnimalTag.create({ tagName: 'Domestic' }),
+      AnimalTag.create({ tagName: 'Exotic' }),
+      AnimalTag.create({ tagName: 'Feline' }),
+      AnimalTag.create({ tagName: 'Canine' }),
+      AnimalTag.create({ tagName: 'Bird' }),
+      AnimalTag.create({ tagName: 'Aquatic' }),
+      AnimalTag.create({ tagName: 'Small' }),
+      AnimalTag.create({ tagName: 'Dangerous' }),
+      cat,
+      dog,
+      bird,
+      tiger,
+      shark,
+      cheetah,
+      hamster,
+      guineaPig,
+      goat,
+    ]);
+  })
+  .then(([domestic, exotic, feline, canine, birdTag, acquatic, small, dangerous, cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat]) => {
+    cat.addAnimalTags([domestic, feline]);
+    dog.addAnimalTags([domestic, canine]);
+    bird.addAnimalTags([birdTag]);
+    tiger.addAnimalTags([exotic, dangerous]);
+    shark.addAnimalTags([acquatic, dangerous]);
+    cheetah.addAnimalTags([exotic, feline]);
+    hamster.addAnimalTags([small]);
+    guineaPig.addAnimalTags([small]);
+    goat.addAnimalTags([domestic]);
   })
   .then(() => {
     return Promise.all([
