@@ -23,7 +23,7 @@ function Animals(props) {
                 trigger={
                   <Button waves='light'><option key={animal.id} value={animal.id}>{animal.name}</option></Button>
                 }>
-                <EditForm product={animal} />
+                <EditForm product={animal} type={'animal'}/>
               </Modal>);
             })
           }

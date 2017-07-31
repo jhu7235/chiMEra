@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Input, Button } from 'react-materialize';
 import { updateAnimal } from '../../store/animals';
+import { updateEnhancement } from '../../store/enhancements';
 
-function EditForm({ product, onUpdateSubmit }) {
+function EditForm({ product, onUpdateSubmit, type }) {
   return (
     <div className="container">
       <h5>Your Profile</h5>
@@ -43,8 +44,8 @@ function EditForm({ product, onUpdateSubmit }) {
 
 const mapDispatch = (dispatch) => {
   return {
-    onUpdateSubmit: (updateObj) => dispatch(updateAnimal(updateObj)),
-  }
-}
+    onUpdateSubmit: updateObj => dispatch(updateAnimal(updateObj)),
+  };
+};
 
 export default connect(null, mapDispatch)(EditForm);
