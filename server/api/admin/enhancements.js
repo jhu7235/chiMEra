@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   Enhancement.findById(req.params.id)
     .then((enhancement) => {
-      if (!enhancement) next(new Error('Enhancement not found')); 
+      if (!enhancement) next(new Error('Enhancement not found'));
       else res.json(enhancement);
     })
     .catch(next);
@@ -36,16 +36,16 @@ router.put('/:id', (req, res, next) => {
   const enhancementObj = req.body;
   const id = req.params.id;
   Object.keys(enhancementObj).forEach((key) => {
-    if (enhancementObj[key] === undefined) {
+    if (enhancementObj[key] === undefined || enhancementObj[key] === '' || key === 'id') {
       delete enhancementObj[key];
     }
   });
   Enhancement.findById(id)
     .then((enhancement) => {
-      if (!enhancement) next(new Error('Animal not found'));
+      if (!enhancement) next(new Error('Enhancement not found'));
       else return enhancement.update(enhancementObj);
     })
-    .then((updatedAnimal) => res.json(updatedAnimal))
+    .then(updatedEnhancement => res.json(updatedEnhancement))
     .catch(next);
 });
 // delete enhancement

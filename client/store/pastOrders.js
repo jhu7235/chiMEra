@@ -49,7 +49,7 @@ export const purchase = (shippingAddress, billingAddress, billingCardInfo) => (d
     .then(res => res.data)
     .then((createdPastOrder) => {
       dispatch(addPastOrder(createdPastOrder));
-      dispatch(removeCart())
+      dispatch(removeCart());
       history.push('/');
     })
     .catch(err => console.error('create item unsucessful', err));

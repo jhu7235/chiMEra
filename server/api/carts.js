@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Cart, CartItem } = require('../db/models');
 
 router.get('/', (req, res, next) => {
+<<<<<<< HEAD
   const user = req.user;
   if (user) {
     const userId = req.user.id;
@@ -18,6 +19,19 @@ router.get('/', (req, res, next) => {
             .then(cart => res.json(cart))
             .catch(next);
         }
+=======
+  const userId = req.user.id;
+  return User.findById(userId)
+    .then((user) => {
+      if (!user) next(new Error('User not found'));
+      else {
+        const cartPromise = user.getCart();
+        return Promise.all([cartPromise, user])
+      }
+    })
+    .then(([cart, user]) => {
+      if (!cart) {
+>>>>>>> master
         return Cart.create()
           .then(cart => session.setCart(cart))
           .then(cart => res.json(cart))
