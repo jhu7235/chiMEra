@@ -1,4 +1,6 @@
 import axios from 'axios';
+import history from '../history';
+import { removeCart } from './cart';
 
 /**
  * ACTION TYPES
@@ -47,6 +49,8 @@ export const purchase = (shippingAddress, billingAddress, billingCardInfo) => (d
     .then(res => res.data)
     .then((createdPastOrder) => {
       dispatch(addPastOrder(createdPastOrder));
+      dispatch(removeCart())
+      history.push('/');
     })
     .catch(err => console.error('create item unsucessful', err));
 };

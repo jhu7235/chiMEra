@@ -6,7 +6,9 @@ router.use('/animals', require('./animals'));
 router.use('/enhancements', require('./enhancements'));
 router.use('/admin', require('./admin'));
 router.use('/cart', require('./carts'));
+router.use('/past-orders', require('./pastOrders'));
 router.use('/user', require('./user'));
+
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');
