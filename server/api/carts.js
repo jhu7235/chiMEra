@@ -15,12 +15,13 @@ router.get('/', (req, res, next) => {
       if (!cart) {
         return Cart.create()
           .then(newCart => user.setCart(newCart))
-          .then(user => user.getCart())
           .catch(next);
       }
       return cart;
     })
-    .then(cart => res.json(cart))
+    .then(cart => {
+      return res.json(cart);
+    })
     .catch(next);
 });
 
@@ -52,7 +53,12 @@ router.post('/item', (req, res, next) => {
       }
     })
     .then(([cart, user]) => {
-      if (!cart) return user.addCart();
+      if (!cart) {
+        return Cart.create()
+          .then(newCart => user.setCart(newCart))
+          .then(user => user.getCart())
+          .catch(next);
+      }
       return cart;
     })
     .then((cart) => {
@@ -77,8 +83,8 @@ router.delete('/item/:itemId', (req, res, next) => {
   const itemId = req.params.itemId;
   CartItem.findById(itemId)
     .then((cartItem) => {
-      if (!cartItem) next(new Error('Cart item not found'));
-      else return cartItem.destroy;
+      if (!cartItem) return next(new Error('Cart item not found'));
+      else return cartItem.destroy();
     })
     .then(() => res.status(200).send(itemId))
     .catch(next);

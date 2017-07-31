@@ -19,7 +19,6 @@ const update = animal => ({ type: UPDATE_ANIMAL, animal });
  */
 export default function (animals = [], action) {
   switch (action.type) {
-
     case GET_ANIMALS:
       return action.animals;
 
@@ -37,7 +36,7 @@ export default function (animals = [], action) {
  * THUNK CREATORS
  */
 export const fetchAnimals = () => (dispatch) => {
-  axios.get('/api/animals')
+  return axios.get('/api/animals')
     .then(res => res.data)
     .then((animals) => {
       dispatch(getAnimals(animals));

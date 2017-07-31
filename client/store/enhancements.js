@@ -10,7 +10,6 @@ const UPDATE_ENHANCEMENT = 'UPDATE_ENHANCEMENT';
  * ACTION CREATORS
  */
 const getEnhancements = enhancements => ({ type: GET_ENHANCEMENTS, enhancements });
-
 const update = enhancement => ({ type: UPDATE_ENHANCEMENT, enhancement });
 
 
@@ -54,3 +53,4 @@ export const updateEnhancement = (updateObj) => (dispatch) => {
     })
     .catch(err => console.error('updating enhancement unsucessful', err));
 };
+
