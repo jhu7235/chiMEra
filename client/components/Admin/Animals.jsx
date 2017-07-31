@@ -12,7 +12,7 @@ function Animals(props) {
           <Modal
             header='Create Animal'
             trigger={
-              <Button floating small className='grey' waves='light' icon='add' />}>
+              <Button floating className='grey' waves='light' icon='add' />}>
           </Modal>
         </CollectionItem>
         <CollectionItem>
@@ -23,7 +23,7 @@ function Animals(props) {
                 trigger={
                   <Button waves='light'><option key={animal.id} value={animal.id}>{animal.name}</option></Button>
                 }>
-                <p><EditForm product={animal} /></p>
+                <EditForm product={animal} />
               </Modal>);
             })
           }

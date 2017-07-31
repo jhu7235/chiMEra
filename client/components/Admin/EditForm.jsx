@@ -1,32 +1,50 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Input, Button } from 'react-materialize';
+import { updateAnimal } from '../../store/animals';
 
-function EditForm({ product }) {
+function EditForm({ product, onUpdateSubmit }) {
   return (
     <div className="container">
       <h5>Your Profile</h5>
-      <Row>
-        <Input s={6} label="Name" defaultValue={product.name} />
-        <Input s={6} label="Descriptoin" defaultValue={product.description} />
-        <Input s={6} label="Tags" defaultValue={product.tags} />
-        <Input s={6} label="price" defaultValue={product.price} />
-        <Input s={6} label="image" defaultValue={product.imageUrl} />
-        <div className="card-image">
-          <img src={product.imageUrl}></img>
-        </div>
-      </Row>
-      <Row>
-        <Button s={4} waves="light">Update</Button>
-      </Row>
+      <form onSubmit={(event) => {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const description =
+        event.target.description.value;
+        const tags = event.target.tags.value;
+        const price = event.target.price.value;
+        const imageUrl = event.target.imageUrl.value;
+        const id = product.id;
+        onUpdateSubmit({ name, description, tags, price, imageUrl, id });
+      }}
+      >
+        <Row>
+          <Input s={6} name="name" label="Name" defaultValue={product.name} />
+          <Input s={6} name="description" label="Description" defaultValue={product.description} />
+          <Input s={6} name="tags" label="Tags" defaultValue={product.tags} />
+          <Input s={6} name="price" label="price" defaultValue={product.price} />
+          <Input s={6} name="imageUrl" label="imageUrl" defaultValue={product.imageUrl} />
+          <div className="card-image">
+            <img src={product.imageUrl}></img>
+          </div>
+        </Row>
+        <Row>
+          <Button
+            waves="light"
+            className="submit"
+            type="submit"
+          >Update {product.name}</Button>
+        </Row>
+      </form>
     </div>
   );
 }
 
-const mapState = (state) => {
+const mapDispatch = (dispatch) => {
   return {
-
+    onUpdateSubmit: (updateObj) => dispatch(updateAnimal(updateObj)),
   }
 }
 
-export default connect(null, null)(EditForm);
+export default connect(null, mapDispatch)(EditForm);

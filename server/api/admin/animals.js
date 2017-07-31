@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
     name, description, imageUrl, tags, price,
   })
     .then((animal) => {
-      if (!animal) next(new Error('failure to create animal')); 
+      if (!animal) next(new Error('failure to create animal'));
       else res.json(animal);
     })
     .catch(next);
@@ -41,12 +41,14 @@ router.put('/:id', (req, res, next) => {
   const animalObj = req.body;
   const id = req.params.id;
   Object.keys(animalObj).forEach((key) => {
-    if (animalObj[key] === undefined) {
+    if (animalObj[key] === undefined || animalObj[key] === '' || key === 'id') {
       delete animalObj[key];
     }
   });
+  console.log('Passed In Data', animalObj)
   Animal.findById(id)
     .then((animal) => {
+      console.log("Found Animal", animal)
       if (!animal) next(new Error('Animal not found'));
       else return animal.update(animalObj);
     })
