@@ -31,7 +31,7 @@ export const fetchAnimals = () => (dispatch) => {
   return axios.get('/api/animals')
     .then(res => res.data)
     .then((animals) => {
-      dispatch(getAnimals(animals));
+      return dispatch(getAnimals(animals));
     })
     .catch(err => console.error("fetching animals unsucessful", err));
 }

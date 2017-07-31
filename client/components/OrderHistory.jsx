@@ -6,17 +6,10 @@ import { fetchPastOrders } from '../store/pastOrders';
 
 
 class OrderHistory extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { pastOrders: [] };
-  }
-
   componentDidMount() {
     this.props.loadInitialData();
   }
-
   render() {
-    const { pastOrders } = this.props;
     return (
       <div>
         <div className="container">
@@ -24,7 +17,7 @@ class OrderHistory extends React.Component {
             <h3>Order History</h3>
           </div>
           {
-            this.props.pastOrders.map(pastOrder => {
+            this.props.pastOrders.map((pastOrder) => {
               return (
                 <div className="row center" key={pastOrder.id}>
                   <div className="col s12 m12 l11">
@@ -69,17 +62,12 @@ class OrderHistory extends React.Component {
                           </table>
                         </div>
                       </div>
-{/*                      <div className="card-action">
-                        <a href="#">View Details</a>
-                      </div>*/}
                     </div>
                   </div>
                 </div>
               )
             })
           }
-        </div>
-        <div id="pastOrders">
         </div>
       </div>
     );

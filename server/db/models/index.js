@@ -6,6 +6,7 @@ const Cart = require('./cart');
 const PastOrder = require('./pastOrder');
 const PastOrderItem = require('./pastOrderItem');
 const Address = require('./address');
+const Review = require('./review');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -38,6 +39,9 @@ Address.belongsTo(User);
 PastOrder.belongsTo(Address, { as: 'shippingAddress' });
 PastOrder.belongsTo(Address, { as: 'billingAddress' });
 
+Review.belongsTo(Animal);
+Review.belongsTo(Enhancement);
+Review.belongsTo(User);
 
-module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem, Address };
+module.exports = { User, Animal, CartItem, Enhancement, Cart, PastOrder, PastOrderItem, Address, Review };
 

@@ -1,6 +1,6 @@
 const models = require('./server/db/models');
 
-const { CartItem, Animal, Enhancement, User, Cart, PastOrder, PastOrderItem, Address } = models;
+const { CartItem, Animal, Enhancement, User, Cart, PastOrder, PastOrderItem, Address, Review } = models;
 
 const db = require('./server/db/db');
 
@@ -130,25 +130,25 @@ db.sync({ force: true })
     const address1 = Address.create({
       streetAddress: '202 hellmuffin lane',
       city: 'Chicato',
-      state: 'Illlinoice',
+      state: 'IL',
       zipCode: 53403,
     });
     const address2 = Address.create({
       streetAddress: '123 crosscountry road',
       city: 'Chocolate',
-      state: 'Texas',
+      state: 'TX',
       zipCode: 76825,
     });
     const address3 = Address.create({
       streetAddress: '1871 runner road',
       city: 'Tellehase',
-      state: 'Wisconsin',
+      state: 'WI',
       zipCode: 52825,
     });
     const address4 = Address.create({
       streetAddress: '1256 flight lane',
       city: 'Los Angelos',
-      state: 'Ohio',
+      state: 'OH',
       zipCode: 58207,
     });
 
@@ -159,6 +159,13 @@ db.sync({ force: true })
       Cart.create({ userId: 1 }),
       Cart.create({ userId: 2 }),
       Cart.create({ userId: 3, promoCode: 'pleaaaase' }),
+    ]);
+  })
+  .then(() => {
+    return Promise.all([
+      Review.create({ rating: 9, inspiredEmotion: 'existential angst', fullDescription: 'I never thought something so cute could challenge the fate of our species just by sneezing', animalId: 7, enhancementId: 1, user: 1 }),
+      Review.create({ rating: 11, inspiredEmotion: 'qtness overload', fullDescription: 'death by cuteness is all i ever wanted', animalId: 4, enhancementId: 3, user: 2 }),
+      Review.create({ rating: 6, inspiredEmotion: 'sorrow', fullDescription: 'I am at a loss for words... Product worked better than I ever imagined... I can no longer go back to my home country', animalId: 5, enhancementId: 2, user: 3 }),
     ]);
   })
   .then(() => {
@@ -174,10 +181,10 @@ db.sync({ force: true })
   })
   .then(() => {
     return Promise.all([
-      PastOrder.create({ userId: 1, shippingAddress: 1, billingAddress: 1 }),
-      PastOrder.create({ userId: 2, shippingAddress: 2, billingAddress: 2 }),
-      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3 }),
-      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3 }),
+      PastOrder.create({ userId: 1, shippingAddress: 1, billingAddress: 1, creditNumber: '4484226236031147', creditExpiration: '08/18', creditCSV: '123', status: 'completed' }),
+      PastOrder.create({ userId: 2, shippingAddress: 2, billingAddress: 2, creditNumber: '4484226236031147', creditExpiration: '07/17', creditCSV: '123', status: 'shipped' }),
+      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3, creditNumber: '4484226236031147', creditExpiration: '06/16', creditCSV: '123', status: 'processing' }),
+      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3, creditNumber: '4484226236031147', creditExpiration: '66/66', creditCSV: '123', status: 'processing' }),
     ]);
   })
   .then(() => {
