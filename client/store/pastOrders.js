@@ -39,7 +39,6 @@ export const fetchPastOrders = () => (dispatch) => {
   return axios.get('/api/past-orders')
     .then(res => res.data)
     .then((pastOrders) => {
-      console.log('FETCH PAST ORDERS', pastOrders);
       return dispatch(getPastOrders(pastOrders));
     })
     .catch(err => console.error('fetching cart unsucessful', err));
