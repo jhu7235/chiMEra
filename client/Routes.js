@@ -17,7 +17,7 @@ import Cart from './components/Cart.jsx';
 import PurchaseForm from './components/PurchaseForm.jsx';
 import ProfileUpdate from './components/ProfileUpdate.jsx';
 import PreviousCarts from './components/PreviousCarts.jsx';
-import Admin from './components/Admin.jsx';
+import Admin from './components/Admin/Admin.jsx';
 
 /**
  * COMPONENT
