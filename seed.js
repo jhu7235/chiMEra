@@ -130,11 +130,29 @@ db.sync({ force: true })
     const address1 = Address.create({
       streetAddress: '202 hellmuffin lane',
       city: 'Chicato',
-      state: 'illlinoice',
+      state: 'Illlinoice',
       zipCode: 53403,
     });
+    const address2 = Address.create({
+      streetAddress: '123 crosscountry road',
+      city: 'Chocolate',
+      state: 'Texas',
+      zipCode: 76825,
+    });
+    const address3 = Address.create({
+      streetAddress: '1871 runner road',
+      city: 'Tellehase',
+      state: 'Wisconsin',
+      zipCode: 52825,
+    });
+    const address4 = Address.create({
+      streetAddress: '1256 flight lane',
+      city: 'Los Angelos',
+      state: 'Ohio',
+      zipCode: 58207,
+    });
 
-    return Promise.all([animal1, animal2, animal3, animal4, animal5, animal6, animal7, animal8, animal9, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6, address1]);
+    return Promise.all([animal1, animal2, animal3, animal4, animal5, animal6, animal7, animal8, animal9, user1, user2, user3, enhancement1, enhancement2, enhancement3, enhancement4, enhancement5, enhancement6, address1, address2, address3, address4]);
   })
   .then(() => {
     return Promise.all([
@@ -157,19 +175,26 @@ db.sync({ force: true })
   .then(() => {
     return Promise.all([
       PastOrder.create({ userId: 1, shippingAddress: 1, billingAddress: 1 }),
-      PastOrder.create({ userId: 2 }),
-      PastOrder.create({ userId: 3 }),
+      PastOrder.create({ userId: 2, shippingAddress: 2, billingAddress: 2 }),
+      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3 }),
+      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3 }),
     ]);
   })
   .then(() => {
     return Promise.all([
       PastOrderItem.create({ quantity: 2, price: 1.00, animalId: 1, enhancementId: 4, pastOrderId: 1 }),
-      PastOrderItem.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, pastOrderId: 1 }),
+      PastOrderItem.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 3, pastOrderId: 1 }),
       PastOrderItem.create({ quantity: 4, price: 3.00, animalId: 3, enhancementId: 2, pastOrderId: 2 }),
-      PastOrderItem.create({ quantity: 8, price: 4.00, animalId: 4, enhancementId: 3, pastOrderId: 2 }),
-      PastOrderItem.create({ quantity: 6, price: 5.00, animalId: 5, enhancementId: 5, pastOrderId: 3 }),
-      PastOrderItem.create({ quantity: 4, price: 5.00, animalId: 2, enhancementId: 6, pastOrderId: 3 }),
-      PastOrderItem.create({ quantity: 1, price: 5.00, animalId: 3, enhancementId: 5, pastOrderId: 3 }),
+      PastOrderItem.create({ quantity: 8, price: 4.00, animalId: 4, enhancementId: 1, pastOrderId: 2 }),
+      PastOrderItem.create({ quantity: 6, price: 5.00, animalId: 5, enhancementId: 4, pastOrderId: 2 }),
+      PastOrderItem.create({ quantity: 4, price: 6.00, animalId: 6, enhancementId: 3, pastOrderId: 3 }),
+      PastOrderItem.create({ quantity: 1, price: 1.00, animalId: 7, enhancementId: 2, pastOrderId: 3 }),
+      PastOrderItem.create({ quantity: 6, price: 2.00, animalId: 1, enhancementId: 1, pastOrderId: 3 }),
+      PastOrderItem.create({ quantity: 4, price: 3.00, animalId: 2, enhancementId: 4, pastOrderId: 3 }),
+      PastOrderItem.create({ quantity: 1, price: 4.00, animalId: 3, enhancementId: 3, pastOrderId: 3 }),
+      PastOrderItem.create({ quantity: 6, price: 5.00, animalId: 4, enhancementId: 2, pastOrderId: 4 }),
+      PastOrderItem.create({ quantity: 4, price: 6.00, animalId: 5, enhancementId: 1, pastOrderId: 4 }),
+      PastOrderItem.create({ quantity: 1, price: 7.00, animalId: 6, enhancementId: 5, pastOrderId: 4 }),
     ]);
   })
   .then(() => {
