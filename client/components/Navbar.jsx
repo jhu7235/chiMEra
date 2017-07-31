@@ -20,6 +20,12 @@ function Navibar(props) {
           {
             props.isLoggedIn ?
               <div>
+                {
+                  props.isAdmin ?
+                    <div>
+                      <li><NavLink to="/admin">AdminPage</NavLink></li>
+                    </div> : null
+                }
                 <li><NavLink to="/profile">Profile</NavLink></li>
                 <li><NavLink to="/order-history">Order History</NavLink></li>
                 <li><NavLink to="/" onClick={props.logout}>Log Out</NavLink></li>
@@ -39,12 +45,13 @@ function Navibar(props) {
 const mapStateToProps = state => ({
   currentUser: state.user,
   isLoggedIn: !!state.user.id,
+  isAdmin: state.user.adminStatus,
 });
 
 const mapDispatchToProps = dispatch => ({
   logout: () => {
-    dispatch(logout())
-  }
-})
+    dispatch(logout());
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navibar);
