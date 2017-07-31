@@ -4,4 +4,4 @@
  * having to figure out which file they belong to!
  */
 export {default as Main} from './main.jsx';
-export {Login, Signup} from './auth-form';
+export {Login, Signup} from './auth-form.jsx';
