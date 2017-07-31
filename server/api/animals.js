@@ -3,9 +3,9 @@ const { Animal } = require('../db/models');
 
 // get all animals
 router.get('/', (req, res, next) => {
-	Animal.findAll()
-		.then(animals => res.json(animals))
-		.catch(next);
+  Animal.findAll()
+    .then(animals => res.json(animals))
+    .catch(next);
 });
 
 

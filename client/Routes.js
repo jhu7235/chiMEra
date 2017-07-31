@@ -18,6 +18,8 @@ import PurchaseForm from './components/PurchaseForm.jsx';
 import ProfileUpdate from './components/ProfileUpdate.jsx';
 import PreviousCarts from './components/PreviousCarts.jsx';
 import Admin from './components/Admin/Admin.jsx';
+import OrderHistory from './components/OrderHistory.jsx';
+import Loading from './components/Loading.jsx';
 
 /**
  * COMPONENT
@@ -47,12 +49,13 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/profile" component={ProfileUpdate} />
+                  <Route path="/order-history" component={OrderHistory} />
                   <Route path="/orders" component={PreviousCarts} />
                   <Route path="/admin" component={Admin} />
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={LogIn} />
+            <Route component={Loading} />
           </Switch>
         </Main>
       </Router>
@@ -76,7 +79,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchEnhancements());
       dispatch(fetchCart());
       dispatch(me());
-    }
+    },
   };
 };
 
