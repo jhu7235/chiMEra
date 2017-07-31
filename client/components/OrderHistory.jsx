@@ -44,7 +44,7 @@ class OrderHistory extends React.Component {
                             </thead>
 
                             <tbody>
-                              {pastOrder.pastOrderitems.map((item) => {
+                              {pastOrder.pastOrderItems.map((item) => {
                                 const itemEnhancement = this.props.enhancements.find(enhancement =>
                                   enhancement.id === item.enhancementId);
                                 const itemAnimal = this.props.animals.find(animal => animal.id === item.animalId);
@@ -63,7 +63,7 @@ class OrderHistory extends React.Component {
                                 <td />
                                 <td />
                                 <td>Total: </td>
-                                <td>${pastOrder.pastOrderitems.reduce((sum, item) => sum + +item.price, 0)}</td>
+                                <td>${pastOrder.pastOrderItems.reduce((sum, item) => sum + +item.price, 0)}</td>
                               </tr>
                             </tbody>
                           </table>

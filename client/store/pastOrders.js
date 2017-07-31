@@ -40,7 +40,7 @@ export const fetchPastOrders = () => (dispatch) => {
     .then(res => res.data)
     .then((pastOrders) => {
       console.log('FETCH PAST ORDERS', pastOrders);
-      dispatch(getPastOrders(pastOrders));
+      return dispatch(getPastOrders(pastOrders));
     })
     .catch(err => console.error('fetching cart unsucessful', err));
 };

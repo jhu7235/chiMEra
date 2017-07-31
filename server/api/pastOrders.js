@@ -5,8 +5,8 @@ router.get('/', (req, res, next) => {
   const userId = req.user.id;
   PastOrder.findAll({ where: { userId } })
     .then((pastOrders) => {
-      if (!pastOrders) next(new Error('Orders not found'));
-      res.json(pastOrders);
+      if (!pastOrders) return next(new Error('Orders not found'));
+      return res.json(pastOrders);
     })
     .catch(next);
 });
