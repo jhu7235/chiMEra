@@ -5,7 +5,7 @@ import { Button, Icon } from 'react-materialize';
 import { fetchPastOrders } from '../store/pastOrders';
 
 
-class OrderHistory extends React.Component {
+class PastOrders extends React.Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
@@ -91,11 +91,11 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(OrderHistory);
+export default connect(mapState, mapDispatch)(PastOrders);
 
 /**
  * PROP TYPES
  */
-OrderHistory.propTypes = {
+PastOrders.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
 };
