@@ -18,6 +18,7 @@ import PurchaseForm from './components/PurchaseForm.jsx';
 import ProfileUpdate from './components/ProfileUpdate.jsx';
 import PreviousCarts from './components/PreviousCarts.jsx';
 import OrderHistory from './components/OrderHistory.jsx';
+import Loading from './components/Loading.jsx';
 
 /**
  * COMPONENT
@@ -52,7 +53,7 @@ class Routes extends Component {
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={LogIn} />
+            <Route component={Loading} />
           </Switch>
         </Main>
       </Router>

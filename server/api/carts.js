@@ -20,11 +20,9 @@ router.get('/', (req, res, next) => {
       return cart;
     })
     .then(cart => {
-      res.json(cart)
+      return res.json(cart);
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 });
 
 router.delete('/', (req, res, next) => {
@@ -85,7 +83,7 @@ router.delete('/item/:itemId', (req, res, next) => {
   const itemId = req.params.itemId;
   CartItem.findById(itemId)
     .then((cartItem) => {
-      if (!cartItem) next(new Error('Cart item not found'));
+      if (!cartItem) return next(new Error('Cart item not found'));
       else return cartItem.destroy();
     })
     .then(() => res.status(200).send(itemId))
