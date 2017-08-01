@@ -12,7 +12,7 @@ const UPDATE_CART = 'UPDATE_CART';
 /**
  * ACTION CREATORS
  */
-const getCart = items => ({ type: GET_CART, items });
+export const getCart = items => ({ type: GET_CART, items });
 const addToCart = item => ({ type: ADD_TO_CART, item });
 const removeFromCart = id => ({ type: REMOVE_FROM_CART, id });
 const updateCart = newCartItem => ({ type: UPDATE_CART, newCartItem });
