@@ -43,7 +43,7 @@ export const fetchAnimals = () => (dispatch) => {
   return axios.get('/api/animals')
     .then(res => res.data)
     .then((animals) => {
-      dispatch(getAnimals(animals));
+      return dispatch(getAnimals(animals));
     })
     .catch(err => console.error('fetching animals unsucessful', err));
 };
@@ -55,13 +55,14 @@ export const updateAnimal = updateObj => (dispatch) => {
       dispatch(update(res.data));
     })
     .catch(err => console.error('updating animal unsucessful', err));
+
 }
 
 export const createAnimal = createObj => (dispatch) => {
   axios.post('/api/admin/animals', createObj)
     .then((res) => {
       dispatch(create(res.data));
-      dispatch(fetchAnimals());
     })
     .catch(err => console.error('unable to create animal', err))
 }
+

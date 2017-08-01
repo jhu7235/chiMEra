@@ -7,7 +7,7 @@ import { createEnhancement } from '../../store/enhancements';
 function CreateForm({ type, onCreateSubmit }) {
   return (
     <div className="container">
-      <h5>Your Profile</h5>
+      <h5>Profile</h5>
       <form onSubmit={(event) => { onCreateSubmit(event, type); }}>
         <Row>
           <Input s={6} name="name" label="Name" />

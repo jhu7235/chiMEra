@@ -6,10 +6,12 @@ const session = require('express-session');
 const passport = require('passport');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const db = require('./db');
+
 const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
 module.exports = app;
+
 
 /**
  * In your development environment, you can keep all of your
@@ -20,7 +22,6 @@ module.exports = app;
  * Node process on process.env
  */
 if (process.env.NODE_ENV === 'development') require('../secrets');
-
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));

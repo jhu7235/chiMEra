@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Router } from 'react-router';
-import { fetchAnimals } from './store/animals';
 import SignUp from './components/SignUp.jsx';
+import { fetchAnimals } from './store/animals';
 import { fetchEnhancements } from './store/enhancements';
 import { fetchCart } from './store/cart';
+import { fetchAnimalTags } from './store/animalTags';
+import { fetchEnhancementTags } from './store/enhancementTags';
 import history from './history';
 import { Main } from './components/index.jsx';
 import { me } from './store';
@@ -16,10 +18,10 @@ import ProductLab from './components/ProductLab.jsx';
 import Cart from './components/Cart.jsx';
 import PurchaseForm from './components/PurchaseForm.jsx';
 import ProfileUpdate from './components/ProfileUpdate.jsx';
-import PreviousCarts from './components/PreviousCarts.jsx';
 import Admin from './components/Admin/Admin.jsx';
-import OrderHistory from './components/OrderHistory.jsx';
+import PastOrders from './components/PastOrders.jsx';
 import Loading from './components/Loading.jsx';
+import Reviews from './components/Reviews.jsx'
 
 /**
  * COMPONENT
@@ -43,14 +45,14 @@ class Routes extends Component {
             <Route path="/signup" component={SignUp} />
             <Route path="/cart" component={Cart} />
             <Route path="/purchase" component={PurchaseForm} />
+            <Route path="/reviews" component={Reviews} />
             <Route exact path="/" component={ProductLab} />
             {
               isLoggedIn ?
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/profile" component={ProfileUpdate} />
-                  <Route path="/order-history" component={OrderHistory} />
-                  <Route path="/orders" component={PreviousCarts} />
+                  <Route path="/order-history" component={PastOrders} />
                   <Route path="/admin" component={Admin} />
                 </Switch> : null
             }
@@ -78,6 +80,8 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchAnimals());
       dispatch(fetchEnhancements());
       dispatch(fetchCart());
+      dispatch(fetchAnimalTags());
+      dispatch(fetchEnhancementTags());
       dispatch(me());
     },
   };

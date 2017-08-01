@@ -63,7 +63,6 @@ export const createEnhancement = createObj => (dispatch) => {
   axios.post('api/admin/enhancements', createObj)
     .then((res) => {
       dispatch(create(res.data));
-      dispatch(fetchEnhancements());
     })
     .catch(err => console.error('unable to create enhancement', err))
 };

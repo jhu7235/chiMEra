@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { PastOrder } = require('../db/models');
+const { PastOrder, Address, PastOrderItem } = require('../db/models');
 
 router.get('/', (req, res, next) => {
   const userId = req.user.id;
@@ -12,13 +12,13 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const { shippingAddress, billingAddress, billingCardInfo } = req.body;
+  const { shippingAddress, billingAddress, creditCSV, creditExpiration, creditNumber } = req.body;
   req.user.getCart()
     .then((cart) => {
       if (!cart) {
         next(new Error('Cart not found'));
       } else {
-        const pastOrderPromise = PastOrder.create({ billingCardInfo, userId: req.user.id });
+        const pastOrderPromise = PastOrder.create({ creditCSV, creditExpiration, creditNumber, userId: req.user.id });
         const shippingAddressPromise = Address.create(Object.assign(shippingAddress, { userId: req.user.id }));
         const billingAddressPromise = Address.create(Object.assign(billingAddress, { userId: req.user.id }));
         return Promise.all([pastOrderPromise, cart, shippingAddressPromise, billingAddressPromise]);
@@ -36,6 +36,9 @@ router.post('/', (req, res, next) => {
     .then(([cart, pastOrder, ...pastOrderItems]) => {
       const pastOrderWithItemsPromise = pastOrder.addPastOrderItems(pastOrderItems);
       return Promise.all([cart, pastOrderWithItemsPromise]);
+    })
+    .then(([cart, pastOrder]) => {
+      return Promise.all([cart, PastOrder.findById(pastOrder.id)]);
     })
     .then(([cart, completedPastOrder]) => {
       cart.destroy();

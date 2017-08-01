@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navbar, NavItem, Dropdown, Button } from 'react-materialize';
+import { Navbar, NavItem, Dropdown, Chip } from 'react-materialize';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../store/user';
 
@@ -13,7 +13,7 @@ function Navibar(props) {
       <Navbar brand="ChiMEra" right>
         <li><NavLink to="/about">About </NavLink></li>
         <li><NavLink to="/contact">Contact Us</NavLink></li>
-        <li><NavLink to="/cart">Cart </NavLink></li>
+        <li><NavLink to="/cart">Cart <Chip>{props.cartItems}</Chip></NavLink></li>
         <Dropdown trigger={
           <NavItem>{ user.firstName || 'Login/Signup'}</NavItem>
         }>
@@ -28,7 +28,7 @@ function Navibar(props) {
                 }
                 <li><NavLink to="/profile">Profile</NavLink></li>
                 <li><NavLink to="/order-history">Order History</NavLink></li>
-                <li><NavLink to="/" onClick={props.logout}>Log Out</NavLink></li>
+                <li><a href="/" onClick={props.logout}>Log Out</a></li>
               </div> :
               <div>
                 <li><NavLink to="/signup">Sign Up</NavLink></li>
@@ -44,6 +44,7 @@ function Navibar(props) {
 
 const mapStateToProps = state => ({
   currentUser: state.user,
+  cartItems: state.cart.length,
   isLoggedIn: !!state.user.id,
   isAdmin: state.user.adminStatus,
 });

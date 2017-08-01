@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const AnimalTag = require('./animalTag');
+
 
 const Animal = db.define('animal', {
   name: {
@@ -16,12 +18,20 @@ const Animal = db.define('animal', {
       isUrl: true,
     },
   },
-  tags: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-  },
   price: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
+  },
+  inventory: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 50,
+  },
+}, {
+  defaultScope: {
+    include: [
+      { model: AnimalTag, as: 'tags' },
+    ],
   },
 });
 

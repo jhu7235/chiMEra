@@ -36,7 +36,7 @@ function PurchaseForm(props) {
         <Row>
           <Input name="creditNumber" s={12} label="Number" />
           <Input name="creditExp" s={6} label="Expiration" />
-          <Input name="creditCsv" s={3} label="CSV" />
+          <Input name="creditCSV" s={3} label="CSV" />
         </Row>
         <h5>Billing Address</h5>
         <Row>
@@ -47,7 +47,7 @@ function PurchaseForm(props) {
         </Row>
         <Row>
           <Input s={8} name='terms' type='checkbox' value='terms' label='I agree with the Terms and Conditions' />
-          <Button waves='light'>Confirm</Button>
+          <Button waves='light' type="submit">Confirm</Button>
         </Row>
       </form>
     </div>
@@ -61,8 +61,10 @@ const mapDispatch = dispatch => ({
     e.preventDefault();
     const shippingAddress = createShippingAddress(e);
     const billingAddress = createBillingAddress(e);
-    const billingCardInfo = e.target.creditNumber.value;
-    dispatch(purchase(shippingAddress, billingAddress, billingCardInfo));
+    const creditNumber = e.target.creditNumber.value;
+    const creditExpiration = e.target.creditExp.value;
+    const creditCSV = e.target.creditCSV.value;
+    dispatch(purchase(shippingAddress, billingAddress, creditCSV, creditExpiration, creditNumber));
   },
 });
 
