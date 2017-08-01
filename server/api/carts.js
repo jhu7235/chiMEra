@@ -8,7 +8,6 @@ const getSessionFromReq = (req) => {
 };
 
 router.get('/', (req, res, next) => {
-  // console.log('***---GET CART', req.user);
   if (req.user) {
     Cart.findOrCreate({ where: { userId: req.user.id } })
       .then(([cart]) => res.json(cart))
