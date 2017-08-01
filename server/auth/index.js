@@ -17,10 +17,11 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/signup', (req, res, next) => {
-  let { firstName, lastName, email } = req.body;
+  let { firstName, lastName } = req.body;
+  const { email, password } = req.body;
   firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
   lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
-  User.create({ firstName, lastName, email })
+  User.create({ firstName, lastName, email, password })
     .then(user => req.login(user, err => err ? next(err) : res.json(user)))
     .catch((err) => {
       if (err.name === 'SequelizeUniqueConstraintError')
