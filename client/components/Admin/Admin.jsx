@@ -21,7 +21,6 @@ class Admin extends React.Component {
           <h3>Hello {this.props.firstName} {this.props.lastName}</h3>
           <h5>Get to work!</h5>
         </div>
-        <h5>Edit:</h5>
         <div className="row">
           <Tabs className="tab-demo z-depth-1">
             <Tab title="Animals"><Animals /></Tab>

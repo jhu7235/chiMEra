@@ -5,13 +5,14 @@ import axios from 'axios';
  */
 const GET_ANIMALS = 'GET_ANIMALS';
 const UPDATE_ANIMAL = 'UPDATE_ANIMAL';
+const CREATE_ANIMAL = 'CREATE_ANIMAL';
 
 /**
  * ACTION CREATORS
  */
 const getAnimals = animals => ({ type: GET_ANIMALS, animals });
-
 const update = animal => ({ type: UPDATE_ANIMAL, animal });
+const create = animal => ({ type: CREATE_ANIMAL, animal });
 
 
 /**
@@ -27,6 +28,9 @@ export default function (animals = [], action) {
         action.animal.id === animal.id ? action.animal : animal
       ));
 
+    case CREATE_ANIMAL:
+      return [action.animal, ...animals];
+
     default:
       return animals;
   }
@@ -39,16 +43,26 @@ export const fetchAnimals = () => (dispatch) => {
   return axios.get('/api/animals')
     .then(res => res.data)
     .then((animals) => {
-      dispatch(getAnimals(animals));
+      return dispatch(getAnimals(animals));
     })
     .catch(err => console.error('fetching animals unsucessful', err));
 };
 
-export const updateAnimal = (updateObj) => (dispatch) => {
+export const updateAnimal = updateObj => (dispatch) => {
   const id = updateObj.id;
   axios.put(`/api/admin/animals/${id}`, updateObj)
     .then((res) => {
       dispatch(update(res.data));
     })
     .catch(err => console.error('updating animal unsucessful', err));
-};
+
+}
+
+export const createAnimal = createObj => (dispatch) => {
+  axios.post('/api/admin/animals', createObj)
+    .then((res) => {
+      dispatch(create(res.data));
+    })
+    .catch(err => console.error('unable to create animal', err))
+}
+
