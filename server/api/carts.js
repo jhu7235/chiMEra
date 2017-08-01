@@ -30,16 +30,14 @@ router.get('/', (req, res, next) => {
   }
 });
 
-router.delete('/', (req, res, next) => {
-  const user = req.user;
-  Cart.destroy({ where: { userId: user.id } })
-    .then(() => res.sendStatus(200))
-    .catch(next);
+router.delete('/', (req, res) => {
+  req.user.getCart().destroy();
+  res.sendStatus(200);
 });
 
 router.put('/login', (req, res, next) => {
   const sessionPromise = getSessionFromReq(req);
-  const userCartPromise = Cart.findOne({ where: { userId: req.user.id } });
+  const userCartPromise = req.user.getCart();
   Promise.all([sessionPromise, userCartPromise])
     .then(([session, userCart]) => {
       if (userCart) {
@@ -58,7 +56,8 @@ router.put('/login', (req, res, next) => {
           })
           .catch(next);
       }
-    });
+    })
+    .catch(next);
 });
 
 router.post('/item', (req, res, next) => {
@@ -74,12 +73,11 @@ router.post('/item', (req, res, next) => {
   })
     .then((identifier) => {
       Cart.find({ where: identifier })
-        .then(cart => {
+        .then((cart) => {
+          if (!cart) return next(new Error('cart not found'));
           return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
         })
-        .then(cartItem => {
-          res.status(201).json(cartItem)
-        })
+        .then(cartItem => res.status(201).json(cartItem))
         .catch(next);
     })
     .catch(next);
