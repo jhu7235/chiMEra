@@ -63,7 +63,7 @@ db.sync({ force: true })
     });
 
     const user1 = User.create({
-      firstName: 'bob',
+      firstName: 'Bob',
       lastName: 'One',
       email: 'bob@bob.com',
       password: 'bob',
@@ -71,7 +71,7 @@ db.sync({ force: true })
     });
 
     const user2 = User.create({
-      firstName: 'tim',
+      firstName: 'Tim',
       lastName: 'One',
       email: 'tim@tim.com',
       password: 'tim',
@@ -79,7 +79,7 @@ db.sync({ force: true })
     });
 
     const user3 = User.create({
-      firstName: 'jim',
+      firstName: 'Jim',
       lastName: 'One',
       email: 'jim@jim.com',
       password: 'jim',
