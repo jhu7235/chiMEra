@@ -72,8 +72,11 @@ router.put('/item/:itemId', (req, res, next) => {
   const { quantity } = req.body;
   CartItem.findById(req.params.itemId)
     .then((cartItem) => {
-      if (!cartItem) next(new Error('Cart item not found'));
-      else return cartItem.update({ quantity });
+      console.log(cartItem)
+      console.log(quantity)
+      // if (!cartItem) next(new Error('Cart item not found'));
+      // else
+        return cartItem.update({ quantity });
     })
     .then(updatedCartItem => res.json(updatedCartItem))
     .catch(next);
