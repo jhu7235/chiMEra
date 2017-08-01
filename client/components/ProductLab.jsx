@@ -142,8 +142,8 @@ class ProductLab extends React.Component {
 
 const mapState = (state) => {
   return {
-    animals: state.animals,
-    enhancements: state.enhancements,
+    animals: state.animals.filter(animal => animal.inventory > 0),
+    enhancements: state.enhancements.filter(enhancement => enhancement.inventory > 0),
     animalTags: state.animalTags,
     allEnhancementTags: state.enhancementTags,
   };

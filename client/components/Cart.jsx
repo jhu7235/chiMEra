@@ -4,6 +4,26 @@ import { Button, Icon, Row, Input } from 'react-materialize';
 import { connect } from 'react-redux';
 import { removeItem, updateCartItem } from '../store/cart';
 
+// ********
+// Helper Functions
+
+function constructQuantityArray(animal, enhancement) {
+  let length;
+  if (animal.inventory > enhancement.inventory) {
+    length = enhancement.inventory;
+  } else {
+    length = animal.inventory;
+  }
+  if (length > 10) length = 10;
+  const result = [];
+  for (let i = 1; i <= length; i++) {
+    result.push(i);
+  }
+  return result;
+}
+
+// ********
+
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -49,7 +69,7 @@ class Cart extends React.Component {
                       <td id="quantity-edit">
                         <Input type='select' defaultValue={item.quantity} onChange={e => this.quantityUpdate(e, item.id)}>
                           {
-                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+                            constructQuantityArray(itemAnimal, itemEnhancement).map((num) => {
                               return <option key={num} value={num}>{num}</option>
                             })
                           }

@@ -3,7 +3,6 @@ const db = require('../db');
 const Animal = db.models.animal;
 const Enhancement = db.models.enhancement;
 
-console.log(db.models)
 
 const PastOrderItem = db.define('pastOrderItem', {
   quantity: {
