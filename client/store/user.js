@@ -2,7 +2,6 @@ import axios from 'axios';
 import history from '../history';
 import {getCart} from './cart';
 
-console.log('USER STORE TOP', getCart);
 /**
  * ACTION TYPES
  */
@@ -75,7 +74,6 @@ export const login = (email, password) =>
       .then(() => axios.put('/api/cart/login-signup'))
       .then((res) => {
         const cartItems = res.data.cartItems;
-        console.log('LOGIN CART ITEMS', getCart);
         dispatch(getCart(cartItems));
         // dispatch(getUser());
       })
