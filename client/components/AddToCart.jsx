@@ -10,10 +10,26 @@ class AddToCartCard extends React.Component {
     };
 
     this.quantitySelect = this.quantitySelect.bind(this);
+    this.constructQuantityArray = this.constructQuantityArray.bind(this);
   }
 
   quantitySelect(e) {
     this.setState({ quantity: +e.target.value });
+  }
+
+  constructQuantityArray() {
+    let length;
+    if (this.props.selectedPet.inventory > this.props.selectedEnhancement.inventory) {
+      length = this.props.selectedEnhancement.inventory;
+    } else {
+      length = this.props.selectedPet.inventory
+    }
+    if (length > 10) length = 10;
+    const result = [];
+    for (let i = 1; i <= length; i++) {
+      result.push(i);
+    }
+    return result;
   }
 
   render() {
@@ -39,7 +55,7 @@ class AddToCartCard extends React.Component {
               <Row>
                 <Input s={12} type='select' onChange={this.quantitySelect}>
                   {
-                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+                    this.constructQuantityArray().map((num) => {
                       return <option key={num} value={num}>{num}</option>
                     })
                   }
