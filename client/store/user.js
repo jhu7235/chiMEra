@@ -69,6 +69,7 @@ export const login = (email, password) =>
         dispatch(getUser(res.data));
         history.goBack();
       })
+      .then(() => axios.put('/api/cart/login'))
       .catch(error =>
         dispatch(getUser({ error })));
 

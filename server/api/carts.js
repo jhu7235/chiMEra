@@ -1,70 +1,86 @@
 const router = require('express').Router();
-const { Cart, CartItem, User } = require('../db/models');
+const { Cart, CartItem } = require('../db/models');
+
+const getSessionFromReq = (req) => {
+  const Session = req.sessionStore.sessionModel;
+  const sessionPromise = Session.find({ where: { sid: req.sessionID } });
+  return sessionPromise;
+};
 
 router.get('/', (req, res, next) => {
-  const userId = req.user.id;
-  return User.findById(userId)
-    .then((user) => {
-      if (!user) next(new Error('User not found'));
-      else {
-        const cartPromise = user.getCart();
-        return Promise.all([cartPromise, user])
-      }
-    })
-    .then(([cart, user]) => {
-      if (!cart) {
+  const user = req.user;
+  if (user) {
+    Cart.findOrCreate({ where: { userId: user.id } })
+      .then(([cart]) => res.json(cart))
+      .catch(next);
+  } else {
+    getSessionFromReq(req)
+      .then((session) => {
+        if (session.cartId) {
+          return Cart.findById(session.cartId)
+            .then(cart => res.json(cart))
+            .catch(next);
+        }
         return Cart.create()
-          .then(newCart => user.setCart(newCart))
+          .then(cart => session.setCart(cart))
+          .then(cart => res.json(cart))
           .catch(next);
-      }
-      return cart;
-    })
-    .then(cart => {
-      return res.json(cart);
-    })
-    .catch(next);
+      })
+      .catch(next);
+  }
 });
 
 router.delete('/', (req, res, next) => {
-  const userId = req.user.id;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) next(new Error('User not found'));
-      else return user.getCart();
-    })
-    .then((cart) => {
-      if (!cart) next(new Error('Cart not found'));
-      else return cart.destroy();
-    })
+  req.user.getCart().destroy()
     .then(() => res.sendStatus(200))
     .catch(next);
 });
 
-router.post('/item', (req, res, next) => {
-  const userId = req.user.id;
-  const { animalId, enhancementId, quantity, price } = req.body;
-  User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        next(new Error('User not found'));
-      } else {
-        const cartPromise = user.getCart();
-        return Promise.all([cartPromise, user]);
-      }
-    })
-    .then(([cart, user]) => {
-      if (!cart) {
-        return Cart.create()
-          .then(newCart => user.setCart(newCart))
-          .then(user => user.getCart())
+router.put('/login', (req, res, next) => {
+  const sessionPromise = getSessionFromReq(req);
+  const userCartPromise = req.user.getCart();
+  Promise.all([sessionPromise, userCartPromise])
+    .then(([session, userCart]) => {
+      if (userCart) {
+        // if user already have cart, point cartItem of unAuth user 
+        // to user cart
+        CartItem.findAll({ where: { cartId: session.cartId } })
+          .then(sessionCartItems => sessionCartItems.map(cartItem => cartItem.update({ cartId: userCart.id })))
+          .catch(next);
+      } else if (!userCart) {
+        // if user has no cart destroy, point cart to user and
+        // erase cart from unauth user
+        Cart.findById(session.cartId)
+          .then((sessionCart) => {
+            sessionCart.update({ userId: req.user.id });
+            session.update({ cartId: null });
+          })
           .catch(next);
       }
-      return cart;
     })
-    .then((cart) => {
-      return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
+    .catch(next);
+});
+
+router.post('/item', (req, res, next) => {
+  const { animalId, enhancementId, quantity, price } = req.body;
+  const user = req.user;
+  new Promise((resolve) => {
+    if (user) resolve({ userId: user.id });
+    else {
+      getSessionFromReq(req)
+        .then(session => resolve({ id: session.cartId }))
+        .catch(next);
+    }
+  })
+    .then((identifier) => {
+      Cart.find({ where: identifier })
+        .then((cart) => {
+          if (!cart) return next(new Error('cart not found'));
+          return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
+        })
+        .then(cartItem => res.status(201).json(cartItem))
+        .catch(next);
     })
-    .then(cartItem => res.status(201).json(cartItem))
     .catch(next);
 });
 
