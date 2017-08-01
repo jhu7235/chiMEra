@@ -6,7 +6,6 @@ const db = require('./server/db/db');
 
 db.sync({ force: true })
   .then(() => {
-
     const cat = Animal.create({
       name: 'Cat',
       description: 'Its a cat!',
@@ -88,28 +87,27 @@ db.sync({ force: true })
     const address1 = Address.create({
       streetAddress: '202 hellmuffin lane',
       city: 'Chicato',
-      state: 'Illlinoice',
+      state: 'IL',
       zipCode: 53403,
     });
     const address2 = Address.create({
       streetAddress: '123 crosscountry road',
       city: 'Chocolate',
-      state: 'Texas',
+      state: 'TX',
       zipCode: 76825,
     });
     const address3 = Address.create({
       streetAddress: '1871 runner road',
       city: 'Tellehase',
-      state: 'Wisconsin',
+      state: 'WI',
       zipCode: 52825,
     });
     const address4 = Address.create({
       streetAddress: '1256 flight lane',
       city: 'Los Angelos',
-      state: 'Ohio',
+      state: 'OH',
       zipCode: 58207,
     });
-
     return Promise.all([cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat, user1, user2, user3, address1, address2, address3, address4]);
   })
   .then(([cat, dog, bird, tiger, shark, cheetah, hamster, guineaPig, goat]) => {

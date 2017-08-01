@@ -8,25 +8,25 @@ const PastOrder = db.define('pastOrder', {
     // validate: {
     //   isCreditCard: true,
     // },
-    allowNull: false,
+    // allowNull: false,
   },
   creditExpiration: {
     type: Sequelize.TEXT,
-    validate: {
-      is: /^[0-9][0-9]\/[0-9][0-9]$/,
-    },
-    allowNull: false,
+    // validate: {
+    //   is: /^[0-9][0-9]\/[0-9][0-9]$/,
+    // },
+    // allowNull: false,
   },
   creditCSV: {
     type: Sequelize.TEXT,
-    validate: {
-      is: /^[0-9][0-9][0-9]$/,
-    },
-    allowNull: false,
+    // validate: {
+    //   is: /^[0-9][0-9][0-9]$/,
+    // },
+    // allowNull: false,
   },
   status: {
     type: Sequelize.ENUM('processing', 'shipped', 'completed'),
-    allowNull: false,
+    // allowNull: false,
   },
 }, {
   defaultScope: {
