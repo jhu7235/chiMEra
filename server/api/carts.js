@@ -30,9 +30,10 @@ router.get('/', (req, res, next) => {
   }
 });
 
-router.delete('/', (req, res) => {
-  req.user.getCart().destroy();
-  res.sendStatus(200);
+router.delete('/', (req, res, next) => {
+  req.user.getCart().destroy()
+    .then(() => res.sendStatus(200))
+    .catch(next);
 });
 
 router.put('/login', (req, res, next) => {
