@@ -37,6 +37,9 @@ router.post('/', (req, res, next) => {
       const pastOrderWithItemsPromise = pastOrder.addPastOrderItems(pastOrderItems);
       return Promise.all([cart, pastOrderWithItemsPromise]);
     })
+    .then(([cart, pastOrder]) => {
+      return Promise.all([cart, PastOrder.findById(pastOrder.id)]);
+    })
     .then(([cart, completedPastOrder]) => {
       cart.destroy();
       res.status(201).json(completedPastOrder);

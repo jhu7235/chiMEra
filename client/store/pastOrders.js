@@ -24,7 +24,7 @@ export default function reducer(pastOrders = [], action) {
       return action.pastOrders;
 
     case ADD_PAST_ORDER:
-      return [action.order, ...pastOrders];
+      return [...pastOrders, action.pastOrder];
 
     default:
       return pastOrders;
@@ -44,13 +44,15 @@ export const fetchPastOrders = () => (dispatch) => {
     .catch(err => console.error('fetching cart unsucessful', err));
 };
 
-export const purchase = (shippingAddress, billingAddress, billingCardInfo) => (dispatch) => {
-  return axios.post('/api/past-orders', { shippingAddress, billingAddress, billingCardInfo })
-    .then(res => res.data)
-    .then((createdPastOrder) => {
-      dispatch(addPastOrder(createdPastOrder));
-      dispatch(removeCart());
-      history.push('/');
-    })
-    .catch(err => console.error('create item unsucessful', err));
-};
+export const purchase = (shippingAddress, billingAddress, creditCSV, creditExpiration, creditNumber) =>
+  (dispatch) => {
+    return axios.post('/api/past-orders',
+      { shippingAddress, billingAddress, creditCSV, creditExpiration, creditNumber })
+      .then(res => res.data)
+      .then((createdPastOrder) => {
+        dispatch(addPastOrder(createdPastOrder));
+        dispatch(removeCart());
+        history.push('/');
+      })
+      .catch(err => console.error('create item unsucessful', err));
+  };
