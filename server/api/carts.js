@@ -4,7 +4,6 @@ const { Cart, CartItem } = require('../db/models');
 const getSessionFromReq = (req) => {
   const Session = req.sessionStore.sessionModel;
   const sessionPromise = Session.find({ where: { sid: req.sessionID } });
-  console.log('***GET SESSION FROM REQ', sessionPromise, "*** END ***");
   return sessionPromise;
 };
 
@@ -39,20 +38,17 @@ router.delete('/', (req, res, next) => {
 });
 
 router.put('/login', (req, res, next) => {
-  console.log('LOGIN');
   const sessionPromise = getSessionFromReq(req);
   const userCartPromise = Cart.findOne({ where: { userId: req.user.id } });
   Promise.all([sessionPromise, userCartPromise])
     .then(([session, userCart]) => {
       if (userCart) {
-        console.log('USER HAS CART');
         // if user already have cart, point cartItem of unAuth user 
         // to user cart
         CartItem.findAll({ where: { cartId: session.cartId } })
           .then(sessionCartItems => sessionCartItems.map(cartItem => cartItem.update({ cartId: userCart.id })))
           .catch(next);
       } else if (!userCart) {
-        console.log('USER DOES NOT HAVE CART');
         // if user has no cart destroy, point cart to user and
         // erase cart from unauth user
         Cart.findById(session.cartId)
@@ -77,14 +73,11 @@ router.post('/item', (req, res, next) => {
     }
   })
     .then((identifier) => {
-      console.log("NEW ITEM API", identifier);
       Cart.find({ where: identifier })
         .then(cart => {
-          console.log("NEW ITEM API CART", cart);
           return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
         })
         .then(cartItem => {
-          console.log('CART ITEM IN API', cartItem)
           res.status(201).json(cartItem)
         })
         .catch(next);

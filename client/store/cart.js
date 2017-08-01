@@ -55,11 +55,9 @@ export const fetchCart = () => (dispatch) => {
 
 export const createItem = itemObj => (dispatch) => {
   const { quantity, price, animalId, enhancementId } = itemObj;
-  console.log('CREATE ITEM', { quantity, price, animalId, enhancementId })
   return axios.post('/api/cart/item', { quantity, price, animalId, enhancementId })
     .then(res => res.data)
     .then((createdItem) => {
-      console.log(createdItem)
       dispatch(addToCart(createdItem));
     })
     .catch(err => console.error('create item unsucessful', err));
