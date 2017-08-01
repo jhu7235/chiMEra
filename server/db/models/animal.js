@@ -22,6 +22,11 @@ const Animal = db.define('animal', {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
   },
+  inventory: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 50,
+  },
 }, {
   defaultScope: {
     include: [

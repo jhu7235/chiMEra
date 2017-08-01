@@ -22,6 +22,11 @@ const Enhancement = db.define('enhancement', {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
   },
+  inventory: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 50,
+  },
 }, {
   defaultScope: {
     include: [

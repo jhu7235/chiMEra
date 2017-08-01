@@ -4,6 +4,7 @@ import PetCard from './PetCard.jsx';
 import EnhancementCard from './EnhancementCard.jsx';
 import AddToCartCard from './AddToCart.jsx';
 import { createItem } from '../store/cart';
+import { fetchReviews } from '../store/reviews';
 
 // ******
 // Helper Functions
@@ -45,6 +46,10 @@ class ProductLab extends React.Component {
     this.handleAddItem = this.handleAddItem.bind(this);
     this.addFilter = this.addFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.loadInitialData();
   }
 
   removeFilter(tagId, tagType) {
@@ -127,6 +132,9 @@ class ProductLab extends React.Component {
                 selectedEnhancement={this.state.selectedEnhancement}
                 addItem={this.handleAddItem}
                 history={this.props.history}
+                reviews={this.props.reviews.filter((review) => {
+                  return +review.animalId === +this.state.selectedPet.id && +review.enhancementId === +this.state.selectedEnhancement.id;
+                })}
               />
             </div> :
             null
@@ -142,10 +150,11 @@ class ProductLab extends React.Component {
 
 const mapState = (state) => {
   return {
-    animals: state.animals,
-    enhancements: state.enhancements,
+    animals: state.animals.filter(animal => animal.inventory > 0),
+    enhancements: state.enhancements.filter(enhancement => enhancement.inventory > 0),
     animalTags: state.animalTags,
     allEnhancementTags: state.enhancementTags,
+    reviews: state.reviews,
   };
 };
 
@@ -153,6 +162,9 @@ const mapDispatch = (dispatch) => {
   return {
     addItem: ({ quantity, price, animalId, enhancementId }) => {
       return dispatch(createItem({ quantity, price, animalId, enhancementId }));
+    },
+    loadInitialData() {
+      dispatch(fetchReviews());
     },
   };
 };
