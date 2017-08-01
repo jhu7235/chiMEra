@@ -28,7 +28,7 @@ function Navibar(props) {
                 }
                 <li><NavLink to="/profile">Profile</NavLink></li>
                 <li><NavLink to="/order-history">Order History</NavLink></li>
-                <li><NavLink to="/" onClick={props.logout}>Log Out</NavLink></li>
+                <li><a href="/" onClick={props.logout}>Log Out</a></li>
               </div> :
               <div>
                 <li><NavLink to="/signup">Sign Up</NavLink></li>
