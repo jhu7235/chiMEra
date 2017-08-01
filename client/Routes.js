@@ -18,10 +18,10 @@ import ProductLab from './components/ProductLab.jsx';
 import Cart from './components/Cart.jsx';
 import PurchaseForm from './components/PurchaseForm.jsx';
 import ProfileUpdate from './components/ProfileUpdate.jsx';
-import PreviousCarts from './components/PreviousCarts.jsx';
 import Admin from './components/Admin/Admin.jsx';
-import OrderHistory from './components/OrderHistory.jsx';
+import PastOrders from './components/PastOrders.jsx';
 import Loading from './components/Loading.jsx';
+import Reviews from './components/Reviews.jsx'
 
 /**
  * COMPONENT
@@ -45,14 +45,14 @@ class Routes extends Component {
             <Route path="/signup" component={SignUp} />
             <Route path="/cart" component={Cart} />
             <Route path="/purchase" component={PurchaseForm} />
+            <Route path="/reviews" component={Reviews} />
             <Route exact path="/" component={ProductLab} />
             {
               isLoggedIn ?
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/profile" component={ProfileUpdate} />
-                  <Route path="/order-history" component={OrderHistory} />
-                  <Route path="/orders" component={PreviousCarts} />
+                  <Route path="/order-history" component={PastOrders} />
                   <Route path="/admin" component={Admin} />
                 </Switch> : null
             }

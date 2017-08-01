@@ -5,12 +5,14 @@ import axios from 'axios';
  */
 const GET_ENHANCEMENTS = 'GET_ENHANCEMENTS';
 const UPDATE_ENHANCEMENT = 'UPDATE_ENHANCEMENT';
+const CREATE_ENHANCEMENT = 'CREATE_ENHANCEMENT';
 
 /**
  * ACTION CREATORS
  */
 const getEnhancements = enhancements => ({ type: GET_ENHANCEMENTS, enhancements });
 const update = enhancement => ({ type: UPDATE_ENHANCEMENT, enhancement });
+const create = enhancement => ({ type: CREATE_ENHANCEMENT, enhancement });
 
 
 /**
@@ -26,6 +28,9 @@ export default function (enhancements = [], action) {
       return enhancements.map(enhancement => (
         action.enhancement.id === enhancement.id ? action.enhancement : enhancement
       ));
+
+    case CREATE_ENHANCEMENT:
+      return [action.enhancement, ...enhancements];
 
     default:
       return enhancements;
@@ -54,3 +59,10 @@ export const updateEnhancement = (updateObj) => (dispatch) => {
     .catch(err => console.error('updating enhancement unsucessful', err));
 };
 
+export const createEnhancement = createObj => (dispatch) => {
+  axios.post('api/admin/enhancements', createObj)
+    .then((res) => {
+      dispatch(create(res.data));
+    })
+    .catch(err => console.error('unable to create enhancement', err))
+};

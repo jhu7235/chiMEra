@@ -1,6 +1,6 @@
 const models = require('./server/db/models');
 
-const { CartItem, Animal, Enhancement, User, Cart, PastOrder, PastOrderItem, Address, AnimalTag, EnhancementTag } = models;
+const { CartItem, Animal, Enhancement, User, Cart, PastOrder, PastOrderItem, Address, AnimalTag, EnhancementTag, Review } = models;
 
 const db = require('./server/db/db');
 
@@ -220,6 +220,13 @@ db.sync({ force: true })
   })
   .then(() => {
     return Promise.all([
+      Review.create({ rating: 9, inspiredEmotion: 'existential angst', fullDescription: 'I never thought something so cute could challenge the fate of our species just by sneezing', animalId: 7, enhancementId: 1, user: 1 }),
+      Review.create({ rating: 11, inspiredEmotion: 'qtness overload', fullDescription: 'death by cuteness is all i ever wanted', animalId: 4, enhancementId: 3, user: 2 }),
+      Review.create({ rating: 6, inspiredEmotion: 'sorrow', fullDescription: 'I am at a loss for words... Product worked better than I ever imagined... I can no longer go back to my home country', animalId: 5, enhancementId: 2, user: 3 }),
+    ]);
+  })
+  .then(() => {
+    return Promise.all([
       CartItem.create({ quantity: 3, price: 1.00, animalId: 1, enhancementId: 4, cartId: 1 }),
       CartItem.create({ quantity: 1, price: 2.00, animalId: 2, enhancementId: 1, cartId: 1 }),
       CartItem.create({ quantity: 5, price: 3.00, animalId: 3, enhancementId: 2, cartId: 2 }),
@@ -231,10 +238,10 @@ db.sync({ force: true })
   })
   .then(() => {
     return Promise.all([
-      PastOrder.create({ userId: 1, shippingAddress: 1, billingAddress: 1 }),
-      PastOrder.create({ userId: 2, shippingAddress: 2, billingAddress: 2 }),
-      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3 }),
-      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3 }),
+      PastOrder.create({ userId: 1, shippingAddress: 1, billingAddress: 1, creditNumber: '4484226236031147', creditExpiration: '08/18', creditCSV: '123', status: 'completed' }),
+      PastOrder.create({ userId: 2, shippingAddress: 2, billingAddress: 2, creditNumber: '4484226236031147', creditExpiration: '07/17', creditCSV: '123', status: 'shipped' }),
+      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3, creditNumber: '4484226236031147', creditExpiration: '06/16', creditCSV: '123', status: 'processing' }),
+      PastOrder.create({ userId: 3, shippingAddress: 3, billingAddress: 3, creditNumber: '4484226236031147', creditExpiration: '66/66', creditCSV: '123', status: 'processing' }),
     ]);
   })
   .then(() => {
