@@ -63,7 +63,6 @@ router.post('/item', (req, res, next) => {
   let identifier = {};
   if (req.user) identifier = { userId: req.user.id };
   else identifier = { id: req.session.cartId };
-  console.log('POST ITEM IDENTIFIER', identifier);
   Cart.find({ where: identifier })
     .then((cart) => {
       if (!cart) return next(new Error('cart not found'));
