@@ -39,8 +39,8 @@ export default function reducer(reviews = [], action) {
  * THUNK CREATORS
  */
 
-export const fetchReviews = () => (dispatch) => {
-  return axios.get('/api/reviews')
+export const fetchReviews = (searchTerm) => (dispatch) => {
+  return axios.get(`/api/reviews${searchTerm}`)
     .then(res => res.data)
     .then((reviews) => {
       console.log('reviews in fetch', reviews)

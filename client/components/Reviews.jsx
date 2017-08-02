@@ -7,10 +7,11 @@ import { fetchReviews } from '../store/reviews';
 
 class Reviews extends React.Component {
   componentDidMount() {
-    this.props.loadInitialData();
+    this.props.loadInitialData(this.props.location.search);
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <div className="container">
@@ -72,8 +73,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData() {
-      dispatch(fetchReviews());
+    loadInitialData(searchTerm) {
+      dispatch(fetchReviews(searchTerm));
     },
   };
 };
