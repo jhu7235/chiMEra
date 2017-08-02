@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Table } from 'react-materialize';
-import { fetchPastOrders } from '../../store/pastOrders';
+import { fetchAdminPastOrders } from '../../store/pastOrders';
 
 class Carts extends React.Component{
   componentDidMount() {
@@ -13,7 +13,7 @@ class Carts extends React.Component{
       <div className="container">
         {this.props.pastOrders.map((cart)=> {
           return (
-            <Row>
+            <Row key={cart.id}>
               <h5 className="order-id">Order# {cart.id}</h5>
               <Table className="highlight">
                 <thead>
@@ -28,7 +28,7 @@ class Carts extends React.Component{
 
                 <tbody>
                   {
-                    cart.cartItems.map((item) => {
+                    cart.pastOrderItems.map((item) => {
                       const itemEnhancement = this.props.enhancements.find(enhancement =>
                         enhancement.id === item.enhancementId);
                       const itemAnimal = this.props.animals.find(animal => animal.id === item.animalId);
@@ -47,7 +47,7 @@ class Carts extends React.Component{
               </Table>
               <div className="row">
                 <div className="col s11"><p>Total: ${
-                  cart.cartItems.reduce((sum, item) => sum + +item.price, 0)
+                  cart.pastOrderItems.reduce((sum, item) => sum + +item.price, 0)
                 }</p></div>
                 <div className="col s1">
                   <Button
@@ -79,7 +79,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
-      dispatch(fetchPastOrders());
+      dispatch(fetchAdminPastOrders());
     },
   };
 };

@@ -1,19 +1,20 @@
 const router = require('express').Router();
-const { PastOrders } = require('../../db/models');
+const { PastOrder } = require('../../db/models');
 
-// api/admin/past_Orders
+// api/admin/past_orders
 router.get('/', (req, res, next) => {
-  PastOrders.findAll()
+  console.log("HIT API ADMIN PAST ORDER");
+  PastOrder.findAll()
     .then((pastOrders) => {
       if (!pastOrders) next(new Error('unable to access orders'));
-      else res.json(pastOrders)
+      else res.json(pastOrders);
     })
     .catch(next);
 });
 
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  PastOrders.findById(id)
+  PastOrder.findById(id)
     .then((order) => {
       if (!order) next(new Error('unable to find order'));
       else res.json(order);
@@ -29,7 +30,7 @@ router.put('/past-orders/:id', (req, res, next) => {
       delete orderObj[key];
     }
   });
-  PastOrders.findById(id)
+  PastOrder.findById(id)
     .then((order) => {
       if (!order) next(new Error('unable to find order'))
       else return order.update(orderObj)

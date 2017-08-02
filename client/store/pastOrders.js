@@ -52,7 +52,10 @@ export const fetchPastOrders = () => (dispatch) => {
 
 export const fetchAdminPastOrders = () => (dispatch) => {
   return axios.get('/api/admin/past-orders')
-    .then(res => res.data)
+    .then(res => {
+      console.log(res.data)
+      return res.data
+    })
     .then((pastOrders) => {
       return dispatch(getAdminPastOrders(pastOrders));
     })
