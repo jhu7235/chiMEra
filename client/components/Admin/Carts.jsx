@@ -1,39 +1,87 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Collection, CollectionItem, Modal, Button, Row, Dropdown, Icon, Badge, NavItem, Table } from 'react-materialize';
+import { Button, Row, Table } from 'react-materialize';
+import { fetchCarts } from '../../store/carts';
 
-const Carts = () => {
-  return (
-    <Dropdown
-      trigger={
-        <Button>
-          Items
-          <Icon right>arrow_drop_down</Icon>
-        </Button>
-      }
-    >
-      <NavItem>
-        <Table>
-          <tbody>
-            <tr>
-              <td>Jonathan</td>
-              <td>Lollipop</td>
-              <td>$7.00</td>
-            </tr>
-          </tbody>
-        </Table>
-      </NavItem>
+class Carts extends React.Component{
+  componentDidMount() {
+    this.props.loadInitialData();
+  }
 
-      <NavItem>
-        two
-        <Badge newIcon>1</Badge>
-      </NavItem>
+  render() {
+    return (
+      <div className="container">
+        {this.props.carts.map((cart)=> {
+          return (
+            <Row>
+              <h5>Order# {cart.id}</h5>
+              <Table className="highlight">
+                <thead>
+                  <tr>
+                    <th>Enhancement</th>
+                    <th>Pet</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Item Total</th>
+                  </tr>
+                </thead>
 
-      <NavItem>
-        three
-      </NavItem>
-    </Dropdown>
-  );
+                <tbody>
+                  {
+                    cart.cartItems.map((item) => {
+                      const itemEnhancement = this.props.enhancements.find(enhancement =>
+                        enhancement.id === item.enhancementId);
+                      const itemAnimal = this.props.animals.find(animal => animal.id === item.animalId);
+                      return (
+                        <tr key={item.id}>
+                          <td>{itemEnhancement.name}</td>
+                          <td>{itemAnimal.name}</td>
+                          <td>{+itemEnhancement.price + +itemAnimal.price}</td>
+                          <td>{+item.quantity}</td>
+                          <td>{item.quantity * (+itemEnhancement.price + +itemAnimal.price)}</td>
+                        </tr>
+                      );
+                    })
+                  }
+                </tbody>
+              </Table>
+              <div className="row">
+                <div className="col s11"><p>Total: ${
+                  cart.cartItems.reduce((sum, item) => sum + +item.price, 0)
+                }</p></div>
+                <div className="col s1">
+                  <Button
+                    onClick={() => {}}
+                    floating
+                    className="red"
+                    waves="light"
+                  >
+                    <i className="material-icons">mode_edit</i>
+                  </Button>
+                </div>
+              </div>
+            </Row>
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+const mapState = (state) => {
+  return {
+    carts: state.carts,
+    animals: state.animals,
+    enhancements: state.enhancements,
+  };
 };
 
-export default connect(null, null)(Carts);
+const mapDispatch = (dispatch) => {
+  return {
+    loadInitialData() {
+      dispatch(fetchCarts());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(Carts);
