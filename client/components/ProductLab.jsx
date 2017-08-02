@@ -11,7 +11,7 @@ import { fetchReviews } from '../store/reviews';
 
 function categoryFilter(productArr, selectedTagArr) {
   return productArr.filter((product) => {
-    return selectedTagArr.every(selectedTag => {
+    return selectedTagArr.every((selectedTag) => {
       return product.tags.findIndex(petTag => petTag.id === selectedTag.id) !== -1;
     });
   });
@@ -164,7 +164,7 @@ const mapDispatch = (dispatch) => {
       return dispatch(createItem({ quantity, price, animalId, enhancementId }));
     },
     loadInitialData() {
-      dispatch(fetchReviews());
+      dispatch(fetchReviews(''));
     },
   };
 };

@@ -3,11 +3,18 @@ const { Review } = require('../db/models');
 
 // get all Reviews
 router.get('/', (req, res, next) => {
-  Review.findAll()
-    .then(reviews => res.json(reviews))
-    .catch(next);
+  if (Object.keys(req.query).length) {
+    const { animalId, enhancementId } = req.query;
+    Review.findAll({ where: { animalId: +animalId, enhancementId: +enhancementId } })
+      .then(reviews => res.json(reviews))
+      .catch(next);
+  } else {
+    Review.findAll()
+      .then(reviews => res.json(reviews))
+      .catch(next);
+  }
 });
-//add logic to this post to check to see if the user has that product in their purchase history
+// add logic to this post to check to see if the user has that product in their purchase history
 router.post('/', (req, res, next) => {
   const { rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription } = req.body;
   console.log('api', rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription)

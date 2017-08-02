@@ -36,6 +36,7 @@ class AddToCartCard extends React.Component {
   }
 
   calculateRating() {
+
     if (this.props.reviews.length) {
       const sum = this.props.reviews.reduce((acc, review) => acc + +review.rating, 0);
       const avg = sum / this.props.reviews.length;
@@ -71,10 +72,14 @@ class AddToCartCard extends React.Component {
                       return (
                         <Icon key={num} s={12} tiny>star</Icon>
                       );
-                    }) : <p>Product not yet rated</p>
+                    })
+                    : <p>Product not yet rated</p>
+                }
+                {
+                  this.calculateRating() ?
+                    <Link display="inline" to={`/reviews?animalId=${selectedPet.id}&enhancementId=${selectedEnhancement.id}`} >View Ratings</Link> : null
                 }
               </Row>
-              <Link display="inline" to="">View Ratings</Link>
             </div>
             <div className="quantity-selector">
               <label display="inline" htmlFor="quantity">Quantity: </label>
@@ -91,7 +96,7 @@ class AddToCartCard extends React.Component {
             </div>
           </div>
           <div>
-            <p>Total: ${this.state.quantity * (+selectedPet.price + +selectedEnhancement.price) }</p>
+            <p>Total: ${this.state.quantity * (+selectedPet.price + +selectedEnhancement.price)}</p>
             <button
               onClick={() => addItem({
                 animalId: selectedPet.id,
