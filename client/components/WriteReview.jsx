@@ -132,7 +132,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
-      dispatch(fetchReviews());
+      dispatch(fetchReviews(''));
       dispatch(fetchPastOrders());
     },
     createNewReview(rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription) {

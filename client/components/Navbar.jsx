@@ -10,9 +10,7 @@ function Navibar(props) {
 
   return (
     <div>
-      <Navbar brand="ChiMEra" right>
-        <li><NavLink to="/about">About </NavLink></li>
-        <li><NavLink to="/contact">Contact Us</NavLink></li>
+      <Navbar brand={<div><NavLink id="brand-logo" to="/"><img className="center" id="logo-paw" src='/logo_title_md.png'></img></NavLink></div>} right>
         <li><NavLink to="/cart">Cart <Chip>{props.cartItems}</Chip></NavLink></li>
         <Dropdown trigger={
           <NavItem>{ user.firstName || 'Login/Signup'}</NavItem>
