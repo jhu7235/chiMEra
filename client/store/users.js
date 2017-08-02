@@ -51,7 +51,6 @@ export const changeAdminStatus = id => (dispatch) => {
 export const destroyUser = id => (dispatch) => {
   return axios.delete(`/api/admin/users/${id}`)
     .then(() => {
-      console.log('HEERREE')
       dispatch(deleteUser(id));
     })
     .catch(err => console.error('Removing Users unsucessul', err));
