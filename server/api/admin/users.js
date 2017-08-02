@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
     // send everything to anyone who asks!
-    attributes: ['id', 'email'],
+    attributes: ['id', 'email', 'firstName', 'lastName', 'adminStatus'],
   })
     .then((users) => {
       if (!users) next(new Error('error acessing users'));
@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
 // api/admin/users/:id
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  User.findOne({ where: { id }, attributes: ['id', 'email'] })
+  User.findOne({ where: { id }, attributes: ['id', 'email', 'firstName', 'lastName', 'adminStatus'] })
     .then((user) => {
       if (!user) next(new Error('no user found'));
       else res.json(user);
@@ -33,9 +33,12 @@ router.get('/:id', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   const id = req.params.id;
   User.findById(id)
-    .then(user => user.update({ adminStatus: true }))
-    .then(() => {
-      res.sendStatus(204);
+    .then((user) => {
+      if (!user) next(new Error('User not found'));
+      else return user.update({ adminStatus: true });
+    })
+    .then((updatedUser) => {
+      res.json(updatedUser);
     })
     .catch(next);
 });
@@ -50,7 +53,9 @@ router.delete('/:id', (req, res, next) => {
       if (!user) next(new Error('User not found'));
       else return user.destroy();
     })
-    .then(() => res.status(204).end)
+    .then(() => {
+      res.sendStatus(204);
+    })
     .catch(next);
 });
 

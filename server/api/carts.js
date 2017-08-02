@@ -8,23 +8,16 @@ const getSessionFromReq = (req) => {
 };
 
 router.get('/', (req, res, next) => {
-  const user = req.user;
-  if (user) {
-    Cart.findOrCreate({ where: { userId: user.id } })
+  if (req.user) {
+    Cart.findOrCreate({ where: { userId: req.user.id } })
       .then(([cart]) => res.json(cart))
       .catch(next);
   } else {
-    getSessionFromReq(req)
-      .then((session) => {
-        if (session.cartId) {
-          return Cart.findById(session.cartId)
-            .then(cart => res.json(cart))
-            .catch(next);
-        }
-        return Cart.create()
-          .then(cart => session.setCart(cart))
-          .then(cart => res.json(cart))
-          .catch(next);
+    const sessionCartId = req.session.cartId;
+    Cart.findOrCreate({ where: { id: sessionCartId } })
+      .then(([cart]) => {
+        if (!sessionCartId) req.session.cartId = cart.id;
+        return res.json(cart);
       })
       .catch(next);
   }
@@ -36,25 +29,29 @@ router.delete('/', (req, res, next) => {
     .catch(next);
 });
 
-router.put('/login', (req, res, next) => {
-  const sessionPromise = getSessionFromReq(req);
-  const userCartPromise = req.user.getCart();
-  Promise.all([sessionPromise, userCartPromise])
-    .then(([session, userCart]) => {
-      if (userCart) {
-        // if user already have cart, point cartItem of unAuth user 
-        // to user cart
-        CartItem.findAll({ where: { cartId: session.cartId } })
-          .then(sessionCartItems => sessionCartItems.map(cartItem => cartItem.update({ cartId: userCart.id })))
-          .catch(next);
-      } else if (!userCart) {
-        // if user has no cart destroy, point cart to user and
-        // erase cart from unauth user
-        Cart.findById(session.cartId)
-          .then((sessionCart) => {
-            sessionCart.update({ userId: req.user.id });
-            session.update({ cartId: null });
+router.put('/login-signup', (req, res, next) => {
+  const sessionCartId = req.session.cartId;
+  const userCartPromise = Cart.findOrCreate({ where: { id: req.user.id } });
+  const sessionCartPromise = Cart.findById(sessionCartId);
+  return Promise.all([userCartPromise, sessionCartPromise])
+    .then(([userCartArray, sessionCart]) => {
+      const sessionCartItems = sessionCart.cartItems;
+      const userCart = userCartArray[0];
+      if (sessionCartItems.length) {
+        const userCartItemsPromiseArray =
+          sessionCartItems.map(cartItem => {
+            return cartItem.update({ cartId: userCart.id });
+          });
+        Promise.all(userCartItemsPromiseArray)
+          .then((cartItems) => {
+            return sessionCart.destroy();
           })
+          .then(() => req.user.getCart())
+          .then((userCart) => res.json(userCart))
+          .catch(next);
+      } else {
+        return sessionCart.destroy()
+          .then(() => res.json(userCart))
           .catch(next);
       }
     })
@@ -63,24 +60,15 @@ router.put('/login', (req, res, next) => {
 
 router.post('/item', (req, res, next) => {
   const { animalId, enhancementId, quantity, price } = req.body;
-  const user = req.user;
-  new Promise((resolve) => {
-    if (user) resolve({ userId: user.id });
-    else {
-      getSessionFromReq(req)
-        .then(session => resolve({ id: session.cartId }))
-        .catch(next);
-    }
-  })
-    .then((identifier) => {
-      Cart.find({ where: identifier })
-        .then((cart) => {
-          if (!cart) return next(new Error('cart not found'));
-          return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
-        })
-        .then(cartItem => res.status(201).json(cartItem))
-        .catch(next);
+  let identifier = {};
+  if (req.user) identifier = { userId: req.user.id };
+  else identifier = { id: req.session.cartId };
+  Cart.find({ where: identifier })
+    .then((cart) => {
+      if (!cart) return next(new Error('cart not found'));
+      return CartItem.create({ animalId, enhancementId, quantity, price, cartId: cart.id });
     })
+    .then(cartItem => res.status(201).json(cartItem))
     .catch(next);
 });
 
@@ -88,8 +76,11 @@ router.put('/item/:itemId', (req, res, next) => {
   const { quantity } = req.body;
   CartItem.findById(req.params.itemId)
     .then((cartItem) => {
-      if (!cartItem) next(new Error('Cart item not found'));
-      else return cartItem.update({ quantity });
+      console.log(cartItem)
+      console.log(quantity)
+      // if (!cartItem) next(new Error('Cart item not found'));
+      // else
+        return cartItem.update({ quantity });
     })
     .then(updatedCartItem => res.json(updatedCartItem))
     .catch(next);

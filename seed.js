@@ -11,6 +11,7 @@ db.sync({ force: true })
       description: 'Its a cat!',
       imageUrl: 'http://massgenomics.org/wp-content/uploads/2014/11/domestic-cat-renekyllingstad.jpg',
       price: 1.00,
+      inventory: 10,
     });
     const dog = Animal.create({
       name: 'Dog',
@@ -47,6 +48,7 @@ db.sync({ force: true })
       description: 'I love tiny burritos!',
       imageUrl: 'http://www.petakids.com/wp-content/uploads/2016/10/Brown-Hamster.jpg',
       price: 0.50,
+      inventory: 0,
     });
     const guineaPig = Animal.create({
       name: 'Guinea Pig',
@@ -183,6 +185,7 @@ db.sync({ force: true })
       description: 'Its a cat!',
       imageUrl: 'http://ghk.h-cdn.co/assets/cm/15/12/5508ec76dc341-fullerbrush-tidymaid2-xln.jpg',
       price: 3.00,
+      inventory: 2,
     });
 
     return Promise.all([laser, wings, bread, fire, taco, vacuum]);

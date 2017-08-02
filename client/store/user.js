@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import {getCart} from './cart';
 
 /**
  * ACTION TYPES
@@ -29,6 +30,8 @@ export default function (state = defaultUser, action) {
       return action.user;
     case REMOVE_USER:
       return defaultUser;
+    case UPDATE_USER:
+      return action.user;
     default:
       return state;
   }
@@ -58,6 +61,7 @@ export const signup = (email, password, repassword, firstName, lastName) =>
         dispatch(getUser(res.data));
         history.goBack();
       })
+      .then(() => axios.put('/api/cart/login-signup'))
       .catch(error =>
         dispatch(getUser({ error })));
   };
@@ -69,7 +73,12 @@ export const login = (email, password) =>
         dispatch(getUser(res.data));
         history.goBack();
       })
-      .then(() => axios.put('/api/cart/login'))
+      .then(() => axios.put('/api/cart/login-signup'))
+      .then((res) => {
+        const cartItems = res.data.cartItems;
+        dispatch(getCart(cartItems));
+        // dispatch(getUser());
+      })
       .catch(error =>
         dispatch(getUser({ error })));
 

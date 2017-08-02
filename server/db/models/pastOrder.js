@@ -28,7 +28,7 @@ const PastOrder = db.define('pastOrder', {
   status: {
     type: Sequelize.ENUM('processing', 'shipped', 'completed'),
     // allowNull: false,
-
+    defaultValue: 'processing',
   },
 }, {
   defaultScope: {

@@ -6,6 +6,7 @@ import Enhancements from './Enhancements.jsx';
 import PastOrders from './PastOrders.jsx';
 import Users from './Users.jsx';
 import { Tabs, Tab } from 'react-materialize';
+import { fetchUsers } from '../../store/users';
 
 class Admin extends React.Component {
 
@@ -25,7 +26,7 @@ class Admin extends React.Component {
           <Tabs className="tab-demo z-depth-1">
             <Tab title="Animals"><Animals /></Tab>
             <Tab title="Enhancements"><Enhancements /></Tab>
-            <Tab title="Users">Users</Tab>
+            <Tab title="Users"><Users /></Tab>
             <Tab title="Carts">Carts</Tab>
             <Tab title="Past Orders">Past Orders</Tab>
           </Tabs>
@@ -45,8 +46,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
-      dispatch(fetchCarts());
-      dispatch(fetchPastOrders());
+      //dispatch(fetchCarts());
+      //dispatch(fetchPastOrders());
       dispatch(fetchUsers());
     }
   }

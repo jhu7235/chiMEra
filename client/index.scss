@@ -27,11 +27,15 @@ body {
   }
 }
 
-#quantity-selector {
+.quantity-selector {
   display: flex;
   justify-content: space-around;
   align-items: center;
   align-content: center;
+}
+
+#quantity-edit {
+  width: 50px;
 }
 
 .errorMessage {
