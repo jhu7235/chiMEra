@@ -21,7 +21,6 @@ export const removeCart = () => ({ type: REMOVE_CART });
 /**
  * REDUCER
  */
-
 export default function reducer(cart = [], action) {
   switch (action.type) {
     case GET_CART:

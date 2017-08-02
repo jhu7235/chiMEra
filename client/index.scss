@@ -15,6 +15,29 @@ body {
   }
 }
 
+#profile {
+  text-align: center;
+  display: inline-block;
+  align-content: center;
+  margin-left: 325px;
+}
+
+Button {
+  margin: .3em;
+}
+
+button.purchase-button {
+  margin: 1.46rem 0 1.168rem 0;
+}
+
+.row > h5 {
+  text-align: left;
+}
+
+.s11 > p {
+  text-align: left;
+}
+
 #add-to-cart-card {
   display: flex;
   justify-content: space-between;
@@ -115,3 +138,15 @@ div.card-collection > .collection {
   overflow: visible;
 }
 
+nav {
+  background-color: rgb(241, 40, 40)
+}
+
+.btn, .btn-large {
+  background-color: #4257c5;
+  color: white;
+}
+
+.tabs .tab a {
+  color: rgb(241, 40, 40)
+}

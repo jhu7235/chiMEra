@@ -65,7 +65,7 @@ db.sync({ force: true })
 
     const user1 = User.create({
       firstName: 'Bob',
-      lastName: 'One',
+      lastName: 'Frankfurt',
       email: 'bob@bob.com',
       password: 'bob',
       adminStatus: false,
@@ -73,7 +73,7 @@ db.sync({ force: true })
 
     const user2 = User.create({
       firstName: 'Tim',
-      lastName: 'One',
+      lastName: 'Dallas',
       email: 'tim@tim.com',
       password: 'tim',
       adminStatus: false,
@@ -81,7 +81,7 @@ db.sync({ force: true })
 
     const user3 = User.create({
       firstName: 'Jim',
-      lastName: 'One',
+      lastName: 'Admin',
       email: 'jim@jim.com',
       password: 'jim',
       adminStatus: true,
