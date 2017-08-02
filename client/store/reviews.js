@@ -43,7 +43,6 @@ export const fetchReviews = () => (dispatch) => {
   return axios.get('/api/reviews')
     .then(res => res.data)
     .then((reviews) => {
-      console.log('reviews in fetch', reviews)
       dispatch(getReviews(reviews));
     })
     .catch(err => console.error('fetching reviews unsucessful', err));

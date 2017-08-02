@@ -22,6 +22,7 @@ import Admin from './components/Admin/Admin.jsx';
 import PastOrders from './components/PastOrders.jsx';
 import Loading from './components/Loading.jsx';
 import Reviews from './components/Reviews.jsx'
+import WriteReview from './components/WriteReview.jsx';
 
 /**
  * COMPONENT
@@ -54,6 +55,7 @@ class Routes extends Component {
                   <Route path="/profile" component={ProfileUpdate} />
                   <Route path="/order-history" component={PastOrders} />
                   <Route path="/admin" component={Admin} />
+                  <Route path="/write-review" component={WriteReview} />
                 </Switch> : null
             }
             {/* Displays our Login component as a fallback */}
