@@ -10,31 +10,33 @@ import { updateProfile } from '../store/user';
 
 function ProfileUpdate({ firstName, lastName, email, onUpdateSubmit }) {
   return (
-    <div className="container">
-      <h5>Your Profile</h5>
-      <form onSubmit={(event) => {
-        event.preventDefault();
-        const firstNameSubmission = event.target.firstName.value;
-        const lastNameSubmission = event.target.lastName.value;
-        const emailSubmission = event.target.email.value;
-        onUpdateSubmit(firstNameSubmission, lastNameSubmission, emailSubmission);
-      }}
-      >
-        <br />
-        <Row id="profile">
-          <Input s={6} name="firstName" label="First Name" defaultValue={firstName} />
-          <Input s={6} name="lastName" label="Last Name" defaultValue={lastName} />
-          <Input s={6} name="email" label="Email" defaultValue={email} />
-        </Row>
-        <br />
-        <Row>
-          <Button
-            waves="light"
-            className="submit"
-            type="submit"
-          >Update Profile</Button>
-        </Row>
-      </form>
+    <div className="container center">
+      <div className="center">
+        <h5>Your Profile</h5>
+        <form onSubmit={(event) => {
+          event.preventDefault();
+          const firstNameSubmission = event.target.firstName.value;
+          const lastNameSubmission = event.target.lastName.value;
+          const emailSubmission = event.target.email.value;
+          onUpdateSubmit(firstNameSubmission, lastNameSubmission, emailSubmission);
+        }}
+        >
+          <br />
+          <Row id="profile">
+            <Input s={6} name="firstName" label="First Name" defaultValue={firstName} />
+            <Input s={6} name="lastName" label="Last Name" defaultValue={lastName} />
+            <Input s={6} name="email" label="Email" defaultValue={email} />
+          </Row>
+          <br />
+          <Row>
+            <Button
+              waves="light"
+              className="submit"
+              type="submit"
+            >Update Profile</Button>
+          </Row>
+        </form>
+      </div>
     </div>
   );
 }
