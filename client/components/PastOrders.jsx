@@ -26,6 +26,8 @@ class PastOrders extends React.Component {
                       <span className="card-title">Order# {pastOrder.id}</span>
                       <div className="card-content">
                         <div className="order-row row">
+                          <p>Date Created: {pastOrder.createdAt.slice(5,10)}-{pastOrder.createdAt.slice(0, 4)}</p>
+                          <p>Status: {pastOrder.status}</p>
                           <table className="highlight">
                             <thead>
                               <tr>
