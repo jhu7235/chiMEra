@@ -8,10 +8,11 @@ import cart from './cart';
 import animalTags from './animalTags';
 import enhancementTags from './enhancementTags';
 import pastOrders from './pastOrders';
+import users from './users';
 import reviews from './reviews';
 
 
-const reducer = combineReducers({ user, animals, enhancements, cart, pastOrders, animalTags, enhancementTags, reviews });
+const reducer = combineReducers({ user, animals, enhancements, cart, pastOrders, animalTags, enhancementTags, reviews, users });
 
 const middleware = applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }));
 
