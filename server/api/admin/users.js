@@ -54,7 +54,6 @@ router.delete('/:id', (req, res, next) => {
       else return user.destroy();
     })
     .then(() => {
-      console.log('IN HERER')
       res.sendStatus(204);
     })
     .catch(next);
