@@ -87,7 +87,6 @@ class WriteReview extends React.Component {
           <Row>
             {this.state.pastOrderItemSelected ?
               <Modal header="Modal Header" fixedFooter trigger={<Button waves="light">Enter Review Here</Button>}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et </p>
                 <Row>
                   <Input s={12} type="select" onChange={this.ratingSelectHandler}>
                     <option selected disabled>Rate your product</option>
@@ -135,9 +134,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchReviews(''));
       dispatch(fetchPastOrders());
     },
-    createNewReview(rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription) {
-      console.log('at the mapDispatch', rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription)
-      dispatch(createReview({rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription})); },
+    createNewReview(rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription) { dispatch(createReview({ rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription })); },
   };
 };
 
