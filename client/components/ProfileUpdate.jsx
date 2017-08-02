@@ -20,11 +20,13 @@ function ProfileUpdate({ firstName, lastName, email, onUpdateSubmit }) {
         onUpdateSubmit(firstNameSubmission, lastNameSubmission, emailSubmission);
       }}
       >
-        <Row>
+        <br />
+        <Row id="profile">
           <Input s={6} name="firstName" label="First Name" defaultValue={firstName} />
           <Input s={6} name="lastName" label="Last Name" defaultValue={lastName} />
           <Input s={6} name="email" label="Email" defaultValue={email} />
         </Row>
+        <br />
         <Row>
           <Button
             waves="light"
