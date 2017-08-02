@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Input, Icon } from 'react-materialize';
+import { Row, Input, Icon, Collection, CollectionItem, Col } from 'react-materialize';
 import { Link } from 'react-router-dom';
 
 class AddToCartCard extends React.Component {
@@ -48,70 +48,94 @@ class AddToCartCard extends React.Component {
   render() {
     const { selectedPet, selectedEnhancement, addItem } = this.props;
     return (
-      <div>
-        <h5>A pet, but better!</h5>
-        <div id="add-to-cart-card">
-          <div>
-            <img
-              width="100"
-              src={selectedPet.imageUrl}
-            />
-            <img
-              width="100"
-              src={selectedEnhancement.imageUrl}
-            />
-          </div>
-          <div>
-            <h5>{selectedPet.name} with a {selectedEnhancement.name} enhancement</h5>
-            <div className="quantity-selector">
-              <p display="inline">Rating:</p>
-              <Row>
-                {
-                  this.calculateRating() ?
-                    this.constructQuantityArray(this.calculateRating()).map((num) => {
-                      return (
-                        <Icon key={num} s={12} tiny>star</Icon>
-                      );
-                    })
-                    : <p>Product not yet rated</p>
-                }
-                {
-                  this.calculateRating() ?
-                    <Link display="inline" to={`/reviews?animalId=${selectedPet.id}&enhancementId=${selectedEnhancement.id}`} >View Ratings</Link> : null
-                }
-              </Row>
-            </div>
-            <div className="quantity-selector">
-              <label display="inline" htmlFor="quantity">Quantity: </label>
-              <Row>
-                <Input s={12} type='select' onChange={this.quantitySelect}>
-                  {
-                    this.constructQuantityArray().map((num) => {
-                      return <option key={num} value={num}>{num}</option>
-                    })
-                  }
-                </Input>
-              </Row>
-              <p>${+selectedPet.price + +selectedEnhancement.price} each</p>
-            </div>
-          </div>
-          <div>
-            <p>Total: ${this.state.quantity * (+selectedPet.price + +selectedEnhancement.price)}</p>
-            <button
-              onClick={() => addItem({
-                animalId: selectedPet.id,
-                enhancementId: selectedEnhancement.id,
-                price: (this.state.quantity * (+selectedPet.price + +selectedEnhancement.price)).toFixed(2),
-                quantity: this.state.quantity,
-              })}
-              className="btn waves-effect waves-light"
-              type="submit"
-              name="action">
-              Add to Cart
-              <i className="material-icons right">send</i>
-            </button>
-          </div>
-        </div>
+      <div className="card-collection">
+        <Collection className="card-collection">
+          <CollectionItem>
+            <Row>
+              <Col s={4}>
+                <h5>Your chiMEra:</h5>
+              </Col>
+              <Col s={6}>
+                <h5>{selectedPet.name} + {selectedEnhancement.name}</h5>
+              </Col>
+            </Row>
+            <Row>
+              <Col s={4}>
+                <Row>
+                  <Col s={6}>
+                    <img
+                      width="100%"
+                      src={selectedPet.imageUrl}
+                    />
+                  </Col>
+                  <Col s={6}>
+                    <img
+                      width="100%"
+                      src={selectedEnhancement.imageUrl}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+              <Col s={5}>
+                <Row>
+                  <Col s={2}>
+                    <p display="inline">Rating:</p>
+                  </Col>
+                  <Col s={5} id="atc-rating-wrapper">
+                    {
+                      this.calculateRating() ?
+                        this.constructQuantityArray(this.calculateRating()).map((num) => {
+                          return (
+                            <Icon key={num} s={12} tiny>star</Icon>
+                          );
+                        })
+                        : <p>Product not yet rated</p>
+                    }
+                  </Col>
+                  <Col s={4} id="atc-view-ratings-wrapper">
+                    {
+                      this.calculateRating() ?
+                        <Link display="inline" to={`/reviews?animalId=${selectedPet.id}&enhancementId=${selectedEnhancement.id}`} >View Ratings</Link> : null
+                    }
+                  </Col>
+                </Row>
+                <Row>
+                  <Col s={2}>
+                    <p>Quantity: </p>
+                  </Col>
+                  <Col s={2} id="atc-quantity-wrapper">
+                    <Input s={12} type='select' onChange={this.quantitySelect}>
+                      {
+                        this.constructQuantityArray().map((num) => {
+                          return <option key={num} value={num}>{num}</option>
+                        })
+                      }
+                    </Input>
+                  </Col>
+                  <Col s={4}>
+                    <p>${+selectedPet.price + +selectedEnhancement.price} each</p>
+                  </Col>
+                </Row>
+              </Col>
+              <Col s={3}>
+                <p>Total: ${this.state.quantity * (+selectedPet.price + +selectedEnhancement.price)}</p>
+                <button
+                  onClick={() => addItem({
+                    animalId: selectedPet.id,
+                    enhancementId: selectedEnhancement.id,
+                    price: (this.state.quantity * (+selectedPet.price + +selectedEnhancement.price)).toFixed(2),
+                    quantity: this.state.quantity,
+                  })}
+                  className="btn waves-effect waves-light"
+                  type="submit"
+                  name="action">
+                  Add to Cart
+                  <i className="material-icons right">send</i>
+                </button>
+              </Col>
+            </Row>
+          </CollectionItem>
+        </Collection>
       </div>
     );
   }

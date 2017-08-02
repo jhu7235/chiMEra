@@ -80,3 +80,38 @@ body {
 Collection.search-matches button {
   all: none
 }
+
+#logo-paw {
+  height: 64px;
+  display: inline-block;
+}
+
+#brand-logo {
+  display: inline-block;
+}
+
+#brand-logo.active {
+  height: inherit;
+}
+
+nav a {
+  height: 64px;
+}
+
+#atc-quantity-wrapper .select-wrapper input.select-dropdown {
+  height: 1.5rem;
+  overflow: visible;
+}
+
+#atc-rating-wrapper i {
+  margin-top: 16px;
+}
+
+#atc-view-ratings-wrapper {
+  padding-top: 15px;
+}
+
+div.card-collection > .collection {
+  overflow: visible;
+}
+

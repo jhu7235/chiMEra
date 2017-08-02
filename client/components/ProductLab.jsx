@@ -99,6 +99,20 @@ class ProductLab extends React.Component {
     const filteredEnhancements = categoryFilter(this.props.enhancements, this.state.enhancementTags);
     return (
       <div className="container">
+        {this.state.showAddToCart ?
+          <div className="col s12">
+            <AddToCartCard
+              selectedPet={this.state.selectedPet}
+              selectedEnhancement={this.state.selectedEnhancement}
+              addItem={this.handleAddItem}
+              history={this.props.history}
+              reviews={this.props.reviews.filter((review) => {
+                return +review.animalId === +this.state.selectedPet.id && +review.enhancementId === +this.state.selectedEnhancement.id;
+              })}
+            />
+          </div> :
+          null
+        }
         <div className="row">
           <div className="col s6">
             <PetCard
@@ -125,23 +139,6 @@ class ProductLab extends React.Component {
             </div> :
             null
           }
-          { this.state.showAddToCart ?
-            <div className="col s12">
-              <AddToCartCard
-                selectedPet={this.state.selectedPet}
-                selectedEnhancement={this.state.selectedEnhancement}
-                addItem={this.handleAddItem}
-                history={this.props.history}
-                reviews={this.props.reviews.filter((review) => {
-                  return +review.animalId === +this.state.selectedPet.id && +review.enhancementId === +this.state.selectedEnhancement.id;
-                })}
-              />
-            </div> :
-            null
-          }
-        </div>
-        <div className="row center">
-          <img className="center" id="centerpaw" src='/big_paw_red.png'></img>
         </div>
       </div>
     );
