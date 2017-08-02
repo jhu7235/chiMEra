@@ -10,7 +10,6 @@ router.get('/', (req, res, next) => {
 //add logic to this post to check to see if the user has that product in their purchase history
 router.post('/', (req, res, next) => {
   const { rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription } = req.body;
-  console.log('api', rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription)
   Review.create({ rating, inspiredEmotion, animalId, enhancementId, userId, fullDescription })
     .then(review => res.status(201).json(review))
     .catch(next);
