@@ -93,11 +93,11 @@ class Cart extends React.Component {
           </table>
         </div>
         <div className="row">
-          <div className="col s6"><h3>Total: ${
+          <div className="col s8"><h3>Total: ${
             this.props.cart.reduce((sum, item) => sum + +item.price, 0)
           }</h3></div>
-          <div className="col s6">
-            <Link to="/purchase"><Button waves="light">Purchase<Icon right>hot_tub</Icon></Button></Link>
+          <div className="col s4">
+            <Link to="/purchase"><Button className="purchase-button" waves="light">Purchase<Icon right>hot_tub</Icon></Button></Link>
           </div>
         </div>
       </div>
