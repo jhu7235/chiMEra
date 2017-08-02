@@ -27,7 +27,7 @@ class Admin extends React.Component {
             <Tab title="Animals"><Animals /></Tab>
             <Tab title="Enhancements"><Enhancements /></Tab>
             <Tab title="Users"><Users /></Tab>
-            <Tab title="Carts">Carts</Tab>
+            <Tab title="Carts"><Carts /></Tab>
             <Tab title="Past Orders">Past Orders</Tab>
           </Tabs>
         </div>
