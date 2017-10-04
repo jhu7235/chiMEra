@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Router } from 'react-router';
-import SignUp from './components/SignUp.jsx';
+import SignUp from './components/SignUp';
 import { fetchAnimals } from './store/animals';
 import { fetchEnhancements } from './store/enhancements';
 import { fetchCart } from './store/cart';
@@ -21,7 +21,7 @@ import ProfileUpdate from './components/ProfileUpdate.jsx';
 import Admin from './components/Admin/Admin.jsx';
 import PastOrders from './components/PastOrders.jsx';
 import Loading from './components/Loading.jsx';
-import Reviews from './components/Reviews.jsx'
+import Reviews from './components/Reviews.jsx';
 import WriteReview from './components/WriteReview.jsx';
 
 /**
