@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signup } from '../store';
 
-const SignUp = (props) => {
+export const SignUp = (props) => {
   const { handleSubmit, error } = props;
   return (
-    <div className='center'>
-    <form onSubmit={ handleSubmit } className='wrapper'>
+    <div className="signup center">
+      <form onSubmit={ handleSubmit } className="wrapper">
         <div className="form-group">
           <div>
             <label htmlFor="first"><small>first</small></label>
             <input
+              id="firstName"
               name="first"
               type="text"
               className="form-control"
@@ -21,6 +22,7 @@ const SignUp = (props) => {
           <div>
             <label htmlFor="last"><small>last</small></label>
             <input
+              id="lastName"
               name="last"
               type="text"
               className="form-control"
@@ -29,9 +31,10 @@ const SignUp = (props) => {
           </div>
         </div>
         <br />
-        <div className='email'>
+        <div className="email">
           <label htmlFor="email"><small>Email</small></label>
           <input
+            id="email"
             name="email"
             type="email"
             className="form-control"
@@ -39,19 +42,21 @@ const SignUp = (props) => {
           />
         </div>
         <br />
-        <div className='form-group'>
+        <div className="form-group">
           <div>
             <label htmlFor="password"><small>Password</small></label>
             <input
+              id="password"
               name="password"
               type="password"
               className="form-control"
               required
             />
-            </div>
-            <div>
+          </div>
+          <div>
             <label htmlFor="re-password"><small>Re-Enter Password</small></label>
             <input
+              id="repassword"
               name="repassword"
               type="password"
               className="form-control"
@@ -60,11 +65,17 @@ const SignUp = (props) => {
           </div>
         </div>
         <br />
-        {error && error.response && <div className='errorMessage'> {error.response.data} </div>}
-        {error && error.passwordMismatch && <div className='errorMessage' id="passwordMismatch"> {error.response.data} </div>}
-        <label><input type="checkbox" name="terms" /> I agree with the <a href="#">Terms and Conditions</a>.</label>
+        {error && error.response && <div className="errorMessage"> {error.response.data} </div>}
+        {error && error.passwordMismatch && <div className="errorMessage" id="passwordMismatch"> {error.response.data} </div>}
+        <label>
+          <input
+            id="terms"
+            type="checkbox"
+            name="terms"
+          /> I agree with the <a href="#">Terms and Conditions</a>.
+        </label>
         <div>
-          <button type="submit" className='btn'>SIGN UP</button>
+          <button type="submit" className="btn">SIGN UP</button>
         </div>
         <div>
           <Link to="/login">
@@ -98,4 +109,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect( mapLogin, mapDispatch)(SignUp);
+export default connect(mapLogin, mapDispatch)(SignUp);
