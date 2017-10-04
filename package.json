@@ -12,7 +12,7 @@
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
     "server-test": "npm start-server & mocha ./server/server.test --watch --compilers js:babel-register",
     "jest-sign-up": "jest ./client/components/SignUp.spec --watch",
-    "integration-test": "mocha ./client/integration.spec --env=jsdom --compilers js:babel-register",
+    "integration-test": "mocha ./client/integration.spec --compilers js:babel-register",
     "jest-integration": "jest ./client/integration.spec",
     "jest": "jest",
     "test": "DATABASE_URL='postgres://localhost:5432/boilermaker-test' mocha ./**/*.spec.js --compilers js:babel-register"
@@ -28,7 +28,6 @@
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "history": "^4.6.3",
-    "jsdom": "^11.3.0",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
