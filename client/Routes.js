@@ -4,25 +4,25 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Router } from 'react-router';
-import SignUp from './components/SignUp.jsx';
+import SignUp from './components/SignUp';
 import { fetchAnimals } from './store/animals';
 import { fetchEnhancements } from './store/enhancements';
 import { fetchCart } from './store/cart';
 import { fetchAnimalTags } from './store/animalTags';
 import { fetchEnhancementTags } from './store/enhancementTags';
 import history from './history';
-import { Main } from './components/index.jsx';
+import { Main } from './components/index';
 import { me } from './store';
-import LogIn from './components/LogIn.jsx';
-import ProductLab from './components/ProductLab.jsx';
-import Cart from './components/Cart.jsx';
-import PurchaseForm from './components/PurchaseForm.jsx';
-import ProfileUpdate from './components/ProfileUpdate.jsx';
-import Admin from './components/Admin/Admin.jsx';
-import PastOrders from './components/PastOrders.jsx';
-import Loading from './components/Loading.jsx';
-import Reviews from './components/Reviews.jsx'
-import WriteReview from './components/WriteReview.jsx';
+import LogIn from './components/LogIn';
+import ProductLab from './components/ProductLab';
+import Cart from './components/Cart';
+import PurchaseForm from './components/PurchaseForm';
+import ProfileUpdate from './components/ProfileUpdate';
+import Admin from './components/Admin/Admin';
+import PastOrders from './components/PastOrders';
+import Loading from './components/Loading';
+import Reviews from './components/Reviews';
+import WriteReview from './components/WriteReview';
 
 /**
  * COMPONENT
