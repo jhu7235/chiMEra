@@ -10,7 +10,6 @@
     "start": "node server",
     "start-dev": "npm run build-client-watch & npm run start-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
-    "server-test": "npm start-server & mocha ./server/server.test --watch --compilers js:babel-register",
     "jest-sign-up": "jest ./client/components/SignUp.spec --watch",
     "jest-log-in": "jest ./client/components/LogIn.spec --watch",
     "integration-test": "mocha ./client/integration.spec --compilers js:babel-register",
