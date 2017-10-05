@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { login } from '../store';
 
-const LogIn = (props) => {
+export const LogIn = (props) => {
   const { handleSubmit, error } = props;
   return (
-    <div className='center'>
+    <div id="login" className="center">
       <form onSubmit={handleSubmit}>
-        <div className='email'>
+        <div className="email">
           <label htmlFor="email"><small>Email</small></label>
           <input
+            id="email"
             name="email"
             type="email"
             className="form-control"
@@ -18,10 +20,11 @@ const LogIn = (props) => {
           />
         </div>
         <br />
-        <div className='form-group'>
+        <div className="form-group">
           <div>
             <label htmlFor="password"><small>Password</small></label>
             <input
+              id="password"
               name="password"
               type="password"
               className="form-control"
@@ -45,21 +48,20 @@ const LogIn = (props) => {
   );
 };
 
-const mapLogin = (state) => {
-  return {
-    error: state.user.error,
-  };
-};
+const mapLogin = state =>
+  ({ error: state.user.error });
 
-const mapDispatch = (dispatch) => {
-  return {
-    handleSubmit(event) {
-      event.preventDefault();
-      const email = event.target.email.value;
-      const password = event.target.password.value;
-      dispatch(login(email, password));
-    },
-  };
-};
+const mapDispatch = dispatch =>
+  ({ handleSubmit(event) {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    dispatch(login(email, password));
+  } });
 
 export default connect(mapLogin, mapDispatch)(LogIn);
+
+
+LogIn.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};

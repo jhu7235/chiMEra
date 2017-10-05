@@ -11,6 +11,9 @@
     "start-dev": "npm run build-client-watch & npm run start-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
     "jest-sign-up": "jest ./client/components/SignUp.spec --watch",
+    "jest-log-in": "jest ./client/components/LogIn.spec --watch",
+    "integration-test": "mocha ./client/integration.spec --compilers js:babel-register",
+    "jest": "jest",
     "test": "DATABASE_URL='postgres://localhost:5432/boilermaker-test' mocha ./**/*.spec.js --compilers js:babel-register"
   },
   "author": "",

@@ -55,7 +55,6 @@ export const updateAnimal = updateObj => (dispatch) => {
       dispatch(update(res.data));
     })
     .catch(err => console.error('updating animal unsucessful', err));
-
 }
 
 export const createAnimal = createObj => (dispatch) => {
@@ -63,6 +62,6 @@ export const createAnimal = createObj => (dispatch) => {
     .then((res) => {
       dispatch(create(res.data));
     })
-    .catch(err => console.error('unable to create animal', err))
+    .catch(err => console.error('unable to create animal', err));
 }
 
