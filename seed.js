@@ -40,20 +40,20 @@ db.sync({ force: true })
     const cheetah = Animal.create({
       name: 'Cheetah',
       description: 'What is the fastest mammal!',
-      imageUrl: 'http://www.safariwest.com/wp-content/uploads/2014/03/cheetah-sitting1.jpg',
+      imageUrl: 'https://media-cdn.tripadvisor.com/media/photo-s/0b/dc/50/53/cheeta-in-serengeti.jpg',
       price: 25.50,
     });
     const hamster = Animal.create({
       name: 'Hamster',
       description: 'I love tiny burritos!',
-      imageUrl: 'http://www.petakids.com/wp-content/uploads/2016/10/Brown-Hamster.jpg',
+      imageUrl: 'https://www.peta.org/wp-content/uploads/2016/09/hamster-602x401.jpg',
       price: 0.50,
       inventory: 0,
     });
     const guineaPig = Animal.create({
       name: 'Guinea Pig',
       description: 'I poop everywhere',
-      imageUrl: 'http://www.petmd.com/sites/default/files/diarrhea-guinea-pigs.jpg',
+      imageUrl: 'https://i.pinimg.com/736x/ac/d3/4f/acd34fd3704bf33a7fc50b3caa5a3855.jpg',
       price: 1.50,
     });
     const goat = Animal.create({
@@ -148,7 +148,7 @@ db.sync({ force: true })
     const laser = Enhancement.create({
       name: 'Laser',
       description: 'PEW PEW PEW!',
-      imageUrl: 'http://thumbs2.ebaystatic.com/d/l225/m/mBtRkSBvFpj15u36aqkhIog.jpg',
+      imageUrl: 'https://thumbs2.ebaystatic.com/d/l225/m/mBtRkSBvFpj15u36aqkhIog.jpg',
       price: 2.00,
     });
 
