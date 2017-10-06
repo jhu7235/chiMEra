@@ -78,7 +78,7 @@ class AddToCartCard extends React.Component {
               </Col>
               <Col s={5}>
                 <Row>
-                  <Col s={2}>
+                  <Col s={3}>
                     <p display="inline">Rating:</p>
                   </Col>
                   <Col s={5} id="atc-rating-wrapper">
@@ -100,10 +100,10 @@ class AddToCartCard extends React.Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col s={2}>
+                  <Col s={3}>
                     <p>Quantity: </p>
                   </Col>
-                  <Col s={2} id="atc-quantity-wrapper">
+                  <Col s={3} id="atc-quantity-wrapper">
                     <Input s={12} type='select' onChange={this.quantitySelect}>
                       {
                         this.constructQuantityArray().map((num) => {
@@ -112,7 +112,7 @@ class AddToCartCard extends React.Component {
                       }
                     </Input>
                   </Col>
-                  <Col s={4}>
+                  <Col s={6}>
                     <p>${+selectedPet.price + +selectedEnhancement.price} each</p>
                   </Col>
                 </Row>
