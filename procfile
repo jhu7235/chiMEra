@@ -1,2 +1,2 @@
 web: node seed
-web: npm start
+web: npm deploy
