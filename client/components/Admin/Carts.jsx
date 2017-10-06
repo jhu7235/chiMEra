@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Row, Table } from 'react-materialize';
+import { Row, Table } from 'react-materialize';
 import { fetchCarts } from '../../store/carts';
 
 class Carts extends React.Component{
@@ -49,16 +49,6 @@ class Carts extends React.Component{
                 <div className="col s11"><p>Total: ${
                   cart.cartItems.reduce((sum, item) => sum + +item.price, 0)
                 }</p></div>
-                <div className="col s1">
-                  <Button
-                    onClick={() => {}}
-                    floating
-                    className="red"
-                    waves="light"
-                  >
-                    <i className="material-icons">mode_edit</i>
-                  </Button>
-                </div>
               </div>
             </Row>
           );
