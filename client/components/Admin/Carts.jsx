@@ -13,7 +13,7 @@ class Carts extends React.Component{
       <div className="container">
         {this.props.carts.map((cart)=> {
           return (
-            <Row>
+            <Row key={cart.id}>
               <h5>Order# {cart.id}</h5>
               <Table className="highlight">
                 <thead>
