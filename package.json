@@ -16,7 +16,7 @@
     "jest": "jest",
     "test": "DATABASE_URL='postgres://localhost:5432/boilermaker-test' mocha ./**/*.spec.js --compilers js:babel-register"
   },
-  "author": "",
+  "author": "Jason Hu <jhu7235@gmail.com>, Alex Stauter <astauter@gmail.com>, Willy Raedy, Brian Carlisle",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",
