@@ -128,6 +128,8 @@ class AddToCartCard extends React.Component {
                   })}
                   className="btn waves-effect waves-light"
                   type="submit"
+                  width="100%"
+                  padding="5px"
                   name="action">
                   Add to Cart
                   <i className="material-icons right">send</i>
